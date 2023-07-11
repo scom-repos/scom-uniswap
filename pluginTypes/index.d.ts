@@ -1,6 +1,39 @@
 /// <reference path="@ijstech/eth-contract/index.d.ts" />
-/// <amd-module name="@scom/scom-swap/contracts/oswap-openswap-contract/contracts/OpenSwap.json.ts" />
-declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/OpenSwap.json.ts" {
+/// <reference path="@scom/scom-dex-list/@ijstech/eth-contract/index.d.ts" />
+/// <amd-module name="@scom/scom-uniswap-v3/global/utils/helper.ts" />
+declare module "@scom/scom-uniswap-v3/global/utils/helper.ts" {
+    import { BigNumber } from '@ijstech/eth-wallet';
+    export const formatNumber: (value: any, decimals?: number) => string;
+    export const formatPercentNumber: (value: any, decimals?: number) => string;
+    export const formatNumberWithSeparators: (value: number, precision?: number) => string;
+    export const isValidNumber: (value: string | number) => boolean;
+    export const isInvalidInput: (val: any) => boolean;
+    export const limitInputNumber: (input: any, decimals?: number) => void;
+    export const limitDecimals: (value: any, decimals: number) => any;
+    export function getAPI(url: string, paramsObj?: any): Promise<any>;
+    export const toWeiInv: (n: string, unit?: number) => BigNumber;
+    export const padLeft: (string: string, chars: number, sign?: string) => string;
+    export const numberToBytes32: (value: any, prefix?: string) => any;
+    export function isWalletAddress(address: string): boolean;
+}
+/// <amd-module name="@scom/scom-uniswap-v3/global/utils/error.ts" />
+declare module "@scom/scom-uniswap-v3/global/utils/error.ts" {
+    export function parseContractError(oMessage: string, tokens: string[]): Promise<string>;
+}
+/// <amd-module name="@scom/scom-uniswap-v3/global/utils/pageBlock.ts" />
+declare module "@scom/scom-uniswap-v3/global/utils/pageBlock.ts" {
+    export interface PageBlock {
+        getData: () => any;
+        setData: (data: any) => Promise<void>;
+        getTag: () => any;
+        setTag: (tag: any) => Promise<void>;
+        validate?: () => boolean;
+        defaultEdit?: boolean;
+        tag?: any;
+    }
+}
+/// <amd-module name="@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/OpenSwap.json.ts" />
+declare module "@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/OpenSwap.json.ts" {
     const _default: {
         abi: ({
             inputs: {
@@ -45,8 +78,8 @@ declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/Open
     };
     export default _default;
 }
-/// <amd-module name="@scom/scom-swap/contracts/oswap-openswap-contract/contracts/OpenSwap.ts" />
-declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/OpenSwap.ts" {
+/// <amd-module name="@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/OpenSwap.ts" />
+declare module "@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/OpenSwap.ts" {
     import { IWallet, Contract as _Contract, TransactionReceipt, BigNumber, Event, TransactionOptions } from "@ijstech/eth-contract";
     export interface IDeployParams {
         minter: string;
@@ -162,8 +195,8 @@ declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/Open
         }
     }
 }
-/// <amd-module name="@scom/scom-swap/contracts/oswap-openswap-contract/contracts/amm/OSWAP_ERC20.json.ts" />
-declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/amm/OSWAP_ERC20.json.ts" {
+/// <amd-module name="@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/amm/OSWAP_ERC20.json.ts" />
+declare module "@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/amm/OSWAP_ERC20.json.ts" {
     const _default_1: {
         abi: ({
             anonymous: boolean;
@@ -197,8 +230,8 @@ declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/amm/
     };
     export default _default_1;
 }
-/// <amd-module name="@scom/scom-swap/contracts/oswap-openswap-contract/contracts/amm/OSWAP_ERC20.ts" />
-declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/amm/OSWAP_ERC20.ts" {
+/// <amd-module name="@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/amm/OSWAP_ERC20.ts" />
+declare module "@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/amm/OSWAP_ERC20.ts" {
     import { IWallet, Contract as _Contract, TransactionReceipt, BigNumber, Event, TransactionOptions } from "@ijstech/eth-contract";
     export interface IAllowanceParams {
         param1: string;
@@ -304,8 +337,8 @@ declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/amm/
         }
     }
 }
-/// <amd-module name="@scom/scom-swap/contracts/oswap-openswap-contract/contracts/amm/OSWAP_Factory.json.ts" />
-declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/amm/OSWAP_Factory.json.ts" {
+/// <amd-module name="@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/amm/OSWAP_Factory.json.ts" />
+declare module "@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/amm/OSWAP_Factory.json.ts" {
     const _default_2: {
         abi: ({
             inputs: {
@@ -350,8 +383,8 @@ declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/amm/
     };
     export default _default_2;
 }
-/// <amd-module name="@scom/scom-swap/contracts/oswap-openswap-contract/contracts/amm/OSWAP_Factory.ts" />
-declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/amm/OSWAP_Factory.ts" {
+/// <amd-module name="@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/amm/OSWAP_Factory.ts" />
+declare module "@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/amm/OSWAP_Factory.ts" {
     import { IWallet, Contract as _Contract, TransactionReceipt, BigNumber, Event, TransactionOptions } from "@ijstech/eth-contract";
     export interface IDeployParams {
         governance: string;
@@ -490,8 +523,8 @@ declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/amm/
         }
     }
 }
-/// <amd-module name="@scom/scom-swap/contracts/oswap-openswap-contract/contracts/amm/OSWAP_Pair.json.ts" />
-declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/amm/OSWAP_Pair.json.ts" {
+/// <amd-module name="@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/amm/OSWAP_Pair.json.ts" />
+declare module "@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/amm/OSWAP_Pair.json.ts" {
     const _default_3: {
         abi: ({
             inputs: any[];
@@ -532,8 +565,8 @@ declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/amm/
     };
     export default _default_3;
 }
-/// <amd-module name="@scom/scom-swap/contracts/oswap-openswap-contract/contracts/amm/OSWAP_Pair.ts" />
-declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/amm/OSWAP_Pair.ts" {
+/// <amd-module name="@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/amm/OSWAP_Pair.ts" />
+declare module "@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/amm/OSWAP_Pair.ts" {
     import { IWallet, Contract as _Contract, TransactionReceipt, BigNumber, Event, TransactionOptions } from "@ijstech/eth-contract";
     export interface IAllowanceParams {
         param1: string;
@@ -795,8 +828,8 @@ declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/amm/
         }
     }
 }
-/// <amd-module name="@scom/scom-swap/contracts/oswap-openswap-contract/contracts/amm/OSWAP_PairCreator.json.ts" />
-declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/amm/OSWAP_PairCreator.json.ts" {
+/// <amd-module name="@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/amm/OSWAP_PairCreator.json.ts" />
+declare module "@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/amm/OSWAP_PairCreator.json.ts" {
     const _default_4: {
         abi: {
             inputs: {
@@ -817,8 +850,8 @@ declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/amm/
     };
     export default _default_4;
 }
-/// <amd-module name="@scom/scom-swap/contracts/oswap-openswap-contract/contracts/amm/OSWAP_PairCreator.ts" />
-declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/amm/OSWAP_PairCreator.ts" {
+/// <amd-module name="@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/amm/OSWAP_PairCreator.ts" />
+declare module "@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/amm/OSWAP_PairCreator.ts" {
     import { IWallet, Contract as _Contract, TransactionReceipt, BigNumber, TransactionOptions } from "@ijstech/eth-contract";
     export class OSWAP_PairCreator extends _Contract {
         static _abi: any;
@@ -832,8 +865,8 @@ declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/amm/
         private assign;
     }
 }
-/// <amd-module name="@scom/scom-swap/contracts/oswap-openswap-contract/contracts/amm/OSWAP_Router.json.ts" />
-declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/amm/OSWAP_Router.json.ts" {
+/// <amd-module name="@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/amm/OSWAP_Router.json.ts" />
+declare module "@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/amm/OSWAP_Router.json.ts" {
     const _default_5: {
         abi: ({
             inputs: {
@@ -870,8 +903,8 @@ declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/amm/
     };
     export default _default_5;
 }
-/// <amd-module name="@scom/scom-swap/contracts/oswap-openswap-contract/contracts/amm/OSWAP_Router.ts" />
-declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/amm/OSWAP_Router.ts" {
+/// <amd-module name="@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/amm/OSWAP_Router.ts" />
+declare module "@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/amm/OSWAP_Router.ts" {
     import { IWallet, Contract as _Contract, TransactionReceipt, BigNumber, TransactionOptions } from "@ijstech/eth-contract";
     export interface IDeployParams {
         factory: string;
@@ -1183,8 +1216,8 @@ declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/amm/
         private assign;
     }
 }
-/// <amd-module name="@scom/scom-swap/contracts/oswap-openswap-contract/contracts/amm/OSWAP_VotingExecutor1.json.ts" />
-declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/amm/OSWAP_VotingExecutor1.json.ts" {
+/// <amd-module name="@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/amm/OSWAP_VotingExecutor1.json.ts" />
+declare module "@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/amm/OSWAP_VotingExecutor1.json.ts" {
     const _default_6: {
         abi: ({
             inputs: {
@@ -1221,8 +1254,8 @@ declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/amm/
     };
     export default _default_6;
 }
-/// <amd-module name="@scom/scom-swap/contracts/oswap-openswap-contract/contracts/amm/OSWAP_VotingExecutor1.ts" />
-declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/amm/OSWAP_VotingExecutor1.ts" {
+/// <amd-module name="@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/amm/OSWAP_VotingExecutor1.ts" />
+declare module "@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/amm/OSWAP_VotingExecutor1.ts" {
     import { IWallet, Contract as _Contract, TransactionReceipt, TransactionOptions } from "@ijstech/eth-contract";
     export class OSWAP_VotingExecutor1 extends _Contract {
         static _abi: any;
@@ -1242,8 +1275,8 @@ declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/amm/
         private assign;
     }
 }
-/// <amd-module name="@scom/scom-swap/contracts/oswap-openswap-contract/contracts/commons/OSWAP_FactoryBase.json.ts" />
-declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/commons/OSWAP_FactoryBase.json.ts" {
+/// <amd-module name="@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/commons/OSWAP_FactoryBase.json.ts" />
+declare module "@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/commons/OSWAP_FactoryBase.json.ts" {
     const _default_7: {
         abi: ({
             inputs: {
@@ -1288,8 +1321,8 @@ declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/comm
     };
     export default _default_7;
 }
-/// <amd-module name="@scom/scom-swap/contracts/oswap-openswap-contract/contracts/commons/OSWAP_FactoryBase.ts" />
-declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/commons/OSWAP_FactoryBase.ts" {
+/// <amd-module name="@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/commons/OSWAP_FactoryBase.ts" />
+declare module "@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/commons/OSWAP_FactoryBase.ts" {
     import { IWallet, Contract as _Contract, TransactionReceipt, BigNumber, Event, TransactionOptions } from "@ijstech/eth-contract";
     export interface IDeployParams {
         governance: string;
@@ -1380,8 +1413,8 @@ declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/comm
         }
     }
 }
-/// <amd-module name="@scom/scom-swap/contracts/oswap-openswap-contract/contracts/commons/OSWAP_PausableFactory.json.ts" />
-declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/commons/OSWAP_PausableFactory.json.ts" {
+/// <amd-module name="@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/commons/OSWAP_PausableFactory.json.ts" />
+declare module "@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/commons/OSWAP_PausableFactory.json.ts" {
     const _default_8: {
         abi: ({
             inputs: {
@@ -1433,8 +1466,8 @@ declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/comm
     };
     export default _default_8;
 }
-/// <amd-module name="@scom/scom-swap/contracts/oswap-openswap-contract/contracts/commons/OSWAP_PausableFactory.ts" />
-declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/commons/OSWAP_PausableFactory.ts" {
+/// <amd-module name="@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/commons/OSWAP_PausableFactory.ts" />
+declare module "@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/commons/OSWAP_PausableFactory.ts" {
     import { IWallet, Contract as _Contract, TransactionReceipt, Event, TransactionOptions } from "@ijstech/eth-contract";
     export interface ISetLiveForPairParams {
         pair: string;
@@ -1487,8 +1520,8 @@ declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/comm
         }
     }
 }
-/// <amd-module name="@scom/scom-swap/contracts/oswap-openswap-contract/contracts/commons/OSWAP_PausablePair.json.ts" />
-declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/commons/OSWAP_PausablePair.json.ts" {
+/// <amd-module name="@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/commons/OSWAP_PausablePair.json.ts" />
+declare module "@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/commons/OSWAP_PausablePair.json.ts" {
     const _default_9: {
         abi: ({
             inputs: any[];
@@ -1521,8 +1554,8 @@ declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/comm
     };
     export default _default_9;
 }
-/// <amd-module name="@scom/scom-swap/contracts/oswap-openswap-contract/contracts/commons/OSWAP_PausablePair.ts" />
-declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/commons/OSWAP_PausablePair.ts" {
+/// <amd-module name="@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/commons/OSWAP_PausablePair.ts" />
+declare module "@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/commons/OSWAP_PausablePair.ts" {
     import { IWallet, Contract as _Contract, TransactionReceipt, TransactionOptions } from "@ijstech/eth-contract";
     export class OSWAP_PausablePair extends _Contract {
         static _abi: any;
@@ -1542,8 +1575,8 @@ declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/comm
         private assign;
     }
 }
-/// <amd-module name="@scom/scom-swap/contracts/oswap-openswap-contract/contracts/gov/OAXDEX_Administrator.json.ts" />
-declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/gov/OAXDEX_Administrator.json.ts" {
+/// <amd-module name="@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/gov/OAXDEX_Administrator.json.ts" />
+declare module "@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/gov/OAXDEX_Administrator.json.ts" {
     const _default_10: {
         abi: ({
             inputs: {
@@ -1588,8 +1621,8 @@ declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/gov/
     };
     export default _default_10;
 }
-/// <amd-module name="@scom/scom-swap/contracts/oswap-openswap-contract/contracts/gov/OAXDEX_Administrator.ts" />
-declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/gov/OAXDEX_Administrator.ts" {
+/// <amd-module name="@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/gov/OAXDEX_Administrator.ts" />
+declare module "@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/gov/OAXDEX_Administrator.ts" {
     import { IWallet, Contract as _Contract, TransactionReceipt, BigNumber, Event, TransactionOptions } from "@ijstech/eth-contract";
     export interface IExecutePairRestartParams {
         factory: string;
@@ -1816,8 +1849,8 @@ declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/gov/
         }
     }
 }
-/// <amd-module name="@scom/scom-swap/contracts/oswap-openswap-contract/contracts/gov/OAXDEX_Governance.json.ts" />
-declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/gov/OAXDEX_Governance.json.ts" {
+/// <amd-module name="@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/gov/OAXDEX_Governance.json.ts" />
+declare module "@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/gov/OAXDEX_Governance.json.ts" {
     const _default_11: {
         abi: ({
             inputs: {
@@ -1862,8 +1895,8 @@ declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/gov/
     };
     export default _default_11;
 }
-/// <amd-module name="@scom/scom-swap/contracts/oswap-openswap-contract/contracts/gov/OAXDEX_Governance.ts" />
-declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/gov/OAXDEX_Governance.ts" {
+/// <amd-module name="@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/gov/OAXDEX_Governance.ts" />
+declare module "@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/gov/OAXDEX_Governance.ts" {
     import { IWallet, Contract as _Contract, TransactionReceipt, BigNumber, Event, TransactionOptions } from "@ijstech/eth-contract";
     export interface IDeployParams {
         oaxToken: string;
@@ -2199,8 +2232,8 @@ declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/gov/
         }
     }
 }
-/// <amd-module name="@scom/scom-swap/contracts/oswap-openswap-contract/contracts/gov/OAXDEX_VotingContract.json.ts" />
-declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/gov/OAXDEX_VotingContract.json.ts" {
+/// <amd-module name="@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/gov/OAXDEX_VotingContract.json.ts" />
+declare module "@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/gov/OAXDEX_VotingContract.json.ts" {
     const _default_12: {
         abi: ({
             inputs: {
@@ -2231,8 +2264,8 @@ declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/gov/
     };
     export default _default_12;
 }
-/// <amd-module name="@scom/scom-swap/contracts/oswap-openswap-contract/contracts/gov/OAXDEX_VotingContract.ts" />
-declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/gov/OAXDEX_VotingContract.ts" {
+/// <amd-module name="@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/gov/OAXDEX_VotingContract.ts" />
+declare module "@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/gov/OAXDEX_VotingContract.ts" {
     import { IWallet, Contract as _Contract, TransactionReceipt, BigNumber, TransactionOptions } from "@ijstech/eth-contract";
     export interface IDeployParams {
         governance: string;
@@ -2354,8 +2387,8 @@ declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/gov/
         private assign;
     }
 }
-/// <amd-module name="@scom/scom-swap/contracts/oswap-openswap-contract/contracts/gov/OAXDEX_VotingExecutor.json.ts" />
-declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/gov/OAXDEX_VotingExecutor.json.ts" {
+/// <amd-module name="@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/gov/OAXDEX_VotingExecutor.json.ts" />
+declare module "@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/gov/OAXDEX_VotingExecutor.json.ts" {
     const _default_13: {
         abi: ({
             inputs: {
@@ -2392,8 +2425,8 @@ declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/gov/
     };
     export default _default_13;
 }
-/// <amd-module name="@scom/scom-swap/contracts/oswap-openswap-contract/contracts/gov/OAXDEX_VotingExecutor.ts" />
-declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/gov/OAXDEX_VotingExecutor.ts" {
+/// <amd-module name="@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/gov/OAXDEX_VotingExecutor.ts" />
+declare module "@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/gov/OAXDEX_VotingExecutor.ts" {
     import { IWallet, Contract as _Contract, TransactionReceipt, TransactionOptions } from "@ijstech/eth-contract";
     export interface IDeployParams {
         governance: string;
@@ -2417,8 +2450,8 @@ declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/gov/
         private assign;
     }
 }
-/// <amd-module name="@scom/scom-swap/contracts/oswap-openswap-contract/contracts/gov/OAXDEX_VotingRegistry.json.ts" />
-declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/gov/OAXDEX_VotingRegistry.json.ts" {
+/// <amd-module name="@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/gov/OAXDEX_VotingRegistry.json.ts" />
+declare module "@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/gov/OAXDEX_VotingRegistry.json.ts" {
     const _default_14: {
         abi: ({
             inputs: {
@@ -2455,8 +2488,8 @@ declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/gov/
     };
     export default _default_14;
 }
-/// <amd-module name="@scom/scom-swap/contracts/oswap-openswap-contract/contracts/gov/OAXDEX_VotingRegistry.ts" />
-declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/gov/OAXDEX_VotingRegistry.ts" {
+/// <amd-module name="@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/gov/OAXDEX_VotingRegistry.ts" />
+declare module "@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/gov/OAXDEX_VotingRegistry.ts" {
     import { IWallet, Contract as _Contract, TransactionReceipt, BigNumber, TransactionOptions } from "@ijstech/eth-contract";
     export interface INewVoteParams {
         executor: string;
@@ -2483,8 +2516,8 @@ declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/gov/
         private assign;
     }
 }
-/// <amd-module name="@scom/scom-swap/contracts/oswap-openswap-contract/contracts/libraries/ERC20.json.ts" />
-declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/libraries/ERC20.json.ts" {
+/// <amd-module name="@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/libraries/ERC20.json.ts" />
+declare module "@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/libraries/ERC20.json.ts" {
     const _default_15: {
         abi: ({
             inputs: {
@@ -2529,8 +2562,8 @@ declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/libr
     };
     export default _default_15;
 }
-/// <amd-module name="@scom/scom-swap/contracts/oswap-openswap-contract/contracts/libraries/ERC20.ts" />
-declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/libraries/ERC20.ts" {
+/// <amd-module name="@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/libraries/ERC20.ts" />
+declare module "@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/libraries/ERC20.ts" {
     import { IWallet, Contract as _Contract, TransactionReceipt, BigNumber, Event, TransactionOptions } from "@ijstech/eth-contract";
     export interface IDeployParams {
         name: string;
@@ -2629,8 +2662,8 @@ declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/libr
         }
     }
 }
-/// <amd-module name="@scom/scom-swap/contracts/oswap-openswap-contract/contracts/oracle/OSWAP_CertiKSecurityOracle.json.ts" />
-declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/oracle/OSWAP_CertiKSecurityOracle.json.ts" {
+/// <amd-module name="@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/oracle/OSWAP_CertiKSecurityOracle.json.ts" />
+declare module "@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/oracle/OSWAP_CertiKSecurityOracle.json.ts" {
     const _default_16: {
         abi: ({
             inputs: {
@@ -2661,8 +2694,8 @@ declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/orac
     };
     export default _default_16;
 }
-/// <amd-module name="@scom/scom-swap/contracts/oswap-openswap-contract/contracts/oracle/OSWAP_CertiKSecurityOracle.ts" />
-declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/oracle/OSWAP_CertiKSecurityOracle.ts" {
+/// <amd-module name="@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/oracle/OSWAP_CertiKSecurityOracle.ts" />
+declare module "@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/oracle/OSWAP_CertiKSecurityOracle.ts" {
     import { IWallet, Contract as _Contract, BigNumber, TransactionOptions } from "@ijstech/eth-contract";
     export class OSWAP_CertiKSecurityOracle extends _Contract {
         static _abi: any;
@@ -2677,8 +2710,8 @@ declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/orac
         private assign;
     }
 }
-/// <amd-module name="@scom/scom-swap/contracts/oswap-openswap-contract/contracts/oracle/OSWAP_OracleFactory.json.ts" />
-declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/oracle/OSWAP_OracleFactory.json.ts" {
+/// <amd-module name="@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/oracle/OSWAP_OracleFactory.json.ts" />
+declare module "@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/oracle/OSWAP_OracleFactory.json.ts" {
     const _default_17: {
         abi: ({
             inputs: {
@@ -2723,8 +2756,8 @@ declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/orac
     };
     export default _default_17;
 }
-/// <amd-module name="@scom/scom-swap/contracts/oswap-openswap-contract/contracts/oracle/OSWAP_OracleFactory.ts" />
-declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/oracle/OSWAP_OracleFactory.ts" {
+/// <amd-module name="@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/oracle/OSWAP_OracleFactory.ts" />
+declare module "@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/oracle/OSWAP_OracleFactory.ts" {
     import { IWallet, Contract as _Contract, TransactionReceipt, BigNumber, Event, TransactionOptions } from "@ijstech/eth-contract";
     export interface IDeployParams {
         governance: string;
@@ -3030,8 +3063,8 @@ declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/orac
         }
     }
 }
-/// <amd-module name="@scom/scom-swap/contracts/oswap-openswap-contract/contracts/oracle/OSWAP_OracleLiquidityProvider.json.ts" />
-declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/oracle/OSWAP_OracleLiquidityProvider.json.ts" {
+/// <amd-module name="@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/oracle/OSWAP_OracleLiquidityProvider.json.ts" />
+declare module "@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/oracle/OSWAP_OracleLiquidityProvider.json.ts" {
     const _default_18: {
         abi: ({
             inputs: {
@@ -3068,8 +3101,8 @@ declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/orac
     };
     export default _default_18;
 }
-/// <amd-module name="@scom/scom-swap/contracts/oswap-openswap-contract/contracts/oracle/OSWAP_OracleLiquidityProvider.ts" />
-declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/oracle/OSWAP_OracleLiquidityProvider.ts" {
+/// <amd-module name="@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/oracle/OSWAP_OracleLiquidityProvider.ts" />
+declare module "@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/oracle/OSWAP_OracleLiquidityProvider.ts" {
     import { IWallet, Contract as _Contract, TransactionReceipt, BigNumber, TransactionOptions } from "@ijstech/eth-contract";
     export interface IDeployParams {
         factory: string;
@@ -3184,8 +3217,8 @@ declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/orac
         private assign;
     }
 }
-/// <amd-module name="@scom/scom-swap/contracts/oswap-openswap-contract/contracts/oracle/OSWAP_OraclePair.json.ts" />
-declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/oracle/OSWAP_OraclePair.json.ts" {
+/// <amd-module name="@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/oracle/OSWAP_OraclePair.json.ts" />
+declare module "@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/oracle/OSWAP_OraclePair.json.ts" {
     const _default_19: {
         abi: ({
             inputs: any[];
@@ -3226,8 +3259,8 @@ declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/orac
     };
     export default _default_19;
 }
-/// <amd-module name="@scom/scom-swap/contracts/oswap-openswap-contract/contracts/oracle/OSWAP_OraclePair.ts" />
-declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/oracle/OSWAP_OraclePair.ts" {
+/// <amd-module name="@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/oracle/OSWAP_OraclePair.ts" />
+declare module "@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/oracle/OSWAP_OraclePair.ts" {
     import { IWallet, Contract as _Contract, TransactionReceipt, BigNumber, Event, TransactionOptions } from "@ijstech/eth-contract";
     export interface IAddLiquidityParams {
         provider: string;
@@ -3627,8 +3660,8 @@ declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/orac
         }
     }
 }
-/// <amd-module name="@scom/scom-swap/contracts/oswap-openswap-contract/contracts/oracle/OSWAP_OraclePairCreator.json.ts" />
-declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/oracle/OSWAP_OraclePairCreator.json.ts" {
+/// <amd-module name="@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/oracle/OSWAP_OraclePairCreator.json.ts" />
+declare module "@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/oracle/OSWAP_OraclePairCreator.json.ts" {
     const _default_20: {
         abi: {
             inputs: {
@@ -3649,8 +3682,8 @@ declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/orac
     };
     export default _default_20;
 }
-/// <amd-module name="@scom/scom-swap/contracts/oswap-openswap-contract/contracts/oracle/OSWAP_OraclePairCreator.ts" />
-declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/oracle/OSWAP_OraclePairCreator.ts" {
+/// <amd-module name="@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/oracle/OSWAP_OraclePairCreator.ts" />
+declare module "@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/oracle/OSWAP_OraclePairCreator.ts" {
     import { IWallet, Contract as _Contract, TransactionReceipt, BigNumber, TransactionOptions } from "@ijstech/eth-contract";
     export class OSWAP_OraclePairCreator extends _Contract {
         static _abi: any;
@@ -3664,8 +3697,8 @@ declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/orac
         private assign;
     }
 }
-/// <amd-module name="@scom/scom-swap/contracts/oswap-openswap-contract/contracts/oracle/OSWAP_VotingExecutor2.json.ts" />
-declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/oracle/OSWAP_VotingExecutor2.json.ts" {
+/// <amd-module name="@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/oracle/OSWAP_VotingExecutor2.json.ts" />
+declare module "@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/oracle/OSWAP_VotingExecutor2.json.ts" {
     const _default_21: {
         abi: ({
             inputs: {
@@ -3702,8 +3735,8 @@ declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/orac
     };
     export default _default_21;
 }
-/// <amd-module name="@scom/scom-swap/contracts/oswap-openswap-contract/contracts/oracle/OSWAP_VotingExecutor2.ts" />
-declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/oracle/OSWAP_VotingExecutor2.ts" {
+/// <amd-module name="@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/oracle/OSWAP_VotingExecutor2.ts" />
+declare module "@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/oracle/OSWAP_VotingExecutor2.ts" {
     import { IWallet, Contract as _Contract, TransactionReceipt, TransactionOptions } from "@ijstech/eth-contract";
     export class OSWAP_VotingExecutor2 extends _Contract {
         static _abi: any;
@@ -3723,8 +3756,8 @@ declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/orac
         private assign;
     }
 }
-/// <amd-module name="@scom/scom-swap/contracts/oswap-openswap-contract/contracts/range/OSWAP_RangeFactory.json.ts" />
-declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/range/OSWAP_RangeFactory.json.ts" {
+/// <amd-module name="@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/range/OSWAP_RangeFactory.json.ts" />
+declare module "@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/range/OSWAP_RangeFactory.json.ts" {
     const _default_22: {
         abi: ({
             inputs: {
@@ -3769,8 +3802,8 @@ declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/rang
     };
     export default _default_22;
 }
-/// <amd-module name="@scom/scom-swap/contracts/oswap-openswap-contract/contracts/range/OSWAP_RangeFactory.ts" />
-declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/range/OSWAP_RangeFactory.ts" {
+/// <amd-module name="@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/range/OSWAP_RangeFactory.ts" />
+declare module "@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/range/OSWAP_RangeFactory.ts" {
     import { IWallet, Contract as _Contract, TransactionReceipt, BigNumber, Event, TransactionOptions } from "@ijstech/eth-contract";
     export interface IDeployParams {
         governance: string;
@@ -3962,8 +3995,8 @@ declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/rang
         }
     }
 }
-/// <amd-module name="@scom/scom-swap/contracts/oswap-openswap-contract/contracts/range/OSWAP_RangeLiquidityProvider.json.ts" />
-declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/range/OSWAP_RangeLiquidityProvider.json.ts" {
+/// <amd-module name="@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/range/OSWAP_RangeLiquidityProvider.json.ts" />
+declare module "@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/range/OSWAP_RangeLiquidityProvider.json.ts" {
     const _default_23: {
         abi: ({
             inputs: {
@@ -4000,8 +4033,8 @@ declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/rang
     };
     export default _default_23;
 }
-/// <amd-module name="@scom/scom-swap/contracts/oswap-openswap-contract/contracts/range/OSWAP_RangeLiquidityProvider.ts" />
-declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/range/OSWAP_RangeLiquidityProvider.ts" {
+/// <amd-module name="@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/range/OSWAP_RangeLiquidityProvider.ts" />
+declare module "@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/range/OSWAP_RangeLiquidityProvider.ts" {
     import { IWallet, Contract as _Contract, TransactionReceipt, BigNumber, TransactionOptions } from "@ijstech/eth-contract";
     export interface IDeployParams {
         factory: string;
@@ -4136,8 +4169,8 @@ declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/rang
         private assign;
     }
 }
-/// <amd-module name="@scom/scom-swap/contracts/oswap-openswap-contract/contracts/range/OSWAP_RangePair.json.ts" />
-declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/range/OSWAP_RangePair.json.ts" {
+/// <amd-module name="@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/range/OSWAP_RangePair.json.ts" />
+declare module "@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/range/OSWAP_RangePair.json.ts" {
     const _default_24: {
         abi: ({
             inputs: any[];
@@ -4178,8 +4211,8 @@ declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/rang
     };
     export default _default_24;
 }
-/// <amd-module name="@scom/scom-swap/contracts/oswap-openswap-contract/contracts/range/OSWAP_RangePair.ts" />
-declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/range/OSWAP_RangePair.ts" {
+/// <amd-module name="@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/range/OSWAP_RangePair.ts" />
+declare module "@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/range/OSWAP_RangePair.ts" {
     import { IWallet, Contract as _Contract, TransactionReceipt, BigNumber, Event, TransactionOptions } from "@ijstech/eth-contract";
     export interface IAddLiquidityParams {
         provider: string;
@@ -4525,8 +4558,8 @@ declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/rang
         }
     }
 }
-/// <amd-module name="@scom/scom-swap/contracts/oswap-openswap-contract/contracts/range/OSWAP_RangePairCreator.json.ts" />
-declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/range/OSWAP_RangePairCreator.json.ts" {
+/// <amd-module name="@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/range/OSWAP_RangePairCreator.json.ts" />
+declare module "@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/range/OSWAP_RangePairCreator.json.ts" {
     const _default_25: {
         abi: {
             inputs: {
@@ -4547,8 +4580,8 @@ declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/rang
     };
     export default _default_25;
 }
-/// <amd-module name="@scom/scom-swap/contracts/oswap-openswap-contract/contracts/range/OSWAP_RangePairCreator.ts" />
-declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/range/OSWAP_RangePairCreator.ts" {
+/// <amd-module name="@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/range/OSWAP_RangePairCreator.ts" />
+declare module "@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/range/OSWAP_RangePairCreator.ts" {
     import { IWallet, Contract as _Contract, TransactionReceipt, BigNumber, TransactionOptions } from "@ijstech/eth-contract";
     export class OSWAP_RangePairCreator extends _Contract {
         static _abi: any;
@@ -4562,8 +4595,8 @@ declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/rang
         private assign;
     }
 }
-/// <amd-module name="@scom/scom-swap/contracts/oswap-openswap-contract/contracts/range/OSWAP_VotingExecutor3.json.ts" />
-declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/range/OSWAP_VotingExecutor3.json.ts" {
+/// <amd-module name="@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/range/OSWAP_VotingExecutor3.json.ts" />
+declare module "@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/range/OSWAP_VotingExecutor3.json.ts" {
     const _default_26: {
         abi: ({
             inputs: {
@@ -4600,8 +4633,8 @@ declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/rang
     };
     export default _default_26;
 }
-/// <amd-module name="@scom/scom-swap/contracts/oswap-openswap-contract/contracts/range/OSWAP_VotingExecutor3.ts" />
-declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/range/OSWAP_VotingExecutor3.ts" {
+/// <amd-module name="@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/range/OSWAP_VotingExecutor3.ts" />
+declare module "@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/range/OSWAP_VotingExecutor3.ts" {
     import { IWallet, Contract as _Contract, TransactionReceipt, TransactionOptions } from "@ijstech/eth-contract";
     export interface IDeployParams {
         governance: string;
@@ -4629,8 +4662,8 @@ declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/rang
         private assign;
     }
 }
-/// <amd-module name="@scom/scom-swap/contracts/oswap-openswap-contract/contracts/restricted/OSWAP_ConfigStore.json.ts" />
-declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/restricted/OSWAP_ConfigStore.json.ts" {
+/// <amd-module name="@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/restricted/OSWAP_ConfigStore.json.ts" />
+declare module "@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/restricted/OSWAP_ConfigStore.json.ts" {
     const _default_27: {
         abi: ({
             inputs: {
@@ -4675,8 +4708,8 @@ declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/rest
     };
     export default _default_27;
 }
-/// <amd-module name="@scom/scom-swap/contracts/oswap-openswap-contract/contracts/restricted/OSWAP_ConfigStore.ts" />
-declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/restricted/OSWAP_ConfigStore.ts" {
+/// <amd-module name="@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/restricted/OSWAP_ConfigStore.ts" />
+declare module "@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/restricted/OSWAP_ConfigStore.ts" {
     import { IWallet, Contract as _Contract, TransactionReceipt, BigNumber, Event, TransactionOptions } from "@ijstech/eth-contract";
     export interface ISetCustomParamParams {
         paramName: string;
@@ -4727,8 +4760,8 @@ declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/rest
         }
     }
 }
-/// <amd-module name="@scom/scom-swap/contracts/oswap-openswap-contract/contracts/restricted/OSWAP_OtcLiquidityProvider.json.ts" />
-declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/restricted/OSWAP_OtcLiquidityProvider.json.ts" {
+/// <amd-module name="@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/restricted/OSWAP_OtcLiquidityProvider.json.ts" />
+declare module "@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/restricted/OSWAP_OtcLiquidityProvider.json.ts" {
     const _default_28: {
         abi: ({
             inputs: {
@@ -4765,8 +4798,8 @@ declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/rest
     };
     export default _default_28;
 }
-/// <amd-module name="@scom/scom-swap/contracts/oswap-openswap-contract/contracts/restricted/OSWAP_OtcLiquidityProvider.ts" />
-declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/restricted/OSWAP_OtcLiquidityProvider.ts" {
+/// <amd-module name="@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/restricted/OSWAP_OtcLiquidityProvider.ts" />
+declare module "@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/restricted/OSWAP_OtcLiquidityProvider.ts" {
     import { IWallet, Contract as _Contract, TransactionReceipt, BigNumber, TransactionOptions } from "@ijstech/eth-contract";
     export interface IDeployParams {
         factory: string;
@@ -4918,8 +4951,8 @@ declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/rest
         private assign;
     }
 }
-/// <amd-module name="@scom/scom-swap/contracts/oswap-openswap-contract/contracts/restricted/OSWAP_OtcPairOracle.json.ts" />
-declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/restricted/OSWAP_OtcPairOracle.json.ts" {
+/// <amd-module name="@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/restricted/OSWAP_OtcPairOracle.json.ts" />
+declare module "@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/restricted/OSWAP_OtcPairOracle.json.ts" {
     const _default_29: {
         abi: ({
             inputs: any[];
@@ -4946,8 +4979,8 @@ declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/rest
     };
     export default _default_29;
 }
-/// <amd-module name="@scom/scom-swap/contracts/oswap-openswap-contract/contracts/restricted/OSWAP_OtcPairOracle.ts" />
-declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/restricted/OSWAP_OtcPairOracle.ts" {
+/// <amd-module name="@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/restricted/OSWAP_OtcPairOracle.ts" />
+declare module "@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/restricted/OSWAP_OtcPairOracle.ts" {
     import { IWallet, Contract as _Contract, BigNumber, TransactionOptions } from "@ijstech/eth-contract";
     export interface IGetLatestPriceParams {
         from: string;
@@ -4991,8 +5024,8 @@ declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/rest
         private assign;
     }
 }
-/// <amd-module name="@scom/scom-swap/contracts/oswap-openswap-contract/contracts/restricted/OSWAP_RestrictedFactory.json.ts" />
-declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/restricted/OSWAP_RestrictedFactory.json.ts" {
+/// <amd-module name="@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/restricted/OSWAP_RestrictedFactory.json.ts" />
+declare module "@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/restricted/OSWAP_RestrictedFactory.json.ts" {
     const _default_30: {
         abi: ({
             inputs: {
@@ -5037,8 +5070,8 @@ declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/rest
     };
     export default _default_30;
 }
-/// <amd-module name="@scom/scom-swap/contracts/oswap-openswap-contract/contracts/restricted/OSWAP_RestrictedFactory.ts" />
-declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/restricted/OSWAP_RestrictedFactory.ts" {
+/// <amd-module name="@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/restricted/OSWAP_RestrictedFactory.ts" />
+declare module "@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/restricted/OSWAP_RestrictedFactory.ts" {
     import { IWallet, Contract as _Contract, TransactionReceipt, BigNumber, Event, TransactionOptions } from "@ijstech/eth-contract";
     export interface IDeployParams {
         governance: string;
@@ -5286,8 +5319,8 @@ declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/rest
         }
     }
 }
-/// <amd-module name="@scom/scom-swap/contracts/oswap-openswap-contract/contracts/restricted/OSWAP_RestrictedLiquidityProvider1.json.ts" />
-declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/restricted/OSWAP_RestrictedLiquidityProvider1.json.ts" {
+/// <amd-module name="@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/restricted/OSWAP_RestrictedLiquidityProvider1.json.ts" />
+declare module "@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/restricted/OSWAP_RestrictedLiquidityProvider1.json.ts" {
     const _default_31: {
         abi: ({
             inputs: {
@@ -5324,8 +5357,8 @@ declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/rest
     };
     export default _default_31;
 }
-/// <amd-module name="@scom/scom-swap/contracts/oswap-openswap-contract/contracts/restricted/OSWAP_RestrictedLiquidityProvider1.ts" />
-declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/restricted/OSWAP_RestrictedLiquidityProvider1.ts" {
+/// <amd-module name="@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/restricted/OSWAP_RestrictedLiquidityProvider1.ts" />
+declare module "@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/restricted/OSWAP_RestrictedLiquidityProvider1.ts" {
     import { IWallet, Contract as _Contract, TransactionReceipt, BigNumber, TransactionOptions } from "@ijstech/eth-contract";
     export interface IDeployParams {
         factory: string;
@@ -5477,8 +5510,8 @@ declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/rest
         private assign;
     }
 }
-/// <amd-module name="@scom/scom-swap/contracts/oswap-openswap-contract/contracts/restricted/OSWAP_RestrictedLiquidityProvider3.json.ts" />
-declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/restricted/OSWAP_RestrictedLiquidityProvider3.json.ts" {
+/// <amd-module name="@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/restricted/OSWAP_RestrictedLiquidityProvider3.json.ts" />
+declare module "@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/restricted/OSWAP_RestrictedLiquidityProvider3.json.ts" {
     const _default_32: {
         abi: ({
             inputs: {
@@ -5515,8 +5548,8 @@ declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/rest
     };
     export default _default_32;
 }
-/// <amd-module name="@scom/scom-swap/contracts/oswap-openswap-contract/contracts/restricted/OSWAP_RestrictedLiquidityProvider3.ts" />
-declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/restricted/OSWAP_RestrictedLiquidityProvider3.ts" {
+/// <amd-module name="@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/restricted/OSWAP_RestrictedLiquidityProvider3.ts" />
+declare module "@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/restricted/OSWAP_RestrictedLiquidityProvider3.ts" {
     import { IWallet, Contract as _Contract, TransactionReceipt, BigNumber, TransactionOptions } from "@ijstech/eth-contract";
     export interface IDeployParams {
         factory: string;
@@ -5646,8 +5679,8 @@ declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/rest
         private assign;
     }
 }
-/// <amd-module name="@scom/scom-swap/contracts/oswap-openswap-contract/contracts/restricted/OSWAP_RestrictedLiquidityProvider4.json.ts" />
-declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/restricted/OSWAP_RestrictedLiquidityProvider4.json.ts" {
+/// <amd-module name="@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/restricted/OSWAP_RestrictedLiquidityProvider4.json.ts" />
+declare module "@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/restricted/OSWAP_RestrictedLiquidityProvider4.json.ts" {
     const _default_33: {
         abi: ({
             inputs: {
@@ -5684,8 +5717,8 @@ declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/rest
     };
     export default _default_33;
 }
-/// <amd-module name="@scom/scom-swap/contracts/oswap-openswap-contract/contracts/restricted/OSWAP_RestrictedLiquidityProvider4.ts" />
-declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/restricted/OSWAP_RestrictedLiquidityProvider4.ts" {
+/// <amd-module name="@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/restricted/OSWAP_RestrictedLiquidityProvider4.ts" />
+declare module "@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/restricted/OSWAP_RestrictedLiquidityProvider4.ts" {
     import { IWallet, Contract as _Contract, TransactionReceipt, BigNumber, TransactionOptions } from "@ijstech/eth-contract";
     export interface IDeployParams {
         factory: string;
@@ -5805,8 +5838,8 @@ declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/rest
         private assign;
     }
 }
-/// <amd-module name="@scom/scom-swap/contracts/oswap-openswap-contract/contracts/restricted/OSWAP_RestrictedPair.json.ts" />
-declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/restricted/OSWAP_RestrictedPair.json.ts" {
+/// <amd-module name="@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/restricted/OSWAP_RestrictedPair.json.ts" />
+declare module "@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/restricted/OSWAP_RestrictedPair.json.ts" {
     const _default_34: {
         abi: ({
             inputs: any[];
@@ -5847,8 +5880,8 @@ declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/rest
     };
     export default _default_34;
 }
-/// <amd-module name="@scom/scom-swap/contracts/oswap-openswap-contract/contracts/restricted/OSWAP_RestrictedPair.ts" />
-declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/restricted/OSWAP_RestrictedPair.ts" {
+/// <amd-module name="@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/restricted/OSWAP_RestrictedPair.ts" />
+declare module "@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/restricted/OSWAP_RestrictedPair.ts" {
     import { IWallet, Contract as _Contract, TransactionReceipt, BigNumber, Event, TransactionOptions } from "@ijstech/eth-contract";
     export interface IApprovedTraderParams {
         param1: boolean;
@@ -6183,8 +6216,8 @@ declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/rest
         }
     }
 }
-/// <amd-module name="@scom/scom-swap/contracts/oswap-openswap-contract/contracts/restricted/OSWAP_RestrictedPairOracle.json.ts" />
-declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/restricted/OSWAP_RestrictedPairOracle.json.ts" {
+/// <amd-module name="@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/restricted/OSWAP_RestrictedPairOracle.json.ts" />
+declare module "@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/restricted/OSWAP_RestrictedPairOracle.json.ts" {
     const _default_35: {
         abi: ({
             inputs: any[];
@@ -6211,8 +6244,8 @@ declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/rest
     };
     export default _default_35;
 }
-/// <amd-module name="@scom/scom-swap/contracts/oswap-openswap-contract/contracts/restricted/OSWAP_RestrictedPairOracle.ts" />
-declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/restricted/OSWAP_RestrictedPairOracle.ts" {
+/// <amd-module name="@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/restricted/OSWAP_RestrictedPairOracle.ts" />
+declare module "@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/restricted/OSWAP_RestrictedPairOracle.ts" {
     import { IWallet, Contract as _Contract, BigNumber, TransactionOptions } from "@ijstech/eth-contract";
     export interface IGetLatestPriceParams {
         from: string;
@@ -6256,8 +6289,8 @@ declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/rest
         private assign;
     }
 }
-/// <amd-module name="@scom/scom-swap/contracts/oswap-openswap-contract/contracts/restricted/OSWAP_VotingExecutor4.json.ts" />
-declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/restricted/OSWAP_VotingExecutor4.json.ts" {
+/// <amd-module name="@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/restricted/OSWAP_VotingExecutor4.json.ts" />
+declare module "@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/restricted/OSWAP_VotingExecutor4.json.ts" {
     const _default_36: {
         abi: ({
             inputs: {
@@ -6294,8 +6327,8 @@ declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/rest
     };
     export default _default_36;
 }
-/// <amd-module name="@scom/scom-swap/contracts/oswap-openswap-contract/contracts/restricted/OSWAP_VotingExecutor4.ts" />
-declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/restricted/OSWAP_VotingExecutor4.ts" {
+/// <amd-module name="@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/restricted/OSWAP_VotingExecutor4.ts" />
+declare module "@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/restricted/OSWAP_VotingExecutor4.ts" {
     import { IWallet, Contract as _Contract, TransactionReceipt, TransactionOptions } from "@ijstech/eth-contract";
     export interface IDeployParams {
         governance: string;
@@ -6323,8 +6356,8 @@ declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/rest
         private assign;
     }
 }
-/// <amd-module name="@scom/scom-swap/contracts/oswap-openswap-contract/contracts/router/OSWAP_HybridRouter.json.ts" />
-declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/router/OSWAP_HybridRouter.json.ts" {
+/// <amd-module name="@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/router/OSWAP_HybridRouter.json.ts" />
+declare module "@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/router/OSWAP_HybridRouter.json.ts" {
     const _default_37: {
         abi: ({
             inputs: {
@@ -6361,8 +6394,8 @@ declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/rout
     };
     export default _default_37;
 }
-/// <amd-module name="@scom/scom-swap/contracts/oswap-openswap-contract/contracts/router/OSWAP_HybridRouter.ts" />
-declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/router/OSWAP_HybridRouter.ts" {
+/// <amd-module name="@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/router/OSWAP_HybridRouter.ts" />
+declare module "@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/router/OSWAP_HybridRouter.ts" {
     import { IWallet, Contract as _Contract, TransactionReceipt, BigNumber, TransactionOptions } from "@ijstech/eth-contract";
     export interface IDeployParams {
         oracleFactory: string;
@@ -6537,8 +6570,8 @@ declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/rout
         private assign;
     }
 }
-/// <amd-module name="@scom/scom-swap/contracts/oswap-openswap-contract/contracts/router/OSWAP_HybridRouterRegistry.json.ts" />
-declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/router/OSWAP_HybridRouterRegistry.json.ts" {
+/// <amd-module name="@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/router/OSWAP_HybridRouterRegistry.json.ts" />
+declare module "@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/router/OSWAP_HybridRouterRegistry.json.ts" {
     const _default_38: {
         abi: ({
             inputs: {
@@ -6583,8 +6616,8 @@ declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/rout
     };
     export default _default_38;
 }
-/// <amd-module name="@scom/scom-swap/contracts/oswap-openswap-contract/contracts/router/OSWAP_HybridRouterRegistry.ts" />
-declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/router/OSWAP_HybridRouterRegistry.ts" {
+/// <amd-module name="@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/router/OSWAP_HybridRouterRegistry.ts" />
+declare module "@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/router/OSWAP_HybridRouterRegistry.ts" {
     import { IWallet, Contract as _Contract, TransactionReceipt, BigNumber, Event, TransactionOptions } from "@ijstech/eth-contract";
     export interface IInitParams {
         name: string[];
@@ -6818,8 +6851,8 @@ declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/rout
         }
     }
 }
-/// <amd-module name="@scom/scom-swap/contracts/oswap-openswap-contract/contracts/router/OSWAP_OracleRouter.json.ts" />
-declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/router/OSWAP_OracleRouter.json.ts" {
+/// <amd-module name="@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/router/OSWAP_OracleRouter.json.ts" />
+declare module "@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/router/OSWAP_OracleRouter.json.ts" {
     const _default_39: {
         abi: ({
             inputs: {
@@ -6856,8 +6889,8 @@ declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/rout
     };
     export default _default_39;
 }
-/// <amd-module name="@scom/scom-swap/contracts/oswap-openswap-contract/contracts/router/OSWAP_OracleRouter.ts" />
-declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/router/OSWAP_OracleRouter.ts" {
+/// <amd-module name="@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/router/OSWAP_OracleRouter.ts" />
+declare module "@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/router/OSWAP_OracleRouter.ts" {
     import { IWallet, Contract as _Contract, TransactionReceipt, BigNumber, TransactionOptions } from "@ijstech/eth-contract";
     export interface IDeployParams {
         ammFactory: string;
@@ -7047,8 +7080,8 @@ declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/rout
         private assign;
     }
 }
-/// <amd-module name="@scom/scom-swap/contracts/oswap-openswap-contract/contracts/restricted/OSWAP_OtcPair.json.ts" />
-declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/restricted/OSWAP_OtcPair.json.ts" {
+/// <amd-module name="@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/restricted/OSWAP_OtcPair.json.ts" />
+declare module "@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/restricted/OSWAP_OtcPair.json.ts" {
     const _default_40: {
         abi: ({
             inputs: any[];
@@ -7089,8 +7122,8 @@ declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/rest
     };
     export default _default_40;
 }
-/// <amd-module name="@scom/scom-swap/contracts/oswap-openswap-contract/contracts/restricted/OSWAP_OtcPair.ts" />
-declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/restricted/OSWAP_OtcPair.ts" {
+/// <amd-module name="@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/restricted/OSWAP_OtcPair.ts" />
+declare module "@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/restricted/OSWAP_OtcPair.ts" {
     import { IWallet, Contract as _Contract, TransactionReceipt, BigNumber, Event, TransactionOptions } from "@ijstech/eth-contract";
     export interface IAddLiquidityParams {
         direction: boolean;
@@ -7514,8 +7547,8 @@ declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/rest
         }
     }
 }
-/// <amd-module name="@scom/scom-swap/contracts/oswap-openswap-contract/contracts/restricted/OSWAP_OtcPairCreator.json.ts" />
-declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/restricted/OSWAP_OtcPairCreator.json.ts" {
+/// <amd-module name="@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/restricted/OSWAP_OtcPairCreator.json.ts" />
+declare module "@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/restricted/OSWAP_OtcPairCreator.json.ts" {
     const _default_41: {
         abi: {
             inputs: {
@@ -7536,8 +7569,8 @@ declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/rest
     };
     export default _default_41;
 }
-/// <amd-module name="@scom/scom-swap/contracts/oswap-openswap-contract/contracts/restricted/OSWAP_OtcPairCreator.ts" />
-declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/restricted/OSWAP_OtcPairCreator.ts" {
+/// <amd-module name="@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/restricted/OSWAP_OtcPairCreator.ts" />
+declare module "@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/restricted/OSWAP_OtcPairCreator.ts" {
     import { IWallet, Contract as _Contract, TransactionReceipt, BigNumber, TransactionOptions } from "@ijstech/eth-contract";
     export class OSWAP_OtcPairCreator extends _Contract {
         static _abi: any;
@@ -7551,8 +7584,8 @@ declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/rest
         private assign;
     }
 }
-/// <amd-module name="@scom/scom-swap/contracts/oswap-openswap-contract/contracts/restricted/OSWAP_RestrictedPair1.json.ts" />
-declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/restricted/OSWAP_RestrictedPair1.json.ts" {
+/// <amd-module name="@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/restricted/OSWAP_RestrictedPair1.json.ts" />
+declare module "@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/restricted/OSWAP_RestrictedPair1.json.ts" {
     const _default_42: {
         abi: ({
             anonymous: boolean;
@@ -7586,8 +7619,8 @@ declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/rest
     };
     export default _default_42;
 }
-/// <amd-module name="@scom/scom-swap/contracts/oswap-openswap-contract/contracts/restricted/OSWAP_RestrictedPair1.ts" />
-declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/restricted/OSWAP_RestrictedPair1.ts" {
+/// <amd-module name="@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/restricted/OSWAP_RestrictedPair1.ts" />
+declare module "@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/restricted/OSWAP_RestrictedPair1.ts" {
     import { IWallet, Contract as _Contract, TransactionReceipt, BigNumber, Event, TransactionOptions } from "@ijstech/eth-contract";
     export interface IAddLiquidityParams {
         direction: boolean;
@@ -8007,8 +8040,8 @@ declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/rest
         }
     }
 }
-/// <amd-module name="@scom/scom-swap/contracts/oswap-openswap-contract/contracts/restricted/OSWAP_RestrictedPair3.json.ts" />
-declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/restricted/OSWAP_RestrictedPair3.json.ts" {
+/// <amd-module name="@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/restricted/OSWAP_RestrictedPair3.json.ts" />
+declare module "@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/restricted/OSWAP_RestrictedPair3.json.ts" {
     const _default_43: {
         abi: ({
             anonymous: boolean;
@@ -8042,8 +8075,8 @@ declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/rest
     };
     export default _default_43;
 }
-/// <amd-module name="@scom/scom-swap/contracts/oswap-openswap-contract/contracts/restricted/OSWAP_RestrictedPair3.ts" />
-declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/restricted/OSWAP_RestrictedPair3.ts" {
+/// <amd-module name="@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/restricted/OSWAP_RestrictedPair3.ts" />
+declare module "@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/restricted/OSWAP_RestrictedPair3.ts" {
     import { IWallet, Contract as _Contract, TransactionReceipt, BigNumber, Event, TransactionOptions } from "@ijstech/eth-contract";
     export interface IAddLiquidityParams {
         direction: boolean;
@@ -8476,8 +8509,8 @@ declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/rest
         }
     }
 }
-/// <amd-module name="@scom/scom-swap/contracts/oswap-openswap-contract/contracts/restricted/OSWAP_RestrictedPair4.json.ts" />
-declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/restricted/OSWAP_RestrictedPair4.json.ts" {
+/// <amd-module name="@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/restricted/OSWAP_RestrictedPair4.json.ts" />
+declare module "@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/restricted/OSWAP_RestrictedPair4.json.ts" {
     const _default_44: {
         abi: ({
             anonymous: boolean;
@@ -8511,8 +8544,8 @@ declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/rest
     };
     export default _default_44;
 }
-/// <amd-module name="@scom/scom-swap/contracts/oswap-openswap-contract/contracts/restricted/OSWAP_RestrictedPair4.ts" />
-declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/restricted/OSWAP_RestrictedPair4.ts" {
+/// <amd-module name="@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/restricted/OSWAP_RestrictedPair4.ts" />
+declare module "@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/restricted/OSWAP_RestrictedPair4.ts" {
     import { IWallet, Contract as _Contract, TransactionReceipt, BigNumber, Event, TransactionOptions } from "@ijstech/eth-contract";
     export interface IAddLiquidityParams {
         direction: boolean;
@@ -8980,8 +9013,8 @@ declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/rest
         }
     }
 }
-/// <amd-module name="@scom/scom-swap/contracts/oswap-openswap-contract/contracts/restricted/OSWAP_RestrictedPairCreator1.json.ts" />
-declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/restricted/OSWAP_RestrictedPairCreator1.json.ts" {
+/// <amd-module name="@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/restricted/OSWAP_RestrictedPairCreator1.json.ts" />
+declare module "@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/restricted/OSWAP_RestrictedPairCreator1.json.ts" {
     const _default_45: {
         abi: {
             inputs: {
@@ -9002,8 +9035,8 @@ declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/rest
     };
     export default _default_45;
 }
-/// <amd-module name="@scom/scom-swap/contracts/oswap-openswap-contract/contracts/restricted/OSWAP_RestrictedPairCreator1.ts" />
-declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/restricted/OSWAP_RestrictedPairCreator1.ts" {
+/// <amd-module name="@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/restricted/OSWAP_RestrictedPairCreator1.ts" />
+declare module "@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/restricted/OSWAP_RestrictedPairCreator1.ts" {
     import { IWallet, Contract as _Contract, TransactionReceipt, BigNumber, TransactionOptions } from "@ijstech/eth-contract";
     export class OSWAP_RestrictedPairCreator1 extends _Contract {
         static _abi: any;
@@ -9017,8 +9050,8 @@ declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/rest
         private assign;
     }
 }
-/// <amd-module name="@scom/scom-swap/contracts/oswap-openswap-contract/contracts/restricted/OSWAP_RestrictedPairCreator4.json.ts" />
-declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/restricted/OSWAP_RestrictedPairCreator4.json.ts" {
+/// <amd-module name="@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/restricted/OSWAP_RestrictedPairCreator4.json.ts" />
+declare module "@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/restricted/OSWAP_RestrictedPairCreator4.json.ts" {
     const _default_46: {
         abi: {
             inputs: {
@@ -9039,8 +9072,8 @@ declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/rest
     };
     export default _default_46;
 }
-/// <amd-module name="@scom/scom-swap/contracts/oswap-openswap-contract/contracts/restricted/OSWAP_RestrictedPairCreator4.ts" />
-declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/restricted/OSWAP_RestrictedPairCreator4.ts" {
+/// <amd-module name="@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/restricted/OSWAP_RestrictedPairCreator4.ts" />
+declare module "@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/restricted/OSWAP_RestrictedPairCreator4.ts" {
     import { IWallet, Contract as _Contract, TransactionReceipt, BigNumber, TransactionOptions } from "@ijstech/eth-contract";
     export class OSWAP_RestrictedPairCreator4 extends _Contract {
         static _abi: any;
@@ -9054,8 +9087,8 @@ declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/rest
         private assign;
     }
 }
-/// <amd-module name="@scom/scom-swap/contracts/oswap-openswap-contract/contracts/router/OSWAP_HybridRouter2.json.ts" />
-declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/router/OSWAP_HybridRouter2.json.ts" {
+/// <amd-module name="@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/router/OSWAP_HybridRouter2.json.ts" />
+declare module "@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/router/OSWAP_HybridRouter2.json.ts" {
     const _default_47: {
         abi: ({
             inputs: {
@@ -9092,8 +9125,8 @@ declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/rout
     };
     export default _default_47;
 }
-/// <amd-module name="@scom/scom-swap/contracts/oswap-openswap-contract/contracts/router/OSWAP_HybridRouter2.ts" />
-declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/router/OSWAP_HybridRouter2.ts" {
+/// <amd-module name="@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/router/OSWAP_HybridRouter2.ts" />
+declare module "@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/router/OSWAP_HybridRouter2.ts" {
     import { IWallet, Contract as _Contract, TransactionReceipt, BigNumber, TransactionOptions } from "@ijstech/eth-contract";
     export interface IDeployParams {
         registry: string;
@@ -9297,61 +9330,61 @@ declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/rout
         private assign;
     }
 }
-/// <amd-module name="@scom/scom-swap/contracts/oswap-openswap-contract/contracts/index.ts" />
-declare module "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/index.ts" {
-    export { OpenSwap } from "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/OpenSwap.ts";
-    export { OSWAP_ERC20 } from "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/amm/OSWAP_ERC20.ts";
-    export { OSWAP_Factory } from "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/amm/OSWAP_Factory.ts";
-    export { OSWAP_Pair } from "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/amm/OSWAP_Pair.ts";
-    export { OSWAP_PairCreator } from "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/amm/OSWAP_PairCreator.ts";
-    export { OSWAP_Router } from "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/amm/OSWAP_Router.ts";
-    export { OSWAP_VotingExecutor1 } from "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/amm/OSWAP_VotingExecutor1.ts";
-    export { OSWAP_FactoryBase } from "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/commons/OSWAP_FactoryBase.ts";
-    export { OSWAP_PausableFactory } from "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/commons/OSWAP_PausableFactory.ts";
-    export { OSWAP_PausablePair } from "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/commons/OSWAP_PausablePair.ts";
-    export { OAXDEX_Administrator } from "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/gov/OAXDEX_Administrator.ts";
-    export { OAXDEX_Governance } from "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/gov/OAXDEX_Governance.ts";
-    export { OAXDEX_VotingContract } from "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/gov/OAXDEX_VotingContract.ts";
-    export { OAXDEX_VotingExecutor } from "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/gov/OAXDEX_VotingExecutor.ts";
-    export { OAXDEX_VotingRegistry } from "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/gov/OAXDEX_VotingRegistry.ts";
-    export { ERC20 } from "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/libraries/ERC20.ts";
-    export { OSWAP_CertiKSecurityOracle } from "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/oracle/OSWAP_CertiKSecurityOracle.ts";
-    export { OSWAP_OracleFactory } from "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/oracle/OSWAP_OracleFactory.ts";
-    export { OSWAP_OracleLiquidityProvider } from "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/oracle/OSWAP_OracleLiquidityProvider.ts";
-    export { OSWAP_OraclePair } from "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/oracle/OSWAP_OraclePair.ts";
-    export { OSWAP_OraclePairCreator } from "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/oracle/OSWAP_OraclePairCreator.ts";
-    export { OSWAP_VotingExecutor2 } from "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/oracle/OSWAP_VotingExecutor2.ts";
-    export { OSWAP_RangeFactory } from "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/range/OSWAP_RangeFactory.ts";
-    export { OSWAP_RangeLiquidityProvider } from "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/range/OSWAP_RangeLiquidityProvider.ts";
-    export { OSWAP_RangePair } from "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/range/OSWAP_RangePair.ts";
-    export { OSWAP_RangePairCreator } from "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/range/OSWAP_RangePairCreator.ts";
-    export { OSWAP_VotingExecutor3 } from "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/range/OSWAP_VotingExecutor3.ts";
-    export { OSWAP_ConfigStore } from "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/restricted/OSWAP_ConfigStore.ts";
-    export { OSWAP_OtcLiquidityProvider } from "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/restricted/OSWAP_OtcLiquidityProvider.ts";
-    export { OSWAP_OtcPairOracle } from "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/restricted/OSWAP_OtcPairOracle.ts";
-    export { OSWAP_RestrictedFactory } from "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/restricted/OSWAP_RestrictedFactory.ts";
-    export { OSWAP_RestrictedLiquidityProvider1 } from "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/restricted/OSWAP_RestrictedLiquidityProvider1.ts";
-    export { OSWAP_RestrictedLiquidityProvider3 } from "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/restricted/OSWAP_RestrictedLiquidityProvider3.ts";
-    export { OSWAP_RestrictedLiquidityProvider4 } from "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/restricted/OSWAP_RestrictedLiquidityProvider4.ts";
-    export { OSWAP_RestrictedPair } from "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/restricted/OSWAP_RestrictedPair.ts";
-    export { OSWAP_RestrictedPairOracle } from "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/restricted/OSWAP_RestrictedPairOracle.ts";
-    export { OSWAP_VotingExecutor4 } from "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/restricted/OSWAP_VotingExecutor4.ts";
-    export { OSWAP_HybridRouter } from "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/router/OSWAP_HybridRouter.ts";
-    export { OSWAP_HybridRouterRegistry } from "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/router/OSWAP_HybridRouterRegistry.ts";
-    export { OSWAP_OracleRouter } from "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/router/OSWAP_OracleRouter.ts";
-    export { OSWAP_OtcPair } from "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/restricted/OSWAP_OtcPair.ts";
-    export { OSWAP_OtcPairCreator } from "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/restricted/OSWAP_OtcPairCreator.ts";
-    export { OSWAP_RestrictedPair1 } from "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/restricted/OSWAP_RestrictedPair1.ts";
-    export { OSWAP_RestrictedPair3 } from "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/restricted/OSWAP_RestrictedPair3.ts";
-    export { OSWAP_RestrictedPair4 } from "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/restricted/OSWAP_RestrictedPair4.ts";
-    export { OSWAP_RestrictedPairCreator1 } from "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/restricted/OSWAP_RestrictedPairCreator1.ts";
-    export { OSWAP_RestrictedPairCreator4 } from "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/restricted/OSWAP_RestrictedPairCreator4.ts";
-    export { OSWAP_HybridRouter2 } from "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/router/OSWAP_HybridRouter2.ts";
+/// <amd-module name="@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/index.ts" />
+declare module "@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/index.ts" {
+    export { OpenSwap } from "@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/OpenSwap.ts";
+    export { OSWAP_ERC20 } from "@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/amm/OSWAP_ERC20.ts";
+    export { OSWAP_Factory } from "@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/amm/OSWAP_Factory.ts";
+    export { OSWAP_Pair } from "@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/amm/OSWAP_Pair.ts";
+    export { OSWAP_PairCreator } from "@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/amm/OSWAP_PairCreator.ts";
+    export { OSWAP_Router } from "@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/amm/OSWAP_Router.ts";
+    export { OSWAP_VotingExecutor1 } from "@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/amm/OSWAP_VotingExecutor1.ts";
+    export { OSWAP_FactoryBase } from "@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/commons/OSWAP_FactoryBase.ts";
+    export { OSWAP_PausableFactory } from "@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/commons/OSWAP_PausableFactory.ts";
+    export { OSWAP_PausablePair } from "@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/commons/OSWAP_PausablePair.ts";
+    export { OAXDEX_Administrator } from "@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/gov/OAXDEX_Administrator.ts";
+    export { OAXDEX_Governance } from "@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/gov/OAXDEX_Governance.ts";
+    export { OAXDEX_VotingContract } from "@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/gov/OAXDEX_VotingContract.ts";
+    export { OAXDEX_VotingExecutor } from "@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/gov/OAXDEX_VotingExecutor.ts";
+    export { OAXDEX_VotingRegistry } from "@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/gov/OAXDEX_VotingRegistry.ts";
+    export { ERC20 } from "@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/libraries/ERC20.ts";
+    export { OSWAP_CertiKSecurityOracle } from "@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/oracle/OSWAP_CertiKSecurityOracle.ts";
+    export { OSWAP_OracleFactory } from "@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/oracle/OSWAP_OracleFactory.ts";
+    export { OSWAP_OracleLiquidityProvider } from "@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/oracle/OSWAP_OracleLiquidityProvider.ts";
+    export { OSWAP_OraclePair } from "@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/oracle/OSWAP_OraclePair.ts";
+    export { OSWAP_OraclePairCreator } from "@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/oracle/OSWAP_OraclePairCreator.ts";
+    export { OSWAP_VotingExecutor2 } from "@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/oracle/OSWAP_VotingExecutor2.ts";
+    export { OSWAP_RangeFactory } from "@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/range/OSWAP_RangeFactory.ts";
+    export { OSWAP_RangeLiquidityProvider } from "@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/range/OSWAP_RangeLiquidityProvider.ts";
+    export { OSWAP_RangePair } from "@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/range/OSWAP_RangePair.ts";
+    export { OSWAP_RangePairCreator } from "@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/range/OSWAP_RangePairCreator.ts";
+    export { OSWAP_VotingExecutor3 } from "@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/range/OSWAP_VotingExecutor3.ts";
+    export { OSWAP_ConfigStore } from "@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/restricted/OSWAP_ConfigStore.ts";
+    export { OSWAP_OtcLiquidityProvider } from "@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/restricted/OSWAP_OtcLiquidityProvider.ts";
+    export { OSWAP_OtcPairOracle } from "@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/restricted/OSWAP_OtcPairOracle.ts";
+    export { OSWAP_RestrictedFactory } from "@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/restricted/OSWAP_RestrictedFactory.ts";
+    export { OSWAP_RestrictedLiquidityProvider1 } from "@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/restricted/OSWAP_RestrictedLiquidityProvider1.ts";
+    export { OSWAP_RestrictedLiquidityProvider3 } from "@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/restricted/OSWAP_RestrictedLiquidityProvider3.ts";
+    export { OSWAP_RestrictedLiquidityProvider4 } from "@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/restricted/OSWAP_RestrictedLiquidityProvider4.ts";
+    export { OSWAP_RestrictedPair } from "@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/restricted/OSWAP_RestrictedPair.ts";
+    export { OSWAP_RestrictedPairOracle } from "@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/restricted/OSWAP_RestrictedPairOracle.ts";
+    export { OSWAP_VotingExecutor4 } from "@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/restricted/OSWAP_VotingExecutor4.ts";
+    export { OSWAP_HybridRouter } from "@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/router/OSWAP_HybridRouter.ts";
+    export { OSWAP_HybridRouterRegistry } from "@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/router/OSWAP_HybridRouterRegistry.ts";
+    export { OSWAP_OracleRouter } from "@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/router/OSWAP_OracleRouter.ts";
+    export { OSWAP_OtcPair } from "@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/restricted/OSWAP_OtcPair.ts";
+    export { OSWAP_OtcPairCreator } from "@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/restricted/OSWAP_OtcPairCreator.ts";
+    export { OSWAP_RestrictedPair1 } from "@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/restricted/OSWAP_RestrictedPair1.ts";
+    export { OSWAP_RestrictedPair3 } from "@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/restricted/OSWAP_RestrictedPair3.ts";
+    export { OSWAP_RestrictedPair4 } from "@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/restricted/OSWAP_RestrictedPair4.ts";
+    export { OSWAP_RestrictedPairCreator1 } from "@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/restricted/OSWAP_RestrictedPairCreator1.ts";
+    export { OSWAP_RestrictedPairCreator4 } from "@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/restricted/OSWAP_RestrictedPairCreator4.ts";
+    export { OSWAP_HybridRouter2 } from "@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/router/OSWAP_HybridRouter2.ts";
 }
-/// <amd-module name="@scom/scom-swap/contracts/oswap-openswap-contract/OpenSwap.ts" />
-declare module "@scom/scom-swap/contracts/oswap-openswap-contract/OpenSwap.ts" {
+/// <amd-module name="@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/OpenSwap.ts" />
+declare module "@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/OpenSwap.ts" {
     import { IWallet, BigNumber } from "@ijstech/eth-contract";
-    import { OpenSwap as OpenSwapContract } from "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/index.ts";
+    import { OpenSwap as OpenSwapContract } from "@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/index.ts";
     export class OpenSwap {
         wallet: IWallet;
         address: string;
@@ -9404,11 +9437,11 @@ declare module "@scom/scom-swap/contracts/oswap-openswap-contract/OpenSwap.ts" {
         }>;
     }
 }
-/// <amd-module name="@scom/scom-swap/contracts/oswap-openswap-contract/deploy.ts" />
-declare module "@scom/scom-swap/contracts/oswap-openswap-contract/deploy.ts" {
+/// <amd-module name="@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/deploy.ts" />
+declare module "@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/deploy.ts" {
     import { IWallet, BigNumber } from "@ijstech/eth-contract";
-    import { OSWAP_Factory, OSWAP_PairCreator, OSWAP_Router, OSWAP_VotingExecutor1, OAXDEX_Governance, OAXDEX_VotingExecutor, OAXDEX_Administrator, OAXDEX_VotingRegistry, OSWAP_OraclePairCreator, OSWAP_VotingExecutor2, OSWAP_OracleFactory, OSWAP_OracleLiquidityProvider, OSWAP_OracleRouter, OSWAP_HybridRouterRegistry, OSWAP_HybridRouter2 } from "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/index.ts";
-    import { OpenSwap } from "@scom/scom-swap/contracts/oswap-openswap-contract/OpenSwap.ts";
+    import { OSWAP_Factory, OSWAP_PairCreator, OSWAP_Router, OSWAP_VotingExecutor1, OAXDEX_Governance, OAXDEX_VotingExecutor, OAXDEX_Administrator, OAXDEX_VotingRegistry, OSWAP_OraclePairCreator, OSWAP_VotingExecutor2, OSWAP_OracleFactory, OSWAP_OracleLiquidityProvider, OSWAP_OracleRouter, OSWAP_HybridRouterRegistry, OSWAP_HybridRouter2 } from "@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/index.ts";
+    import { OpenSwap } from "@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/OpenSwap.ts";
     export interface ICoreContractsDeploymentResult {
         administrator?: string;
         factory?: string;
@@ -9563,14 +9596,14 @@ declare module "@scom/scom-swap/contracts/oswap-openswap-contract/deploy.ts" {
     export function deployHybridRouter(wallet: IWallet, options: IHybridRouterOptions): Promise<IHybridRouterDeploymentResult>;
     export function deploy(wallet: IWallet, options?: IDeployOptions): Promise<IDeploymentResult>;
 }
-/// <amd-module name="@scom/scom-swap/contracts/oswap-openswap-contract/index.ts" />
-declare module "@scom/scom-swap/contracts/oswap-openswap-contract/index.ts" {
-    export * as Contracts from "@scom/scom-swap/contracts/oswap-openswap-contract/contracts/index.ts";
-    export { deploy, deployCoreContracts, deployOracleContracts, deployRangeContracts, deployRestrictedContracts, deployHybridRouter, initHybridRouterRegistry, deployRestrictedPairOracle, IDeploymentResult, IDeploymentContracts, toDeploymentContracts } from "@scom/scom-swap/contracts/oswap-openswap-contract/deploy.ts";
-    export { OpenSwap } from "@scom/scom-swap/contracts/oswap-openswap-contract/OpenSwap.ts";
+/// <amd-module name="@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/index.ts" />
+declare module "@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/index.ts" {
+    export * as Contracts from "@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/contracts/index.ts";
+    export { deploy, deployCoreContracts, deployOracleContracts, deployRangeContracts, deployRestrictedContracts, deployHybridRouter, initHybridRouterRegistry, deployRestrictedPairOracle, IDeploymentResult, IDeploymentContracts, toDeploymentContracts } from "@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/deploy.ts";
+    export { OpenSwap } from "@scom/scom-uniswap-v3/contracts/oswap-openswap-contract/OpenSwap.ts";
 }
-/// <amd-module name="@scom/scom-swap/global/utils/common.ts" />
-declare module "@scom/scom-swap/global/utils/common.ts" {
+/// <amd-module name="@scom/scom-uniswap-v3/global/utils/common.ts" />
+declare module "@scom/scom-uniswap-v3/global/utils/common.ts" {
     import { Wallet, BigNumber, ISendTxEventsOptions } from "@ijstech/eth-wallet";
     export interface ITokenObject {
         address?: string;
@@ -9595,52 +9628,8 @@ declare module "@scom/scom-swap/global/utils/common.ts" {
     export const approveERC20Max: (token: ITokenObject, spenderAddress: string, callback?: any, confirmationCallback?: any) => Promise<import("@ijstech/eth-contract").TransactionReceipt>;
     export const getERC20Allowance: (token: ITokenObject, spenderAddress: string) => Promise<BigNumber>;
 }
-/// <amd-module name="@scom/scom-swap/global/utils/helper.ts" />
-declare module "@scom/scom-swap/global/utils/helper.ts" {
-    import { BigNumber } from "@ijstech/eth-wallet";
-    import { TokenMapType } from "@scom/scom-swap/global/utils/common.ts";
-    export const DefaultDateTimeFormat = "DD/MM/YYYY HH:mm:ss";
-    export const DefaultDateFormat = "DD/MM/YYYY";
-    export const formatDate: (date: any, customType?: string, showTimezone?: boolean) => string;
-    export const formatUTCDate: (date: any, customType?: string, showTimezone?: boolean) => string;
-    export const compareDate: (fromDate: any, toDate?: any) => boolean;
-    export const formatNumber: (value: any, decimals?: number) => string;
-    export const formatPercentNumber: (value: any, decimals?: number) => string;
-    export const formatNumberWithSeparators: (value: number, precision?: number) => string;
-    export const isValidNumber: (value: string | number) => boolean;
-    export const isInvalidInput: (val: any) => boolean;
-    export const limitInputNumber: (input: any, decimals?: number) => void;
-    export const limitDecimals: (value: any, decimals: number) => any;
-    export function getAPI(url: string, paramsObj?: any): Promise<any>;
-    export const toWeiInv: (n: string, unit?: number) => BigNumber;
-    export const padLeft: (string: string, chars: number, sign?: string) => string;
-    export const numberToBytes32: (value: any, prefix?: string) => any;
-    export const getParamsFromUrl: () => URLSearchParams;
-    export const formatNumberValue: (data: any, tokenMap: TokenMapType) => any;
-    export const uniqWith: (array: any[], compareFn: (cur: any, oth: any) => boolean) => any;
-    export const getWeekDays: () => any[];
-    export const renderBalanceTooltip: (params: any, tokenMap: TokenMapType, isBold?: boolean) => any;
-    export const downloadJsonFile: (name: string, obj: any) => void;
-    export function isWalletAddress(address: string): boolean;
-}
-/// <amd-module name="@scom/scom-swap/global/utils/error.ts" />
-declare module "@scom/scom-swap/global/utils/error.ts" {
-    export function parseContractError(oMessage: string, tokens: string[]): Promise<string>;
-}
-/// <amd-module name="@scom/scom-swap/global/utils/pageBlock.ts" />
-declare module "@scom/scom-swap/global/utils/pageBlock.ts" {
-    export interface PageBlock {
-        getData: () => any;
-        setData: (data: any) => Promise<void>;
-        getTag: () => any;
-        setTag: (tag: any) => Promise<void>;
-        validate?: () => boolean;
-        defaultEdit?: boolean;
-        tag?: any;
-    }
-}
-/// <amd-module name="@scom/scom-swap/global/utils/approvalModel.ts" />
-declare module "@scom/scom-swap/global/utils/approvalModel.ts" {
+/// <amd-module name="@scom/scom-uniswap-v3/global/utils/approvalModel.ts" />
+declare module "@scom/scom-uniswap-v3/global/utils/approvalModel.ts" {
     interface ITokenObject {
         address?: string;
         name: string;
@@ -9689,10 +9678,10 @@ declare module "@scom/scom-swap/global/utils/approvalModel.ts" {
         getAction: () => IERC20ApprovalAction;
     }
 }
-/// <amd-module name="@scom/scom-swap/global/utils/swapInterface.ts" />
-declare module "@scom/scom-swap/global/utils/swapInterface.ts" {
+/// <amd-module name="@scom/scom-uniswap-v3/global/utils/swapInterface.ts" />
+declare module "@scom/scom-uniswap-v3/global/utils/swapInterface.ts" {
     import { IWalletPlugin } from "@scom/scom-wallet-modal";
-    import { ITokenObject } from "@scom/scom-swap/global/utils/common.ts";
+    import { ITokenObject } from "@scom/scom-uniswap-v3/global/utils/common.ts";
     export type Category = 'fixed-pair' | 'aggregator';
     export interface ISwapConfig {
         category: Category;
@@ -9746,17 +9735,17 @@ declare module "@scom/scom-swap/global/utils/swapInterface.ts" {
         commissions?: ICommissionInfo[];
     }
 }
-/// <amd-module name="@scom/scom-swap/global/utils/index.ts" />
-declare module "@scom/scom-swap/global/utils/index.ts" {
-    export { getAPI, formatNumber, formatNumberWithSeparators, DefaultDateTimeFormat, DefaultDateFormat, formatDate, formatUTCDate, limitDecimals, limitInputNumber, isInvalidInput, isValidNumber, toWeiInv, numberToBytes32, getParamsFromUrl, formatNumberValue, uniqWith, getWeekDays, compareDate, renderBalanceTooltip, formatPercentNumber, downloadJsonFile, isWalletAddress } from "@scom/scom-swap/global/utils/helper.ts";
-    export { parseContractError } from "@scom/scom-swap/global/utils/error.ts";
-    export { PageBlock } from "@scom/scom-swap/global/utils/pageBlock.ts";
-    export { isTransactionConfirmed, registerSendTxEvents, approveERC20Max, getERC20Allowance, getERC20Amount, ITokenObject, TokenMapType } from "@scom/scom-swap/global/utils/common.ts";
-    export { ApprovalStatus, IERC20ApprovalEventOptions, IERC20ApprovalOptions, IERC20ApprovalAction, ERC20ApprovalModel } from "@scom/scom-swap/global/utils/approvalModel.ts";
-    export { IContractInfo, IProvider, ISwapConfig, ISwapConfigUI, IProviderUI, Category, ICommissionInfo, IEmbedData, INetworkConfig } from "@scom/scom-swap/global/utils/swapInterface.ts";
+/// <amd-module name="@scom/scom-uniswap-v3/global/utils/index.ts" />
+declare module "@scom/scom-uniswap-v3/global/utils/index.ts" {
+    export { getAPI, formatNumber, limitDecimals, limitInputNumber, isInvalidInput, isValidNumber, toWeiInv, numberToBytes32, formatPercentNumber, isWalletAddress } from "@scom/scom-uniswap-v3/global/utils/helper.ts";
+    export { parseContractError } from "@scom/scom-uniswap-v3/global/utils/error.ts";
+    export { PageBlock } from "@scom/scom-uniswap-v3/global/utils/pageBlock.ts";
+    export { isTransactionConfirmed, registerSendTxEvents, approveERC20Max, getERC20Allowance, getERC20Amount, ITokenObject, TokenMapType } from "@scom/scom-uniswap-v3/global/utils/common.ts";
+    export { ApprovalStatus, IERC20ApprovalEventOptions, IERC20ApprovalOptions, IERC20ApprovalAction, ERC20ApprovalModel } from "@scom/scom-uniswap-v3/global/utils/approvalModel.ts";
+    export { IContractInfo, IProvider, ISwapConfig, ISwapConfigUI, IProviderUI, Category, ICommissionInfo, IEmbedData, INetworkConfig } from "@scom/scom-uniswap-v3/global/utils/swapInterface.ts";
 }
-/// <amd-module name="@scom/scom-swap/global/index.ts" />
-declare module "@scom/scom-swap/global/index.ts" {
+/// <amd-module name="@scom/scom-uniswap-v3/global/index.ts" />
+declare module "@scom/scom-uniswap-v3/global/index.ts" {
     import { INetwork } from '@ijstech/eth-wallet';
     export interface IExtendedNetwork extends INetwork {
         shortName?: string;
@@ -9771,18 +9760,13 @@ declare module "@scom/scom-swap/global/index.ts" {
         env?: string;
     }
     export const enum EventId {
-        ConnectWallet = "connectWallet",
         IsWalletConnected = "isWalletConnected",
         IsWalletDisconnected = "IsWalletDisconnected",
         Paid = "Paid",
         chainChanged = "chainChanged",
-        EmitButtonStatus = "emitButtonStatus",
-        EmitInput = "emitInput",
         EmitNewToken = "emitNewToken",
         SlippageToleranceChanged = "SlippageToleranceChanged",
-        ExpertModeChanged = "ExpertModeChanged",
-        ShowTransactionModal = "ShowTransactionModal",
-        ShowExpertModal = "ShowExpertModal"
+        ExpertModeChanged = "ExpertModeChanged"
     }
     export enum QueueType {
         PRIORITY_QUEUE = 0,
@@ -9790,11 +9774,11 @@ declare module "@scom/scom-swap/global/index.ts" {
         GROUP_QUEUE = 2,
         PEGGED_QUEUE = 3
     }
-    export * from "@scom/scom-swap/global/utils/index.ts";
+    export * from "@scom/scom-uniswap-v3/global/utils/index.ts";
 }
-/// <amd-module name="@scom/scom-swap/assets.ts" />
-declare module "@scom/scom-swap/assets.ts" {
-    import { ITokenObject } from "@scom/scom-swap/global/index.ts";
+/// <amd-module name="@scom/scom-uniswap-v3/assets.ts" />
+declare module "@scom/scom-uniswap-v3/assets.ts" {
+    import { ITokenObject } from "@scom/scom-uniswap-v3/global/index.ts";
     function fullPath(path: string): string;
     function tokenPath(tokenObj?: ITokenObject, chainId?: number): string;
     const _default_48: {
@@ -9804,11 +9788,11 @@ declare module "@scom/scom-swap/assets.ts" {
     };
     export default _default_48;
 }
-/// <amd-module name="@scom/scom-swap/index.css.ts" />
-declare module "@scom/scom-swap/index.css.ts" { }
-/// <amd-module name="@scom/scom-swap/store/utils.ts" />
-declare module "@scom/scom-swap/store/utils.ts" {
-    import { IProvider, ITokenObject, IExtendedNetwork } from "@scom/scom-swap/global/index.ts";
+/// <amd-module name="@scom/scom-uniswap-v3/index.css.ts" />
+declare module "@scom/scom-uniswap-v3/index.css.ts" { }
+/// <amd-module name="@scom/scom-uniswap-v3/store/utils.ts" />
+declare module "@scom/scom-uniswap-v3/store/utils.ts" {
+    import { IProvider, ITokenObject, IExtendedNetwork } from "@scom/scom-uniswap-v3/global/index.ts";
     import { IDexInfo } from '@scom/scom-dex-list';
     export enum WalletPlugin {
         MetaMask = "metamask",
@@ -9819,6 +9803,8 @@ declare module "@scom/scom-swap/store/utils.ts" {
     };
     export const state: {
         currentChainId: number;
+        isAPI: boolean;
+        isRouterAuto: boolean;
         isExpertMode: boolean;
         slippageTolerance: number;
         transactionDeadline: number;
@@ -9846,23 +9832,22 @@ declare module "@scom/scom-swap/store/utils.ts" {
     export const getEmbedderCommissionFee: () => string;
     export const setCurrentChainId: (value: number) => void;
     export const getCurrentChainId: () => number;
+    export const isRouterAuto: () => boolean;
+    export function toggleRouter(): void;
+    export function setAPIOrClient(value: boolean): void;
+    export const isAPI: () => boolean;
+    export function isClient(): boolean;
     export const isExpertMode: () => boolean;
     export function toggleExpertMode(): void;
-    export const getSlippageTolerance: () => any;
-    export const setSlippageTolerance: (value: any) => void;
-    export const getTransactionDeadline: () => any;
-    export const setTransactionDeadline: (value: any) => void;
+    export const getSlippageTolerance: () => number;
+    export const setSlippageTolerance: (value: number) => void;
+    export const getTransactionDeadline: () => number;
+    export const setTransactionDeadline: (value: number) => void;
     export const getInfuraId: () => string;
     export const getSupportedNetworks: () => IExtendedNetwork[];
     export const getNetworkInfo: (chainId: number) => IExtendedNetwork;
     export const getUserTokens: (chainId: number) => any[] | null;
     export const addUserTokens: (token: ITokenObject) => void;
-    interface NetworkConditions {
-        isDisabled?: boolean;
-        isTestnet?: boolean;
-        isMainChain?: boolean;
-    }
-    export const getMatchNetworks: (conditions: NetworkConditions) => IExtendedNetwork[];
     export const getNetworkExplorerName: (chainId: number) => string;
     export const setUserTokens: (token: ITokenObject, chainId: number) => void;
     export const hasUserToken: (address: string, chainId: number) => boolean;
@@ -9873,29 +9858,489 @@ declare module "@scom/scom-swap/store/utils.ts" {
     export const getProviderByKey: (providerKey: string) => IProvider;
     export const viewOnExplorerByTxHash: (chainId: number, txHash: string) => void;
     export const viewOnExplorerByAddress: (chainId: number, address: string) => void;
-    export function getWalletProvider(): string;
     export function isWalletConnected(): boolean;
-    export function switchNetwork(chainId: number): Promise<void>;
     export const hasMetaMask: () => boolean;
     export const truncateAddress: (address: string) => string;
     export function getChainId(): number;
     export const getChainNativeToken: (chainId: number) => ITokenObject;
 }
-/// <amd-module name="@scom/scom-swap/store/index.ts" />
-declare module "@scom/scom-swap/store/index.ts" {
-    import { ITokenObject } from "@scom/scom-swap/global/index.ts";
+/// <amd-module name="@scom/scom-uniswap-v3/store/index.ts" />
+declare module "@scom/scom-uniswap-v3/store/index.ts" {
+    import { ITokenObject } from "@scom/scom-uniswap-v3/global/index.ts";
     export const nullAddress = "0x0000000000000000000000000000000000000000";
     export const getWETH: (chainId: number) => ITokenObject;
-    export const getTokenDecimals: (address: string) => number;
     export const getTokenIcon: (address: string) => string;
-    export const tokenSymbol: (address: string) => string;
-    export const tokenName: (address: string) => string;
-    export * from "@scom/scom-swap/store/utils.ts";
+    export * from "@scom/scom-uniswap-v3/store/utils.ts";
     export const getSupportedTokens: (tokens: ITokenObject[], chainId: number) => ITokenObject[];
 }
-/// <amd-module name="@scom/scom-swap/contracts/scom-commission-proxy-contract/contracts/Proxy.json.ts" />
-declare module "@scom/scom-swap/contracts/scom-commission-proxy-contract/contracts/Proxy.json.ts" {
+/// <amd-module name="@scom/scom-uniswap-v3/contracts/oswap-chainlink-contract/contracts/AggregatorProxy.json.ts" />
+declare module "@scom/scom-uniswap-v3/contracts/oswap-chainlink-contract/contracts/AggregatorProxy.json.ts" {
     const _default_49: {
+        abi: ({
+            inputs: {
+                internalType: string;
+                name: string;
+                type: string;
+            }[];
+            stateMutability: string;
+            type: string;
+            anonymous?: undefined;
+            name?: undefined;
+            outputs?: undefined;
+        } | {
+            anonymous: boolean;
+            inputs: {
+                indexed: boolean;
+                internalType: string;
+                name: string;
+                type: string;
+            }[];
+            name: string;
+            type: string;
+            stateMutability?: undefined;
+            outputs?: undefined;
+        } | {
+            inputs: {
+                internalType: string;
+                name: string;
+                type: string;
+            }[];
+            name: string;
+            outputs: {
+                internalType: string;
+                name: string;
+                type: string;
+            }[];
+            stateMutability: string;
+            type: string;
+            anonymous?: undefined;
+        })[];
+        bytecode: string;
+    };
+    export default _default_49;
+}
+/// <amd-module name="@scom/scom-uniswap-v3/contracts/oswap-chainlink-contract/contracts/AggregatorProxy.ts" />
+declare module "@scom/scom-uniswap-v3/contracts/oswap-chainlink-contract/contracts/AggregatorProxy.ts" {
+    import { IWallet, Contract as _Contract, TransactionReceipt, BigNumber, Event, TransactionOptions } from "@ijstech/eth-contract";
+    export class AggregatorProxy extends _Contract {
+        static _abi: any;
+        constructor(wallet: IWallet, address?: string);
+        deploy(aggregator: string, options?: TransactionOptions): Promise<string>;
+        parseAnswerUpdatedEvent(receipt: TransactionReceipt): AggregatorProxy.AnswerUpdatedEvent[];
+        decodeAnswerUpdatedEvent(event: Event): AggregatorProxy.AnswerUpdatedEvent;
+        parseNewRoundEvent(receipt: TransactionReceipt): AggregatorProxy.NewRoundEvent[];
+        decodeNewRoundEvent(event: Event): AggregatorProxy.NewRoundEvent;
+        parseOwnershipTransferRequestedEvent(receipt: TransactionReceipt): AggregatorProxy.OwnershipTransferRequestedEvent[];
+        decodeOwnershipTransferRequestedEvent(event: Event): AggregatorProxy.OwnershipTransferRequestedEvent;
+        parseOwnershipTransferredEvent(receipt: TransactionReceipt): AggregatorProxy.OwnershipTransferredEvent[];
+        decodeOwnershipTransferredEvent(event: Event): AggregatorProxy.OwnershipTransferredEvent;
+        acceptOwnership: {
+            (options?: TransactionOptions): Promise<TransactionReceipt>;
+            call: (options?: TransactionOptions) => Promise<void>;
+        };
+        aggregator: {
+            (options?: TransactionOptions): Promise<string>;
+        };
+        confirmAggregator: {
+            (aggregator: string, options?: TransactionOptions): Promise<TransactionReceipt>;
+            call: (aggregator: string, options?: TransactionOptions) => Promise<void>;
+        };
+        decimals: {
+            (options?: TransactionOptions): Promise<BigNumber>;
+        };
+        description: {
+            (options?: TransactionOptions): Promise<string>;
+        };
+        getAnswer: {
+            (roundId: number | BigNumber, options?: TransactionOptions): Promise<BigNumber>;
+        };
+        getRoundData: {
+            (roundId: number | BigNumber, options?: TransactionOptions): Promise<{
+                roundId: BigNumber;
+                answer: BigNumber;
+                startedAt: BigNumber;
+                updatedAt: BigNumber;
+                answeredInRound: BigNumber;
+            }>;
+        };
+        getTimestamp: {
+            (roundId: number | BigNumber, options?: TransactionOptions): Promise<BigNumber>;
+        };
+        latestAnswer: {
+            (options?: TransactionOptions): Promise<BigNumber>;
+        };
+        latestRound: {
+            (options?: TransactionOptions): Promise<BigNumber>;
+        };
+        latestRoundData: {
+            (options?: TransactionOptions): Promise<{
+                roundId: BigNumber;
+                answer: BigNumber;
+                startedAt: BigNumber;
+                updatedAt: BigNumber;
+                answeredInRound: BigNumber;
+            }>;
+        };
+        latestTimestamp: {
+            (options?: TransactionOptions): Promise<BigNumber>;
+        };
+        owner: {
+            (options?: TransactionOptions): Promise<string>;
+        };
+        phaseAggregators: {
+            (param1: number | BigNumber, options?: TransactionOptions): Promise<string>;
+        };
+        phaseId: {
+            (options?: TransactionOptions): Promise<BigNumber>;
+        };
+        proposeAggregator: {
+            (aggregator: string, options?: TransactionOptions): Promise<TransactionReceipt>;
+            call: (aggregator: string, options?: TransactionOptions) => Promise<void>;
+        };
+        proposedAggregator: {
+            (options?: TransactionOptions): Promise<string>;
+        };
+        proposedGetRoundData: {
+            (roundId: number | BigNumber, options?: TransactionOptions): Promise<{
+                roundId: BigNumber;
+                answer: BigNumber;
+                startedAt: BigNumber;
+                updatedAt: BigNumber;
+                answeredInRound: BigNumber;
+            }>;
+        };
+        proposedLatestRoundData: {
+            (options?: TransactionOptions): Promise<{
+                roundId: BigNumber;
+                answer: BigNumber;
+                startedAt: BigNumber;
+                updatedAt: BigNumber;
+                answeredInRound: BigNumber;
+            }>;
+        };
+        transferOwnership: {
+            (to: string, options?: TransactionOptions): Promise<TransactionReceipt>;
+            call: (to: string, options?: TransactionOptions) => Promise<void>;
+        };
+        version: {
+            (options?: TransactionOptions): Promise<BigNumber>;
+        };
+        private assign;
+    }
+    export module AggregatorProxy {
+        interface AnswerUpdatedEvent {
+            current: BigNumber;
+            roundId: BigNumber;
+            updatedAt: BigNumber;
+            _event: Event;
+        }
+        interface NewRoundEvent {
+            roundId: BigNumber;
+            startedBy: string;
+            startedAt: BigNumber;
+            _event: Event;
+        }
+        interface OwnershipTransferRequestedEvent {
+            from: string;
+            to: string;
+            _event: Event;
+        }
+        interface OwnershipTransferredEvent {
+            from: string;
+            to: string;
+            _event: Event;
+        }
+    }
+}
+/// <amd-module name="@scom/scom-uniswap-v3/contracts/oswap-chainlink-contract/contracts/EACAggregatorProxy.json.ts" />
+declare module "@scom/scom-uniswap-v3/contracts/oswap-chainlink-contract/contracts/EACAggregatorProxy.json.ts" {
+    const _default_50: {
+        abi: ({
+            inputs: {
+                internalType: string;
+                name: string;
+                type: string;
+            }[];
+            stateMutability: string;
+            type: string;
+            anonymous?: undefined;
+            name?: undefined;
+            outputs?: undefined;
+        } | {
+            anonymous: boolean;
+            inputs: {
+                indexed: boolean;
+                internalType: string;
+                name: string;
+                type: string;
+            }[];
+            name: string;
+            type: string;
+            stateMutability?: undefined;
+            outputs?: undefined;
+        } | {
+            inputs: {
+                internalType: string;
+                name: string;
+                type: string;
+            }[];
+            name: string;
+            outputs: {
+                internalType: string;
+                name: string;
+                type: string;
+            }[];
+            stateMutability: string;
+            type: string;
+            anonymous?: undefined;
+        })[];
+        bytecode: string;
+    };
+    export default _default_50;
+}
+/// <amd-module name="@scom/scom-uniswap-v3/contracts/oswap-chainlink-contract/contracts/EACAggregatorProxy.ts" />
+declare module "@scom/scom-uniswap-v3/contracts/oswap-chainlink-contract/contracts/EACAggregatorProxy.ts" {
+    import { IWallet, Contract as _Contract, TransactionReceipt, BigNumber, Event, TransactionOptions } from "@ijstech/eth-contract";
+    export interface IDeployParams {
+        aggregator: string;
+        accessController: string;
+    }
+    export class EACAggregatorProxy extends _Contract {
+        static _abi: any;
+        constructor(wallet: IWallet, address?: string);
+        deploy(params: IDeployParams, options?: TransactionOptions): Promise<string>;
+        parseAnswerUpdatedEvent(receipt: TransactionReceipt): EACAggregatorProxy.AnswerUpdatedEvent[];
+        decodeAnswerUpdatedEvent(event: Event): EACAggregatorProxy.AnswerUpdatedEvent;
+        parseNewRoundEvent(receipt: TransactionReceipt): EACAggregatorProxy.NewRoundEvent[];
+        decodeNewRoundEvent(event: Event): EACAggregatorProxy.NewRoundEvent;
+        parseOwnershipTransferRequestedEvent(receipt: TransactionReceipt): EACAggregatorProxy.OwnershipTransferRequestedEvent[];
+        decodeOwnershipTransferRequestedEvent(event: Event): EACAggregatorProxy.OwnershipTransferRequestedEvent;
+        parseOwnershipTransferredEvent(receipt: TransactionReceipt): EACAggregatorProxy.OwnershipTransferredEvent[];
+        decodeOwnershipTransferredEvent(event: Event): EACAggregatorProxy.OwnershipTransferredEvent;
+        acceptOwnership: {
+            (options?: TransactionOptions): Promise<TransactionReceipt>;
+            call: (options?: TransactionOptions) => Promise<void>;
+        };
+        accessController: {
+            (options?: TransactionOptions): Promise<string>;
+        };
+        aggregator: {
+            (options?: TransactionOptions): Promise<string>;
+        };
+        confirmAggregator: {
+            (aggregator: string, options?: TransactionOptions): Promise<TransactionReceipt>;
+            call: (aggregator: string, options?: TransactionOptions) => Promise<void>;
+        };
+        decimals: {
+            (options?: TransactionOptions): Promise<BigNumber>;
+        };
+        description: {
+            (options?: TransactionOptions): Promise<string>;
+        };
+        getAnswer: {
+            (roundId: number | BigNumber, options?: TransactionOptions): Promise<BigNumber>;
+        };
+        getRoundData: {
+            (roundId: number | BigNumber, options?: TransactionOptions): Promise<{
+                roundId: BigNumber;
+                answer: BigNumber;
+                startedAt: BigNumber;
+                updatedAt: BigNumber;
+                answeredInRound: BigNumber;
+            }>;
+        };
+        getTimestamp: {
+            (roundId: number | BigNumber, options?: TransactionOptions): Promise<BigNumber>;
+        };
+        latestAnswer: {
+            (options?: TransactionOptions): Promise<BigNumber>;
+        };
+        latestRound: {
+            (options?: TransactionOptions): Promise<BigNumber>;
+        };
+        latestRoundData: {
+            (options?: TransactionOptions): Promise<{
+                roundId: BigNumber;
+                answer: BigNumber;
+                startedAt: BigNumber;
+                updatedAt: BigNumber;
+                answeredInRound: BigNumber;
+            }>;
+        };
+        latestTimestamp: {
+            (options?: TransactionOptions): Promise<BigNumber>;
+        };
+        owner: {
+            (options?: TransactionOptions): Promise<string>;
+        };
+        phaseAggregators: {
+            (param1: number | BigNumber, options?: TransactionOptions): Promise<string>;
+        };
+        phaseId: {
+            (options?: TransactionOptions): Promise<BigNumber>;
+        };
+        proposeAggregator: {
+            (aggregator: string, options?: TransactionOptions): Promise<TransactionReceipt>;
+            call: (aggregator: string, options?: TransactionOptions) => Promise<void>;
+        };
+        proposedAggregator: {
+            (options?: TransactionOptions): Promise<string>;
+        };
+        proposedGetRoundData: {
+            (roundId: number | BigNumber, options?: TransactionOptions): Promise<{
+                roundId: BigNumber;
+                answer: BigNumber;
+                startedAt: BigNumber;
+                updatedAt: BigNumber;
+                answeredInRound: BigNumber;
+            }>;
+        };
+        proposedLatestRoundData: {
+            (options?: TransactionOptions): Promise<{
+                roundId: BigNumber;
+                answer: BigNumber;
+                startedAt: BigNumber;
+                updatedAt: BigNumber;
+                answeredInRound: BigNumber;
+            }>;
+        };
+        setController: {
+            (accessController: string, options?: TransactionOptions): Promise<TransactionReceipt>;
+            call: (accessController: string, options?: TransactionOptions) => Promise<void>;
+        };
+        transferOwnership: {
+            (to: string, options?: TransactionOptions): Promise<TransactionReceipt>;
+            call: (to: string, options?: TransactionOptions) => Promise<void>;
+        };
+        version: {
+            (options?: TransactionOptions): Promise<BigNumber>;
+        };
+        private assign;
+    }
+    export module EACAggregatorProxy {
+        interface AnswerUpdatedEvent {
+            current: BigNumber;
+            roundId: BigNumber;
+            updatedAt: BigNumber;
+            _event: Event;
+        }
+        interface NewRoundEvent {
+            roundId: BigNumber;
+            startedBy: string;
+            startedAt: BigNumber;
+            _event: Event;
+        }
+        interface OwnershipTransferRequestedEvent {
+            from: string;
+            to: string;
+            _event: Event;
+        }
+        interface OwnershipTransferredEvent {
+            from: string;
+            to: string;
+            _event: Event;
+        }
+    }
+}
+/// <amd-module name="@scom/scom-uniswap-v3/contracts/oswap-chainlink-contract/contracts/Owned.json.ts" />
+declare module "@scom/scom-uniswap-v3/contracts/oswap-chainlink-contract/contracts/Owned.json.ts" {
+    const _default_51: {
+        abi: ({
+            inputs: any[];
+            stateMutability: string;
+            type: string;
+            anonymous?: undefined;
+            name?: undefined;
+            outputs?: undefined;
+        } | {
+            anonymous: boolean;
+            inputs: {
+                indexed: boolean;
+                internalType: string;
+                name: string;
+                type: string;
+            }[];
+            name: string;
+            type: string;
+            stateMutability?: undefined;
+            outputs?: undefined;
+        } | {
+            inputs: any[];
+            name: string;
+            outputs: {
+                internalType: string;
+                name: string;
+                type: string;
+            }[];
+            stateMutability: string;
+            type: string;
+            anonymous?: undefined;
+        } | {
+            inputs: {
+                internalType: string;
+                name: string;
+                type: string;
+            }[];
+            name: string;
+            outputs: any[];
+            stateMutability: string;
+            type: string;
+            anonymous?: undefined;
+        })[];
+        bytecode: string;
+    };
+    export default _default_51;
+}
+/// <amd-module name="@scom/scom-uniswap-v3/contracts/oswap-chainlink-contract/contracts/Owned.ts" />
+declare module "@scom/scom-uniswap-v3/contracts/oswap-chainlink-contract/contracts/Owned.ts" {
+    import { IWallet, Contract as _Contract, TransactionReceipt, Event, TransactionOptions } from "@ijstech/eth-contract";
+    export class Owned extends _Contract {
+        static _abi: any;
+        constructor(wallet: IWallet, address?: string);
+        deploy(options?: TransactionOptions): Promise<string>;
+        parseOwnershipTransferRequestedEvent(receipt: TransactionReceipt): Owned.OwnershipTransferRequestedEvent[];
+        decodeOwnershipTransferRequestedEvent(event: Event): Owned.OwnershipTransferRequestedEvent;
+        parseOwnershipTransferredEvent(receipt: TransactionReceipt): Owned.OwnershipTransferredEvent[];
+        decodeOwnershipTransferredEvent(event: Event): Owned.OwnershipTransferredEvent;
+        acceptOwnership: {
+            (options?: TransactionOptions): Promise<TransactionReceipt>;
+            call: (options?: TransactionOptions) => Promise<void>;
+        };
+        owner: {
+            (options?: TransactionOptions): Promise<string>;
+        };
+        transferOwnership: {
+            (to: string, options?: TransactionOptions): Promise<TransactionReceipt>;
+            call: (to: string, options?: TransactionOptions) => Promise<void>;
+        };
+        private assign;
+    }
+    export module Owned {
+        interface OwnershipTransferRequestedEvent {
+            from: string;
+            to: string;
+            _event: Event;
+        }
+        interface OwnershipTransferredEvent {
+            from: string;
+            to: string;
+            _event: Event;
+        }
+    }
+}
+/// <amd-module name="@scom/scom-uniswap-v3/contracts/oswap-chainlink-contract/contracts/index.ts" />
+declare module "@scom/scom-uniswap-v3/contracts/oswap-chainlink-contract/contracts/index.ts" {
+    export { AggregatorProxy } from "@scom/scom-uniswap-v3/contracts/oswap-chainlink-contract/contracts/AggregatorProxy.ts";
+    export { EACAggregatorProxy } from "@scom/scom-uniswap-v3/contracts/oswap-chainlink-contract/contracts/EACAggregatorProxy.ts";
+    export { Owned } from "@scom/scom-uniswap-v3/contracts/oswap-chainlink-contract/contracts/Owned.ts";
+}
+/// <amd-module name="@scom/scom-uniswap-v3/contracts/oswap-chainlink-contract/index.ts" />
+declare module "@scom/scom-uniswap-v3/contracts/oswap-chainlink-contract/index.ts" {
+    export * as Contracts from "@scom/scom-uniswap-v3/contracts/oswap-chainlink-contract/contracts/index.ts";
+}
+/// <amd-module name="@scom/scom-uniswap-v3/contracts/scom-commission-proxy-contract/contracts/Proxy.json.ts" />
+declare module "@scom/scom-uniswap-v3/contracts/scom-commission-proxy-contract/contracts/Proxy.json.ts" {
+    const _default_52: {
         abi: ({
             anonymous: boolean;
             inputs: {
@@ -9984,10 +10429,10 @@ declare module "@scom/scom-swap/contracts/scom-commission-proxy-contract/contrac
         })[];
         bytecode: string;
     };
-    export default _default_49;
+    export default _default_52;
 }
-/// <amd-module name="@scom/scom-swap/contracts/scom-commission-proxy-contract/contracts/Proxy.ts" />
-declare module "@scom/scom-swap/contracts/scom-commission-proxy-contract/contracts/Proxy.ts" {
+/// <amd-module name="@scom/scom-uniswap-v3/contracts/scom-commission-proxy-contract/contracts/Proxy.ts" />
+declare module "@scom/scom-uniswap-v3/contracts/scom-commission-proxy-contract/contracts/Proxy.ts" {
     import { IWallet, Contract as _Contract, TransactionReceipt, BigNumber, Event, TransactionOptions } from "@ijstech/eth-contract";
     export interface IClaimantIdsParams {
         param1: string;
@@ -10145,9 +10590,9 @@ declare module "@scom/scom-swap/contracts/scom-commission-proxy-contract/contrac
         }
     }
 }
-/// <amd-module name="@scom/scom-swap/contracts/scom-commission-proxy-contract/contracts/ProxyV2.json.ts" />
-declare module "@scom/scom-swap/contracts/scom-commission-proxy-contract/contracts/ProxyV2.json.ts" {
-    const _default_50: {
+/// <amd-module name="@scom/scom-uniswap-v3/contracts/scom-commission-proxy-contract/contracts/ProxyV2.json.ts" />
+declare module "@scom/scom-uniswap-v3/contracts/scom-commission-proxy-contract/contracts/ProxyV2.json.ts" {
+    const _default_53: {
         abi: ({
             anonymous: boolean;
             inputs: {
@@ -10236,10 +10681,10 @@ declare module "@scom/scom-swap/contracts/scom-commission-proxy-contract/contrac
         })[];
         bytecode: string;
     };
-    export default _default_50;
+    export default _default_53;
 }
-/// <amd-module name="@scom/scom-swap/contracts/scom-commission-proxy-contract/contracts/ProxyV2.ts" />
-declare module "@scom/scom-swap/contracts/scom-commission-proxy-contract/contracts/ProxyV2.ts" {
+/// <amd-module name="@scom/scom-uniswap-v3/contracts/scom-commission-proxy-contract/contracts/ProxyV2.ts" />
+declare module "@scom/scom-uniswap-v3/contracts/scom-commission-proxy-contract/contracts/ProxyV2.ts" {
     import { IWallet, Contract as _Contract, TransactionReceipt, BigNumber, Event, TransactionOptions } from "@ijstech/eth-contract";
     export interface IClaimantIdsParams {
         param1: string;
@@ -10399,14 +10844,14 @@ declare module "@scom/scom-swap/contracts/scom-commission-proxy-contract/contrac
         }
     }
 }
-/// <amd-module name="@scom/scom-swap/contracts/scom-commission-proxy-contract/contracts/index.ts" />
-declare module "@scom/scom-swap/contracts/scom-commission-proxy-contract/contracts/index.ts" {
-    export { Proxy } from "@scom/scom-swap/contracts/scom-commission-proxy-contract/contracts/Proxy.ts";
-    export { ProxyV2 } from "@scom/scom-swap/contracts/scom-commission-proxy-contract/contracts/ProxyV2.ts";
+/// <amd-module name="@scom/scom-uniswap-v3/contracts/scom-commission-proxy-contract/contracts/index.ts" />
+declare module "@scom/scom-uniswap-v3/contracts/scom-commission-proxy-contract/contracts/index.ts" {
+    export { Proxy } from "@scom/scom-uniswap-v3/contracts/scom-commission-proxy-contract/contracts/Proxy.ts";
+    export { ProxyV2 } from "@scom/scom-uniswap-v3/contracts/scom-commission-proxy-contract/contracts/ProxyV2.ts";
 }
-/// <amd-module name="@scom/scom-swap/contracts/scom-commission-proxy-contract/index.ts" />
-declare module "@scom/scom-swap/contracts/scom-commission-proxy-contract/index.ts" {
-    import * as Contracts from "@scom/scom-swap/contracts/scom-commission-proxy-contract/contracts/index.ts";
+/// <amd-module name="@scom/scom-uniswap-v3/contracts/scom-commission-proxy-contract/index.ts" />
+declare module "@scom/scom-uniswap-v3/contracts/scom-commission-proxy-contract/index.ts" {
+    import * as Contracts from "@scom/scom-uniswap-v3/contracts/scom-commission-proxy-contract/contracts/index.ts";
     export { Contracts };
     import { IWallet } from '@ijstech/eth-wallet';
     export interface IDeployOptions {
@@ -10418,23 +10863,23 @@ declare module "@scom/scom-swap/contracts/scom-commission-proxy-contract/index.t
     export var DefaultDeployOptions: IDeployOptions;
     export function deploy(wallet: IWallet, options?: IDeployOptions): Promise<IDeployResult>;
     export function onProgress(handler: any): void;
-    const _default_51: {
+    const _default_54: {
         Contracts: typeof Contracts;
         deploy: typeof deploy;
         DefaultDeployOptions: IDeployOptions;
         onProgress: typeof onProgress;
     };
-    export default _default_51;
+    export default _default_54;
 }
-/// <amd-module name="@scom/scom-swap/swap-utils/helper.ts" />
-declare module "@scom/scom-swap/swap-utils/helper.ts" {
+/// <amd-module name="@scom/scom-uniswap-v3/swap-utils/helper.ts" />
+declare module "@scom/scom-uniswap-v3/swap-utils/helper.ts" {
     import { Control } from "@ijstech/components";
     export function debounce(func: any, timeout: number, target: Control): (...args: any) => void;
 }
-/// <amd-module name="@scom/scom-swap/swap-utils/index.ts" />
-declare module "@scom/scom-swap/swap-utils/index.ts" {
+/// <amd-module name="@scom/scom-uniswap-v3/swap-utils/index.ts" />
+declare module "@scom/scom-uniswap-v3/swap-utils/index.ts" {
     import { BigNumber, TransactionReceipt } from "@ijstech/eth-wallet";
-    import { ITokenObject, IERC20ApprovalEventOptions, QueueType, ICommissionInfo } from "@scom/scom-swap/global/index.ts";
+    import { ITokenObject, IERC20ApprovalEventOptions, QueueType, ICommissionInfo } from "@scom/scom-uniswap-v3/global/index.ts";
     interface TradeFee {
         fee: string;
         base: string;
@@ -10466,49 +10911,195 @@ declare module "@scom/scom-swap/swap-utils/index.ts" {
         error: Record<string, string> | null;
     }>;
     const setERC20AllowanceToZero: (token: ITokenObject, spenderAddress: string) => Promise<import("@ijstech/eth-contract").TransactionReceipt>;
-    const getApprovalModelAction: (options: IERC20ApprovalEventOptions) => Promise<import("@scom/scom-swap/global/index.ts").IERC20ApprovalAction>;
+    const getApprovalModelAction: (options: IERC20ApprovalEventOptions) => Promise<import("@scom/scom-uniswap-v3/global/index.ts").IERC20ApprovalAction>;
     const setApprovalModalSpenderAddress: (market: string, contractAddress?: string) => void;
+    export const getTokenPrice: (token: string) => Promise<string>;
     export { getExtendedRouteObjData, getTradeFeeMap, getAllRoutesData, SwapData, executeSwap, getChainNativeToken, getRouterAddress, setERC20AllowanceToZero, getApprovalModelAction, setApprovalModalSpenderAddress };
-    export * from "@scom/scom-swap/swap-utils/helper.ts";
+    export * from "@scom/scom-uniswap-v3/swap-utils/helper.ts";
 }
-/// <amd-module name="@scom/scom-swap/price-info/priceInfo.css.ts" />
-declare module "@scom/scom-swap/price-info/priceInfo.css.ts" { }
-/// <amd-module name="@scom/scom-swap/price-info/index.tsx" />
-declare module "@scom/scom-swap/price-info/index.tsx" {
-    import { Module, Control, ControlElement, Icon, Container } from '@ijstech/components';
-    import "@scom/scom-swap/price-info/priceInfo.css.ts";
+/// <amd-module name="@scom/scom-uniswap-v3/common/alert/index.css.ts" />
+declare module "@scom/scom-uniswap-v3/common/alert/index.css.ts" {
+    const _default_55: string;
+    export default _default_55;
+}
+/// <amd-module name="@scom/scom-uniswap-v3/common/alert/index.tsx" />
+declare module "@scom/scom-uniswap-v3/common/alert/index.tsx" {
+    import { Module, ControlElement, Container } from '@ijstech/components';
     global {
         namespace JSX {
             interface IntrinsicElements {
-                ['i-scom-swap-price-info']: ControlElement;
+                ['i-scom-uniswap-alert']: ControlElement;
+            }
+        }
+    }
+    export interface IMessage {
+        status: 'warning' | 'success' | 'error';
+        content?: any;
+        txtHash?: string;
+        obj?: any;
+    }
+    export class Alert extends Module {
+        private confirmModal;
+        private mainContent;
+        private _message;
+        onCustomClose: any;
+        get message(): IMessage;
+        set message(value: IMessage);
+        constructor(parent?: Container, options?: any);
+        init(): Promise<void>;
+        closeModal(): void;
+        showModal(): void;
+        buildLink(): Promise<void>;
+        renderUI(): Promise<void>;
+        onErrMsgChanged(): Promise<any>;
+        render(): any;
+    }
+}
+/// <amd-module name="@scom/scom-uniswap-v3/common/price-info/priceInfo.css.ts" />
+declare module "@scom/scom-uniswap-v3/common/price-info/priceInfo.css.ts" {
+    export const borderStyle: string;
+}
+/// <amd-module name="@scom/scom-uniswap-v3/common/price-info/index.tsx" />
+declare module "@scom/scom-uniswap-v3/common/price-info/index.tsx" {
+    import { Module, ControlElement, Container } from '@ijstech/components';
+    interface IPriceInfo {
+        isBorderShown?: boolean;
+        rate: string;
+        networkFee: string;
+        routing: string;
+        detail: {
+            title: string;
+            value: string;
+            tooltip?: string;
+        }[];
+    }
+    global {
+        namespace JSX {
+            interface IntrinsicElements {
+                ['i-scom-uniswap-price-info']: ControlElement;
             }
         }
     }
     export class PriceInfo extends Module {
-        private priceContent;
+        private lbRate;
+        private lbNetworkFee;
+        private iconDetail;
+        private iconArrow;
+        private vStackDetail;
+        private vStackInfo;
+        private lbRouting;
+        private hStackRouting;
+        private hStackCollapse;
+        private pnlDivider;
         private _items;
-        onTogglePrice: any;
+        private _isBorderShown;
+        toggleRate: () => void;
+        private isInitialized;
         constructor(parent?: Container, options?: any);
-        get Items(): any[];
-        set Items(value: any[]);
-        renderItems: () => Promise<void>;
-        onRenderToggleBtn: (parent: Control) => Icon;
-        renderIconTooltip: (parent: Control, item: any) => Promise<Icon>;
-        updateItems: () => Promise<void>;
+        get items(): IPriceInfo;
+        set items(value: IPriceInfo);
+        get isBorderShown(): boolean;
+        set isBorderShown(value: boolean);
+        private renderItems;
+        private onCollapse;
+        private updateBorder;
+        private onToggleRate;
         init(): void;
         render(): any;
     }
 }
-/// <amd-module name="@scom/scom-swap/token-selection/tokenSelection.css.ts" />
-declare module "@scom/scom-swap/token-selection/tokenSelection.css.ts" { }
-/// <amd-module name="@scom/scom-swap/token-selection/importToken.tsx" />
-declare module "@scom/scom-swap/token-selection/importToken.tsx" {
-    import { Control, ControlElement, Module, Container } from '@ijstech/components';
-    import { ITokenObject } from "@scom/scom-swap/global/index.ts";
+/// <amd-module name="@scom/scom-uniswap-v3/common/transaction-settings/index.css.ts" />
+declare module "@scom/scom-uniswap-v3/common/transaction-settings/index.css.ts" {
+    const _default_56: string;
+    export default _default_56;
+}
+/// <amd-module name="@scom/scom-uniswap-v3/common/transaction-settings/index.tsx" />
+declare module "@scom/scom-uniswap-v3/common/transaction-settings/index.tsx" {
+    import { Module, Container, ControlElement } from '@ijstech/components';
     global {
         namespace JSX {
             interface IntrinsicElements {
-                ['i-scom-swap-import-token']: ControlElement;
+                ['i-scom-uniswap-transaction-settings']: ControlElement;
+            }
+        }
+    }
+    export class TransactionSettings extends Module {
+        private transactionModal;
+        private slippageGroup;
+        private slippageInput;
+        private deadlineInput;
+        private deadlineGroup;
+        private deadlineMessage;
+        private warningIcon;
+        private switchRouter;
+        private vStackOptions;
+        private chbAPI;
+        private chbClient;
+        private $eventBus;
+        private slippageToleranceMessage;
+        routerChanged: () => void;
+        constructor(parent?: Container, options?: any);
+        private onRenderSlippage;
+        private onRenderWarningElm;
+        private onActiveItem;
+        private onSelectSlippage;
+        private inputSlippageTolerance;
+        private blurSlippageTolerance;
+        private setSlippageToleranceMessage;
+        private inputDeadline;
+        private blurTransactionDeadline;
+        private toggleRouterAuto;
+        private checkAPIOrClient;
+        private setDefaultTransactionSettings;
+        init(): Promise<void>;
+        closeModal(): void;
+        showModal(): void;
+        render(): any;
+    }
+}
+/// <amd-module name="@scom/scom-uniswap-v3/common/expert-mode-settings/index.css.ts" />
+declare module "@scom/scom-uniswap-v3/common/expert-mode-settings/index.css.ts" {
+    const _default_57: string;
+    export default _default_57;
+}
+/// <amd-module name="@scom/scom-uniswap-v3/common/expert-mode-settings/index.tsx" />
+declare module "@scom/scom-uniswap-v3/common/expert-mode-settings/index.tsx" {
+    import { Module, Container, ControlElement } from '@ijstech/components';
+    global {
+        namespace JSX {
+            interface IntrinsicElements {
+                ['i-scom-uniswap-expert-mode-settings']: ControlElement;
+            }
+        }
+    }
+    export class ExpertModeSettings extends Module {
+        private expertModal;
+        private $eventBus;
+        constructor(parent?: Container, options?: any);
+        init(): Promise<void>;
+        closeModal(): void;
+        showModal(): void;
+        onToggle(): void;
+        render(): any;
+    }
+}
+/// <amd-module name="@scom/scom-uniswap-v3/common/index.ts" />
+declare module "@scom/scom-uniswap-v3/common/index.ts" {
+    export { Alert } from "@scom/scom-uniswap-v3/common/alert/index.tsx";
+    export { PriceInfo } from "@scom/scom-uniswap-v3/common/price-info/index.tsx";
+    export { TransactionSettings } from "@scom/scom-uniswap-v3/common/transaction-settings/index.tsx";
+    export { ExpertModeSettings } from "@scom/scom-uniswap-v3/common/expert-mode-settings/index.tsx";
+}
+/// <amd-module name="@scom/scom-uniswap-v3/token-selection/tokenSelection.css.ts" />
+declare module "@scom/scom-uniswap-v3/token-selection/tokenSelection.css.ts" { }
+/// <amd-module name="@scom/scom-uniswap-v3/token-selection/importToken.tsx" />
+declare module "@scom/scom-uniswap-v3/token-selection/importToken.tsx" {
+    import { Control, ControlElement, Module, Container } from '@ijstech/components';
+    import { ITokenObject } from "@scom/scom-uniswap-v3/global/index.ts";
+    global {
+        namespace JSX {
+            interface IntrinsicElements {
+                ['i-scom-uniswap-import-token']: ControlElement;
             }
         }
     }
@@ -10533,11 +11124,11 @@ declare module "@scom/scom-swap/token-selection/importToken.tsx" {
         render(): any;
     }
 }
-/// <amd-module name="@scom/scom-swap/token-selection/tokenSelection.tsx" />
-declare module "@scom/scom-swap/token-selection/tokenSelection.tsx" {
+/// <amd-module name="@scom/scom-uniswap-v3/token-selection/tokenSelection.tsx" />
+declare module "@scom/scom-uniswap-v3/token-selection/tokenSelection.tsx" {
     import { Module, ControlElement, Container } from '@ijstech/components';
-    import { ITokenObject } from "@scom/scom-swap/global/index.ts";
-    import "@scom/scom-swap/token-selection/tokenSelection.css.ts";
+    import { ITokenObject } from "@scom/scom-uniswap-v3/global/index.ts";
+    import "@scom/scom-uniswap-v3/token-selection/tokenSelection.css.ts";
     interface TokenSelectionElement extends ControlElement {
         disableSelect?: boolean;
         disabledMaxBtn?: boolean;
@@ -10545,7 +11136,7 @@ declare module "@scom/scom-swap/token-selection/tokenSelection.tsx" {
     global {
         namespace JSX {
             interface IntrinsicElements {
-                ['i-scom-swap-token-selection']: TokenSelectionElement;
+                ['i-scom-uniswap-token-selection']: TokenSelectionElement;
             }
         }
     }
@@ -10629,137 +11220,14 @@ declare module "@scom/scom-swap/token-selection/tokenSelection.tsx" {
         render(): any;
     }
 }
-/// <amd-module name="@scom/scom-swap/token-selection/index.tsx" />
-declare module "@scom/scom-swap/token-selection/index.tsx" {
-    export { TokenSelection } from "@scom/scom-swap/token-selection/tokenSelection.tsx";
-    export { ImportToken } from "@scom/scom-swap/token-selection/importToken.tsx";
+/// <amd-module name="@scom/scom-uniswap-v3/token-selection/index.tsx" />
+declare module "@scom/scom-uniswap-v3/token-selection/index.tsx" {
+    export { TokenSelection } from "@scom/scom-uniswap-v3/token-selection/tokenSelection.tsx";
+    export { ImportToken } from "@scom/scom-uniswap-v3/token-selection/importToken.tsx";
 }
-/// <amd-module name="@scom/scom-swap/result/result.css.ts" />
-declare module "@scom/scom-swap/result/result.css.ts" {
-    const _default_52: string;
-    export default _default_52;
-}
-/// <amd-module name="@scom/scom-swap/result/result.tsx" />
-declare module "@scom/scom-swap/result/result.tsx" {
-    import { Module, ControlElement, Container } from '@ijstech/components';
-    global {
-        namespace JSX {
-            interface IntrinsicElements {
-                ['i-scom-swap-result']: ControlElement;
-            }
-        }
-    }
-    export interface IMessage {
-        status: 'warning' | 'success' | 'error';
-        content?: any;
-        txtHash?: string;
-        obj?: any;
-        customRedirect?: any;
-    }
-    export class Result extends Module {
-        private confirmModal;
-        private mainContent;
-        private _message;
-        onCustomClose: any;
-        get message(): IMessage;
-        set message(value: IMessage);
-        constructor(parent?: Container, options?: any);
-        init(): Promise<void>;
-        closeModal(): void;
-        showModal(): void;
-        onCloseRedirect(): void;
-        buildLink(): Promise<void>;
-        renderUI(): Promise<void>;
-        onErrMsgChanged(): Promise<any>;
-        render(): any;
-    }
-}
-/// <amd-module name="@scom/scom-swap/result/index.tsx" />
-declare module "@scom/scom-swap/result/index.tsx" {
-    export { Result } from "@scom/scom-swap/result/result.tsx";
-}
-/// <amd-module name="@scom/scom-swap/expert-mode-settings/index.css.ts" />
-declare module "@scom/scom-swap/expert-mode-settings/index.css.ts" {
-    const _default_53: string;
-    export default _default_53;
-}
-/// <amd-module name="@scom/scom-swap/expert-mode-settings/index.tsx" />
-declare module "@scom/scom-swap/expert-mode-settings/index.tsx" {
-    import { Module, Container, ControlElement } from '@ijstech/components';
-    global {
-        namespace JSX {
-            interface IntrinsicElements {
-                ['i-scom-swap-expert-mode-settings']: ControlElement;
-            }
-        }
-    }
-    export class ExpertModeSettings extends Module {
-        private expertModal;
-        private $eventBus;
-        constructor(parent?: Container, options?: any);
-        init(): Promise<void>;
-        closeModal(): void;
-        showModal(): void;
-        onToggle(): void;
-        render(): any;
-    }
-}
-/// <amd-module name="@scom/scom-swap/config/index.css.ts" />
-declare module "@scom/scom-swap/config/index.css.ts" {
-    export const customStyle: string;
-    export const tableStyle: string;
-}
-/// <amd-module name="@scom/scom-swap/config/index.tsx" />
-declare module "@scom/scom-swap/config/index.tsx" {
-    import { Module, ControlElement } from '@ijstech/components';
-    import { IExtendedNetwork, ICommissionInfo, IEmbedData } from "@scom/scom-swap/global/index.ts";
-    export interface ISupportedNetworks {
-        chainId: number;
-    }
-    interface ScomSwapConfigElement extends ControlElement {
-        commissions?: ICommissionInfo;
-    }
-    global {
-        namespace JSX {
-            interface IntrinsicElements {
-                ['i-scom-swap-config']: ScomSwapConfigElement;
-            }
-        }
-    }
-    export default class Config extends Module {
-        private tableCommissions;
-        private modalAddCommission;
-        private networkPicker;
-        private inputWalletAddress;
-        private lbCommissionShare;
-        private btnAddWallet;
-        private pnlEmptyWallet;
-        private commissionInfoList;
-        private commissionsTableColumns;
-        private btnConfirm;
-        private lbErrMsg;
-        private _onCustomCommissionsChanged;
-        init(): Promise<void>;
-        get data(): IEmbedData;
-        set data(config: IEmbedData);
-        get onCustomCommissionsChanged(): (data: any) => Promise<void>;
-        set onCustomCommissionsChanged(value: (data: any) => Promise<void>);
-        getSupportedChainIds(): {
-            chainId: number;
-        }[];
-        onModalAddCommissionClosed(): void;
-        onAddCommissionClicked(): void;
-        onConfirmCommissionClicked(): Promise<void>;
-        validateModalFields(): boolean;
-        onNetworkSelected(network: IExtendedNetwork): void;
-        onInputWalletAddressChanged(): void;
-        private toggleVisible;
-        render(): any;
-    }
-}
-/// <amd-module name="@scom/scom-swap/data.json.ts" />
-declare module "@scom/scom-swap/data.json.ts" {
-    const _default_54: {
+/// <amd-module name="@scom/scom-uniswap-v3/data.json.ts" />
+declare module "@scom/scom-uniswap-v3/data.json.ts" {
+    const _default_58: {
         infuraId: string;
         networks: ({
             chainId: number;
@@ -10813,17 +11281,17 @@ declare module "@scom/scom-swap/data.json.ts" {
             showFooter: boolean;
         };
     };
-    export default _default_54;
+    export default _default_58;
 }
-/// <amd-module name="@scom/scom-swap" />
-declare module "@scom/scom-swap" {
+/// <amd-module name="@scom/scom-uniswap-v3" />
+declare module "@scom/scom-uniswap-v3" {
     import { Module, Container, ControlElement } from '@ijstech/components';
     import { BigNumber } from '@ijstech/eth-wallet';
-    import "@scom/scom-swap/index.css.ts";
-    import { ITokenObject, IProviderUI, Category, ICommissionInfo, INetworkConfig } from "@scom/scom-swap/global/index.ts";
-    import Config from "@scom/scom-swap/config/index.tsx";
+    import "@scom/scom-uniswap-v3/index.css.ts";
+    import { ITokenObject, ApprovalStatus, ISwapConfigUI, IProviderUI, Category, ICommissionInfo, INetworkConfig } from "@scom/scom-uniswap-v3/global/index.ts";
     import { IWalletPlugin } from '@scom/scom-wallet-modal';
-    interface ScomSwapElement extends ControlElement {
+    import ScomCommissionFeeSetup from '@scom/scom-commission-fee-setup';
+    interface ScomUniswapV3Element extends ControlElement {
         lazyLoad?: boolean;
         category: Category;
         providers: IProviderUI[];
@@ -10836,45 +11304,37 @@ declare module "@scom/scom-swap" {
     global {
         namespace JSX {
             interface IntrinsicElements {
-                ["i-scom-swap"]: ScomSwapElement;
+                ['i-scom-uniswap-v3']: ScomUniswapV3Element;
             }
         }
     }
-    export default class ScomSwap extends Module {
+    export default class ScomUniswapV3 extends Module {
         private _data;
         tag: any;
         defaultEdit: boolean;
         private swapComponent;
-        private swapContainer;
         private pnlPriceInfo;
-        private wrapperSwap;
         private isInited;
         private payBalance;
         private receiveBalance;
+        private payUSD;
+        private receiveUSD;
         private firstTokenSelection;
         private secondTokenSelection;
         private payCol;
         private receiveCol;
         private swapModal;
-        private pnlReceive;
-        private lbBestPrice;
-        private lbRouting;
         private priceInfo;
         private priceInfo2;
         private priceInfoContainer;
         private fromTokenImage;
-        private fromTokenLabel;
         private fromTokenValue;
         private toTokenImage;
-        private toTokenLabel;
         private toTokenValue;
-        private payOrReceiveValue;
-        private payOrReceiveToken;
-        private openswapResult;
-        private maxButton;
-        private swapBtn;
-        private lbYouPayTitle;
-        private lbYouPayValue;
+        private lbPayUSD;
+        private lbReceiveUSD;
+        private uniswapAlert;
+        private btnSwap;
         private mdWallet;
         private dappContainer;
         private isFrom;
@@ -10892,29 +11352,15 @@ declare module "@scom/scom-swap" {
         private supportedChainIds;
         private swapButtonStatusMap;
         private approveButtonStatusMap;
-        private timer;
         private $eventBus;
-        private lbEstimate;
-        private lbPayOrReceive;
         private approvalModelAction;
         private toggleReverseImage;
-        private oldSupportedChainList;
-        private supportedChainList;
-        private srcChain;
-        private desChain;
-        private targetChainId;
-        private srcChainFirstPanel;
-        private targetChainFirstPanel;
         private swapModalConfirmBtn;
-        private modalFees;
-        private feesInfo;
-        private lbReminderRejected;
         private expertModal;
-        private networkErrModal;
-        private supportedNetworksElm;
-        private configDApp;
+        private transactionModal;
         private contractAddress;
-        static create(options?: ScomSwapElement, parent?: Container): Promise<ScomSwap>;
+        private uniswapAPI;
+        static create(options?: ScomUniswapV3Element, parent?: Container): Promise<ScomUniswapV3>;
         get category(): Category;
         set category(value: Category);
         get providers(): IProviderUI[];
@@ -10929,7 +11375,6 @@ declare module "@scom/scom-swap" {
         set networks(value: INetworkConfig[]);
         get showHeader(): boolean;
         set showHeader(value: boolean);
-        set width(value: string | number);
         private get hasData();
         private getActions;
         private _getActions;
@@ -10953,8 +11398,13 @@ declare module "@scom/scom-swap" {
                 data: any;
             };
             setLinkParams: (params: any) => Promise<void>;
-            bindOnChanged: (element: Config, callback: (data: any) => Promise<void>) => void;
-            getData: any;
+            bindOnChanged: (element: ScomCommissionFeeSetup, callback: (data: any) => Promise<void>) => void;
+            getData: () => {
+                fee: string;
+                then<TResult1 = ISwapConfigUI, TResult2 = never>(onfulfilled?: (value: ISwapConfigUI) => TResult1 | PromiseLike<TResult1>, onrejected?: (reason: any) => TResult2 | PromiseLike<TResult2>): Promise<TResult1 | TResult2>;
+                catch<TResult = never>(onrejected?: (reason: any) => TResult | PromiseLike<TResult>): Promise<ISwapConfigUI | TResult>;
+                [Symbol.toStringTag]: string;
+            };
             setData: any;
             getTag: any;
             setTag: any;
@@ -10982,7 +11432,7 @@ declare module "@scom/scom-swap" {
         get isInsufficientBalance(): boolean;
         get maxSold(): BigNumber;
         get isSwapping(): boolean;
-        get approveButtonStatus(): any;
+        get approveButtonStatus(): ApprovalStatus;
         get isApprovingRouter(): boolean;
         get isValidToken(): boolean;
         private redirectToken;
@@ -10993,35 +11443,34 @@ declare module "@scom/scom-swap" {
         private initApprovalModelAction;
         private onRevertSwap;
         private totalAmount;
-        private setupCrossChainPopup;
         private handleSwapPopup;
         private doSwap;
         private getMinReceivedMaxSold;
+        private updateUSDPrice;
         private onUpdateToken;
         private onSelectToken;
         private setApprovalSpenderAddress;
         private getInputValue;
         private updateTokenInput;
-        private addToMetamask;
         private onSelectRouteItem;
         private onTokenInputChange;
         private resetValuesByInput;
         private initRoutes;
         private handleAddRoute;
         private getPricePercent;
-        private onTogglePrice;
         private getRate;
         private getPriceImpact;
         private getMinimumReceived;
         private getTradeFeeExactAmount;
-        private getFeeDetails;
         private getPriceInfo;
         private onUpdateEstimatedPosition;
         private isEstimated;
         private getBalance;
         private updateBalance;
-        private setSwapButtonText;
-        private getSwapButtonText;
+        private setEnableInput;
+        private updateSwapButton;
+        private updateSwapButtonCaption;
+        private determineSwapButtonCaption;
         private getWarningMessageText;
         private setMapStatus;
         private onSwapConfirming;
@@ -11031,17 +11480,12 @@ declare module "@scom/scom-swap" {
         private onClickSwapButton;
         private onSubmit;
         private onApproveRouterMax;
-        private onSetMaxBalance;
-        private isMaxDisabled;
         private onRenderPriceInfo;
-        get isMetaMask(): boolean;
-        private setTargetTokenList;
-        private showModalFees;
-        private closeModalFees;
-        private showResultMessage;
+        private showAlertMessage;
+        private initAlert;
         private initExpertModal;
-        private closeNetworkErrModal;
-        private resizeLayout;
+        private initTransactionSettings;
+        private showSettings;
         private initData;
         init(): Promise<void>;
         render(): any;

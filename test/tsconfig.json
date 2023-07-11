@@ -13,7 +13,7 @@
         "paths": {
             "@ijstech/components": ["node_modules/@ijstech/components"],
             "@modules/*": ["modules/*"],
-            "@scom/scom-swap": ["ref"]
+            "@scom/scom-uniswap-v3": ["ref"]
         }
     },
     "include": ["modules/**/*.ts","modules/**/*.tsx"],

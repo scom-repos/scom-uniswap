@@ -30,12 +30,12 @@ declare const window: any;
 declare global {
   namespace JSX {
     interface IntrinsicElements {
-      ['i-scom-swap-token-selection']: TokenSelectionElement;
+      ['i-scom-uniswap-token-selection']: TokenSelectionElement;
     }
   }
 };
 
-@customElements('i-scom-swap-token-selection')
+@customElements('i-scom-uniswap-token-selection')
 export class TokenSelection extends Module {
   private _token?: ITokenObject;
   private _targetChainId: number;
@@ -384,7 +384,7 @@ export class TokenSelection extends Module {
                 </i-hstack>
               </i-panel>
             </i-hstack>
-            <i-label class="ml-auto" caption={formatNumber(token.balance, 4)} onClick={() => this.onSelect(token)}/>
+            <i-label margin={{ left: 'auto' }} caption={formatNumber(token.balance, 4)} onClick={() => this.onSelect(token)}/>
           </i-hstack>
           {
             token.isNew ? (
@@ -510,8 +510,8 @@ export class TokenSelection extends Module {
         const logoAddress = token.address && !this.targetChainId ? getTokenIcon(token.address) : tokenAssets.tokenPath(token, this.chainId);
         if (!image) {
           image = new Image(btnToken, {
-            width: 20,
-            height: 20,
+            width: 24,
+            height: 24,
             fallbackUrl: tokenAssets.fallbackUrl
           });
           btnToken.prepend(image);
@@ -566,10 +566,20 @@ export class TokenSelection extends Module {
 
   render() {
     return (
-      <i-panel class='token-selection'>
+      <i-panel class="token-selection">
         <i-panel class="flex">
           <i-button id="btnMax" enabled={false} class="custom-btn hidden" caption="Max" onClick={() => this.onSetMaxBalance()} />
-          <i-button id="btnToken" enabled={false} class="custom-btn" rightIcon={{ name: "caret-down", fill: Theme.text.primary }} caption="Select Token" onClick={() => this.showModal()} />
+          <i-button
+            id="btnToken"
+            enabled={false}
+            width="max-content"
+            class="custom-btn"
+            font={{ size: '1.125rem' }}
+            rightIcon={{ name: 'caret-down', fill: Theme.text.primary }}
+            background={{ color: `${Theme.background.main} !important` }}
+            caption="Select Token"
+            onClick={() => this.showModal()}
+          />
         </i-panel>
         <i-modal id="tokenSelectionModal" class="bg-modal" title="Select Token" closeIcon={{ name: 'times' }} onClose={() => this.onCloseModal()}>
           <i-panel class="search">
@@ -594,7 +604,7 @@ export class TokenSelection extends Module {
           </i-panel>
           <i-grid-layout id="tokenList" class="token-list" columnsPerRow={1}></i-grid-layout>
         </i-modal>
-        <i-scom-swap-import-token id="importTokenModal" />
+        <i-scom-uniswap-import-token id="importTokenModal" />
       </i-panel>
     )
   }

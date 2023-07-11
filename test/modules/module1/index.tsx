@@ -1,14 +1,9 @@
 import { Module, customModule, Container, VStack, Styles } from '@ijstech/components';
-import ScomSwap from '@scom/scom-swap'
+import ScomUniSwap from '@scom/scom-uniswap-v3'
 
-const Theme = Styles.Theme.currentTheme;
-Theme.background.main = '#2c2626';
-Theme.text.primary = '#d3c0c0 ';
-Theme.input.background = '#272F39';
-Theme.input.fontColor = '#ffffff4d';
 @customModule
 export default class Module1 extends Module {
-    private swapEl: ScomSwap;
+    private swapEl: ScomUniSwap;
     private mainStack: VStack;
     private _providers: any[] = [];
 
@@ -49,12 +44,7 @@ export default class Module1 extends Module {
     }
 
     async init() {
-        super.init();
-        // this.swapEl = await ScomSwap.create({
-        //     category: 'aggregator',
-        //     providers: this._providers
-        // });
-        // this.mainStack.appendChild(this.swapEl);
+      super.init();
     }
 
     render() {
@@ -65,7 +55,7 @@ export default class Module1 extends Module {
               margin={{ top: '1rem', left: '1rem' }}
               gap='2rem'
             >
-              <i-scom-swap
+              <i-scom-uniswap-v3
                 category='aggregator'
                 providers={this._providers}
                 tokens={[
@@ -125,7 +115,7 @@ export default class Module1 extends Module {
                   }
                 ]}
                 defaultChainId={43113}
-              ></i-scom-swap>
+              />
             </i-hstack>
           </i-panel>
         )

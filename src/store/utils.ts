@@ -1,6 +1,5 @@
-import { application } from '@ijstech/components';
 import { Wallet } from '@ijstech/eth-wallet';
-import { EventId, IProvider, ITokenObject, TokenMapType, IExtendedNetwork } from '../global/index';
+import { IProvider, ITokenObject, IExtendedNetwork } from '../global/index';
 import { ChainNativeTokenByChainId } from '@scom/scom-token-list';
 import getNetworkList from '@scom/scom-network-list'
 import { IDexInfo } from '@scom/scom-dex-list';
@@ -10,24 +9,26 @@ export enum WalletPlugin {
   WalletConnect = 'walletconnect',
 }
 
-const TOKENS = "oswap_user_tokens_";
+const TOKENS = 'oswap_user_tokens_';
 
 export type ProxyAddresses = { [key: number]: string };
 
 export const state = {
   currentChainId: 0,
+  isAPI: true,
+  isRouterAuto: true,
   isExpertMode: false,
   slippageTolerance: 0.5,
   transactionDeadline: 30,
   userTokens: {} as { [key: string]: ITokenObject[] },
-  infuraId: "",
+  infuraId: '',
   networkMap: {} as { [key: number]: IExtendedNetwork },
   dexInfoList: [] as IDexInfo[],
   providerList: [] as IProvider[],
   proxyAddresses: {} as ProxyAddresses,
-  ipfsGatewayUrl: "",
+  ipfsGatewayUrl: '',
   apiGatewayUrls: {} as Record<string, string>,
-  embedderCommissionFee: "0",
+  embedderCommissionFee: '0',
   tokens: []
 }
 
@@ -93,27 +94,47 @@ export const getCurrentChainId = (): number => {
   return state.currentChainId;
 }
 
+export const isRouterAuto = (): boolean => {
+  return state.isRouterAuto;
+}
+
+export function toggleRouter() {
+  state.isRouterAuto = !state.isRouterAuto;
+}
+
+export function setAPIOrClient(value: boolean) {
+  state.isAPI = value;
+}
+
+export const isAPI = (): boolean => {
+  return state.isAPI || state.isRouterAuto;
+}
+
+export function isClient() {
+  return !state.isAPI && !state.isRouterAuto;
+}
+
 export const isExpertMode = (): boolean => {
   return state.isExpertMode;
 }
 
 export function toggleExpertMode() {
-  state.isExpertMode = !state.isExpertMode
+  state.isExpertMode = !state.isExpertMode;
 }
 
-export const getSlippageTolerance = (): any => {
+export const getSlippageTolerance = () => {
   return state.slippageTolerance
 };
 
-export const setSlippageTolerance = (value: any) => {
+export const setSlippageTolerance = (value: number) => {
   state.slippageTolerance = value
 }
 
-export const getTransactionDeadline = (): any => {
+export const getTransactionDeadline = () => {
   return state.transactionDeadline;
 }
 
-export const setTransactionDeadline = (value: any) => {
+export const setTransactionDeadline = (value: number) => {
   state.transactionDeadline = value
 }
 
@@ -187,38 +208,6 @@ export const addUserTokens = (token: ITokenObject) => {
   localStorage[TOKENS + chainId] = JSON.stringify(tokens);
 }
 
-interface NetworkConditions {
-  isDisabled?: boolean,
-  isTestnet?: boolean,
-  isMainChain?: boolean
-}
-
-function matchFilter<O extends { [keys: string]: any }>(list: O[], filter: Partial<O>): O[] {
-  let filters = Object.keys(filter);
-  return list.filter(item => filters.every(f => {
-    switch (typeof filter[f]) {
-      case 'boolean':
-        if (filter[f] === false) {
-          return item[f] === undefined || item[f] === null;
-        }
-      // also case for filter[f] === true 
-      case 'string':
-      case 'number':
-        return filter[f] === item[f];
-      case 'object': // have not implemented yet
-      default:
-        console.log(`matchFilter do not support ${typeof filter[f]} yet!`)
-        return false;
-    }
-  }));
-}
-
-export const getMatchNetworks = (conditions: NetworkConditions): IExtendedNetwork[] => {
-  let networkFullList = Object.values(state.networkMap);
-  let out = matchFilter(networkFullList, conditions);
-  return out;
-}
-
 export const getNetworkExplorerName = (chainId: number) => {
   if (getNetworkInfo(chainId)) {
     return getNetworkInfo(chainId).explorerName;
@@ -276,26 +265,9 @@ export const viewOnExplorerByAddress = (chainId: number, address: string) => {
 }
 
 // wallet
-export function getWalletProvider() {
-  return localStorage.getItem('walletProvider') || '';
-}
-
 export function isWalletConnected() {
   const wallet = Wallet.getClientInstance();
   return wallet.isConnected;
-}
-
-export async function switchNetwork(chainId: number) {
-  const wallet = Wallet.getClientInstance();
-  if (!isWalletConnected()) {
-    setCurrentChainId(chainId);
-    wallet.chainId = chainId;
-    application.EventBus.dispatch(EventId.chainChanged, chainId);
-    return;
-  }
-  if (wallet?.clientSideProvider?.name === WalletPlugin.MetaMask) {
-    await wallet.switchNetwork(chainId);
-  }
 }
 
 export const hasMetaMask = function () {

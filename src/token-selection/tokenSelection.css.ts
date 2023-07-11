@@ -75,9 +75,6 @@ Styles.cssRule('.token-selection', {
       background: Theme.colors.primary.main,
       borderRadius: '5px',
     },
-    '.ml-auto': {
-      marginLeft: 'auto',
-    },
     '.custom-btn': {
       display: 'flex',
       alignItems: 'center',
@@ -131,6 +128,9 @@ Styles.cssRule('.token-selection', {
         'i-icon': {
           marginLeft: '0.25rem',
         },
+        '&:hover': {
+          opacity: '0.8 !important'
+        }
       }
     },
     '.bg-modal': {

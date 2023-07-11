@@ -14,18 +14,13 @@ export interface IExtendedNetwork extends INetwork {
 };
 
 export const enum EventId {
-  ConnectWallet = 'connectWallet',
   IsWalletConnected = 'isWalletConnected',
   IsWalletDisconnected = 'IsWalletDisconnected',
   Paid = 'Paid',
   chainChanged = 'chainChanged',
-  EmitButtonStatus = 'emitButtonStatus',
-  EmitInput = 'emitInput',
   EmitNewToken = 'emitNewToken',
   SlippageToleranceChanged = 'SlippageToleranceChanged',
   ExpertModeChanged = 'ExpertModeChanged',
-  ShowTransactionModal = 'ShowTransactionModal',
-  ShowExpertModal = 'ShowExpertModal'
 }
 
 export enum QueueType {

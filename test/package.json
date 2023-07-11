@@ -1,19 +1,16 @@
 {
-    "name": "@scom/demo-scom-swap",
+    "name": "@scom/demo-scom-uniswap-v3",
     "version": "0.1.0",
     "engines": {
         "node": ">=18.0.0"
     },
     "dependencies": {
-        "@ijstech/components": "^0.1.57",
-        "@ijstech/eth-wallet": "^0.1.57",
-        "@ijstech/eth-contract": "^0.1.18"
+        "@ijstech/components": "^0.1.57"
     },
     "devDependencies": {
         "@ijstech/cli": "^0.1.33",
         "@ijstech/compiler": "^0.1.41",
-        "@scom/dapp": "^0.1.21",
-        "@scom/scom-swap": "file:./ref"
+        "@scom/scom-uniswap-v3": "file:./ref"
     },
     "scripts": {
         "cp:libs": "rm -rf ref && mkdir ref && cp ../package.json ref/package.json && cp -r ../dist ref/dist && cp -r ../pluginTypes ref/pluginTypes && cp -r ../pluginTypes ref/types",

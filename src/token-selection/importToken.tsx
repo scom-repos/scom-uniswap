@@ -19,12 +19,12 @@ import { tokenStore } from '@scom/scom-token-list';
 declare global {
 	namespace JSX {
 		interface IntrinsicElements {
-			['i-scom-swap-import-token']: ControlElement;
+			['i-scom-uniswap-import-token']: ControlElement;
 		}
 	}
 };
 
-@customElements('i-scom-swap-import-token')
+@customElements('i-scom-uniswap-import-token')
 export class ImportToken extends Module {
   private importModal: Modal;
   private importBtn: Button;

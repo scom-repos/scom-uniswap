@@ -1,5 +1,6 @@
-import { Wallet, BigNumber, Utils, Erc20, TransactionReceipt } from "@ijstech/eth-wallet";
+import { Wallet, BigNumber, Utils, TransactionReceipt } from "@ijstech/eth-wallet";
 import { Contracts } from "../contracts/oswap-openswap-contract/index";
+import { Contracts as UtilsContracts } from "../contracts/oswap-chainlink-contract/index";
 import { Contracts as ProxyContracts } from '../contracts/scom-commission-proxy-contract/index';
 import { executeRouterSwap, getRouterSwapTxData, IExecuteSwapOptions } from '@scom/scom-dex-list';
 
@@ -25,7 +26,9 @@ import {
 
 import {
   WETHByChainId,
-  ChainNativeTokenByChainId
+  ChainNativeTokenByChainId,
+  tokenPriceAMMReference,
+  ToUSDPriceFeedAddressesMap
 } from '@scom/scom-token-list';
 interface TradeFee {
   fee: string
@@ -1052,6 +1055,75 @@ const getApprovalModelAction = async (options: IERC20ApprovalEventOptions) => {
 
 const setApprovalModalSpenderAddress = (market: string, contractAddress?: string) => {
   approvalModel.spenderAddress = contractAddress || getRouterAddress(market);
+}
+
+
+export const getTokenPrice = async (token: string) => { // in USD value
+  let wallet = Wallet.getClientInstance();
+  let chainId = wallet.chainId;
+  let tokenPrice: string;
+
+  // get price from price feed 
+  let tokenPriceFeedAddress = ToUSDPriceFeedAddressesMap[chainId][token.toLowerCase()];
+  if (tokenPriceFeedAddress) {
+    let aggregator = new UtilsContracts.EACAggregatorProxy(wallet, tokenPriceFeedAddress);
+    let [tokenLatestRoundData, tokenPriceFeedDecimals] = await Promise.all([
+      aggregator.latestRoundData(),
+      aggregator.decimals()
+    ]);
+    return tokenLatestRoundData.answer.shiftedBy(-tokenPriceFeedDecimals).toFixed();
+  }
+
+  // get price from AMM
+  let referencePair = tokenPriceAMMReference[chainId][token.toLowerCase()]
+  if (!referencePair) return null;
+  let pair = new Contracts.OSWAP_Pair(wallet, referencePair);
+  let [token0, token1, reserves] = await Promise.all([
+    pair.token0(),
+    pair.token1(),
+    pair.getReserves()
+  ]);
+  let token0PriceFeedAddress = ToUSDPriceFeedAddressesMap[chainId][token0.toLowerCase()]
+  let token1PriceFeedAddress = ToUSDPriceFeedAddressesMap[chainId][token1.toLowerCase()]
+
+  if (token0PriceFeedAddress || token1PriceFeedAddress) {
+    if (token0PriceFeedAddress) {
+      let aggregator = new UtilsContracts.EACAggregatorProxy(wallet, token0PriceFeedAddress);
+      let [token0LatestRoundData, token0PriceFeedDecimals] = await Promise.all([
+        aggregator.latestRoundData(),
+        aggregator.decimals()
+      ]);
+      let token0USDPrice = new BigNumber(token0LatestRoundData.answer).shiftedBy(-token0PriceFeedDecimals).toFixed();
+      if (new BigNumber(token.toLowerCase()).lt(token0.toLowerCase())) {
+        tokenPrice = new BigNumber(reserves._reserve1).div(reserves._reserve0).times(token0USDPrice).toFixed()
+      } else {
+        tokenPrice = new BigNumber(reserves._reserve0).div(reserves._reserve1).times(token0USDPrice).toFixed()
+      }
+    } else {
+      let aggregator = new UtilsContracts.EACAggregatorProxy(wallet, token1PriceFeedAddress);
+      let [token1LatestRoundData,token1PriceFeedDecimals] = await Promise.all([
+        aggregator.latestRoundData(),
+        aggregator.decimals()
+      ]);
+      let token1USDPrice = new BigNumber(token1LatestRoundData.answer).shiftedBy(-token1PriceFeedDecimals).toFixed();
+      if (new BigNumber(token.toLowerCase()).lt(token1.toLowerCase())) {
+        tokenPrice = new BigNumber(reserves._reserve1).div(reserves._reserve0).times(token1USDPrice).toFixed()
+      } else {
+        tokenPrice = new BigNumber(reserves._reserve0).div(reserves._reserve1).times(token1USDPrice).toFixed()
+      }
+    }
+  } else {
+    if (token0.toLowerCase() == token.toLowerCase()) {//for other reference pair
+      let token1Price = await getTokenPrice(token1);
+      if (!token1Price) return null;
+      tokenPrice = new BigNumber(token1Price).times(reserves._reserve1).div(reserves._reserve0).toFixed()
+    } else {
+      let token0Price = await getTokenPrice(token0);
+      if (!token0Price) return null;
+      tokenPrice = new BigNumber(token0Price).times(reserves._reserve0).div(reserves._reserve1).toFixed()
+    }
+  }
+  return tokenPrice;
 }
 
 export {
