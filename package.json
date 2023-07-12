@@ -10,8 +10,7 @@
   },
   "scripts": {
     "copy": "sh ./scripts/copy.sh",
-    "cp:test": "cp dist/index.js test/dist/libs/@scom/scom-uniswap-v3",
-    "build": "rm -rf dist && npx @ijstech/compiler && npm run cp:test",
+    "build": "rm -rf dist && npx @ijstech/compiler",
     "serve": "npx @ijstech/cli serve 8080",
     "test": "cd test && npm run test && cd .."
   },
