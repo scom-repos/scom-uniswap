@@ -10871,6 +10871,2177 @@ declare module "@scom/scom-uniswap-v3/contracts/scom-commission-proxy-contract/i
     };
     export default _default_54;
 }
+/// <amd-module name="@scom/scom-uniswap-v3/contracts/v3-core/contracts/UniswapV3Factory.json.ts" />
+declare module "@scom/scom-uniswap-v3/contracts/v3-core/contracts/UniswapV3Factory.json.ts" {
+    const _default_55: {
+        abi: ({
+            inputs: any[];
+            stateMutability: string;
+            type: string;
+            anonymous?: undefined;
+            name?: undefined;
+            outputs?: undefined;
+        } | {
+            anonymous: boolean;
+            inputs: {
+                indexed: boolean;
+                internalType: string;
+                name: string;
+                type: string;
+            }[];
+            name: string;
+            type: string;
+            stateMutability?: undefined;
+            outputs?: undefined;
+        } | {
+            inputs: {
+                internalType: string;
+                name: string;
+                type: string;
+            }[];
+            name: string;
+            outputs: {
+                internalType: string;
+                name: string;
+                type: string;
+            }[];
+            stateMutability: string;
+            type: string;
+            anonymous?: undefined;
+        })[];
+        bytecode: string;
+    };
+    export default _default_55;
+}
+/// <amd-module name="@scom/scom-uniswap-v3/contracts/v3-core/contracts/UniswapV3Factory.ts" />
+declare module "@scom/scom-uniswap-v3/contracts/v3-core/contracts/UniswapV3Factory.ts" {
+    import { IWallet, Contract as _Contract, TransactionReceipt, BigNumber, Event, TransactionOptions } from "@ijstech/eth-contract";
+    export interface ICreatePoolParams {
+        tokenA: string;
+        tokenB: string;
+        fee: number | BigNumber;
+    }
+    export interface IEnableFeeAmountParams {
+        fee: number | BigNumber;
+        tickSpacing: number | BigNumber;
+    }
+    export interface IGetPoolParams {
+        param1: string;
+        param2: string;
+        param3: number | BigNumber;
+    }
+    export class UniswapV3Factory extends _Contract {
+        static _abi: any;
+        constructor(wallet: IWallet, address?: string);
+        deploy(options?: TransactionOptions): Promise<string>;
+        parseFeeAmountEnabledEvent(receipt: TransactionReceipt): UniswapV3Factory.FeeAmountEnabledEvent[];
+        decodeFeeAmountEnabledEvent(event: Event): UniswapV3Factory.FeeAmountEnabledEvent;
+        parseOwnerChangedEvent(receipt: TransactionReceipt): UniswapV3Factory.OwnerChangedEvent[];
+        decodeOwnerChangedEvent(event: Event): UniswapV3Factory.OwnerChangedEvent;
+        parsePoolCreatedEvent(receipt: TransactionReceipt): UniswapV3Factory.PoolCreatedEvent[];
+        decodePoolCreatedEvent(event: Event): UniswapV3Factory.PoolCreatedEvent;
+        createPool: {
+            (params: ICreatePoolParams, options?: TransactionOptions): Promise<TransactionReceipt>;
+            call: (params: ICreatePoolParams, options?: TransactionOptions) => Promise<string>;
+        };
+        enableFeeAmount: {
+            (params: IEnableFeeAmountParams, options?: TransactionOptions): Promise<TransactionReceipt>;
+            call: (params: IEnableFeeAmountParams, options?: TransactionOptions) => Promise<void>;
+        };
+        feeAmountTickSpacing: {
+            (param1: number | BigNumber, options?: TransactionOptions): Promise<BigNumber>;
+        };
+        getPool: {
+            (params: IGetPoolParams, options?: TransactionOptions): Promise<string>;
+        };
+        owner: {
+            (options?: TransactionOptions): Promise<string>;
+        };
+        parameters: {
+            (options?: TransactionOptions): Promise<{
+                factory: string;
+                token0: string;
+                token1: string;
+                fee: BigNumber;
+                tickSpacing: BigNumber;
+            }>;
+        };
+        setOwner: {
+            (owner: string, options?: TransactionOptions): Promise<TransactionReceipt>;
+            call: (owner: string, options?: TransactionOptions) => Promise<void>;
+        };
+        private assign;
+    }
+    export module UniswapV3Factory {
+        interface FeeAmountEnabledEvent {
+            fee: BigNumber;
+            tickSpacing: BigNumber;
+            _event: Event;
+        }
+        interface OwnerChangedEvent {
+            oldOwner: string;
+            newOwner: string;
+            _event: Event;
+        }
+        interface PoolCreatedEvent {
+            token0: string;
+            token1: string;
+            fee: BigNumber;
+            tickSpacing: BigNumber;
+            pool: string;
+            _event: Event;
+        }
+    }
+}
+/// <amd-module name="@scom/scom-uniswap-v3/contracts/v3-core/contracts/UniswapV3Pool.json.ts" />
+declare module "@scom/scom-uniswap-v3/contracts/v3-core/contracts/UniswapV3Pool.json.ts" {
+    const _default_56: {
+        abi: ({
+            inputs: any[];
+            stateMutability: string;
+            type: string;
+            anonymous?: undefined;
+            name?: undefined;
+            outputs?: undefined;
+        } | {
+            anonymous: boolean;
+            inputs: {
+                indexed: boolean;
+                internalType: string;
+                name: string;
+                type: string;
+            }[];
+            name: string;
+            type: string;
+            stateMutability?: undefined;
+            outputs?: undefined;
+        } | {
+            inputs: {
+                internalType: string;
+                name: string;
+                type: string;
+            }[];
+            name: string;
+            outputs: {
+                internalType: string;
+                name: string;
+                type: string;
+            }[];
+            stateMutability: string;
+            type: string;
+            anonymous?: undefined;
+        })[];
+        bytecode: string;
+    };
+    export default _default_56;
+}
+/// <amd-module name="@scom/scom-uniswap-v3/contracts/v3-core/contracts/UniswapV3Pool.ts" />
+declare module "@scom/scom-uniswap-v3/contracts/v3-core/contracts/UniswapV3Pool.ts" {
+    import { IWallet, Contract as _Contract, TransactionReceipt, BigNumber, Event, TransactionOptions } from "@ijstech/eth-contract";
+    export interface IBurnParams {
+        tickLower: number | BigNumber;
+        tickUpper: number | BigNumber;
+        amount: number | BigNumber;
+    }
+    export interface ICollectParams {
+        recipient: string;
+        tickLower: number | BigNumber;
+        tickUpper: number | BigNumber;
+        amount0Requested: number | BigNumber;
+        amount1Requested: number | BigNumber;
+    }
+    export interface ICollectProtocolParams {
+        recipient: string;
+        amount0Requested: number | BigNumber;
+        amount1Requested: number | BigNumber;
+    }
+    export interface IFlashParams {
+        recipient: string;
+        amount0: number | BigNumber;
+        amount1: number | BigNumber;
+        data: string;
+    }
+    export interface IMintParams {
+        recipient: string;
+        tickLower: number | BigNumber;
+        tickUpper: number | BigNumber;
+        amount: number | BigNumber;
+        data: string;
+    }
+    export interface ISetFeeProtocolParams {
+        feeProtocol0: number | BigNumber;
+        feeProtocol1: number | BigNumber;
+    }
+    export interface ISnapshotCumulativesInsideParams {
+        tickLower: number | BigNumber;
+        tickUpper: number | BigNumber;
+    }
+    export interface ISwapParams {
+        recipient: string;
+        zeroForOne: boolean;
+        amountSpecified: number | BigNumber;
+        sqrtPriceLimitX96: number | BigNumber;
+        data: string;
+    }
+    export class UniswapV3Pool extends _Contract {
+        static _abi: any;
+        constructor(wallet: IWallet, address?: string);
+        deploy(options?: TransactionOptions): Promise<string>;
+        parseBurnEvent(receipt: TransactionReceipt): UniswapV3Pool.BurnEvent[];
+        decodeBurnEvent(event: Event): UniswapV3Pool.BurnEvent;
+        parseCollectEvent(receipt: TransactionReceipt): UniswapV3Pool.CollectEvent[];
+        decodeCollectEvent(event: Event): UniswapV3Pool.CollectEvent;
+        parseCollectProtocolEvent(receipt: TransactionReceipt): UniswapV3Pool.CollectProtocolEvent[];
+        decodeCollectProtocolEvent(event: Event): UniswapV3Pool.CollectProtocolEvent;
+        parseFlashEvent(receipt: TransactionReceipt): UniswapV3Pool.FlashEvent[];
+        decodeFlashEvent(event: Event): UniswapV3Pool.FlashEvent;
+        parseIncreaseObservationCardinalityNextEvent(receipt: TransactionReceipt): UniswapV3Pool.IncreaseObservationCardinalityNextEvent[];
+        decodeIncreaseObservationCardinalityNextEvent(event: Event): UniswapV3Pool.IncreaseObservationCardinalityNextEvent;
+        parseInitializeEvent(receipt: TransactionReceipt): UniswapV3Pool.InitializeEvent[];
+        decodeInitializeEvent(event: Event): UniswapV3Pool.InitializeEvent;
+        parseMintEvent(receipt: TransactionReceipt): UniswapV3Pool.MintEvent[];
+        decodeMintEvent(event: Event): UniswapV3Pool.MintEvent;
+        parseSetFeeProtocolEvent(receipt: TransactionReceipt): UniswapV3Pool.SetFeeProtocolEvent[];
+        decodeSetFeeProtocolEvent(event: Event): UniswapV3Pool.SetFeeProtocolEvent;
+        parseSwapEvent(receipt: TransactionReceipt): UniswapV3Pool.SwapEvent[];
+        decodeSwapEvent(event: Event): UniswapV3Pool.SwapEvent;
+        burn: {
+            (params: IBurnParams, options?: TransactionOptions): Promise<TransactionReceipt>;
+            call: (params: IBurnParams, options?: TransactionOptions) => Promise<{
+                amount0: BigNumber;
+                amount1: BigNumber;
+            }>;
+        };
+        collect: {
+            (params: ICollectParams, options?: TransactionOptions): Promise<TransactionReceipt>;
+            call: (params: ICollectParams, options?: TransactionOptions) => Promise<{
+                amount0: BigNumber;
+                amount1: BigNumber;
+            }>;
+        };
+        collectProtocol: {
+            (params: ICollectProtocolParams, options?: TransactionOptions): Promise<TransactionReceipt>;
+            call: (params: ICollectProtocolParams, options?: TransactionOptions) => Promise<{
+                amount0: BigNumber;
+                amount1: BigNumber;
+            }>;
+        };
+        factory: {
+            (options?: TransactionOptions): Promise<string>;
+        };
+        fee: {
+            (options?: TransactionOptions): Promise<BigNumber>;
+        };
+        feeGrowthGlobal0X128: {
+            (options?: TransactionOptions): Promise<BigNumber>;
+        };
+        feeGrowthGlobal1X128: {
+            (options?: TransactionOptions): Promise<BigNumber>;
+        };
+        flash: {
+            (params: IFlashParams, options?: TransactionOptions): Promise<TransactionReceipt>;
+            call: (params: IFlashParams, options?: TransactionOptions) => Promise<void>;
+        };
+        increaseObservationCardinalityNext: {
+            (observationCardinalityNext: number | BigNumber, options?: TransactionOptions): Promise<TransactionReceipt>;
+            call: (observationCardinalityNext: number | BigNumber, options?: TransactionOptions) => Promise<void>;
+        };
+        initialize: {
+            (sqrtPriceX96: number | BigNumber, options?: TransactionOptions): Promise<TransactionReceipt>;
+            call: (sqrtPriceX96: number | BigNumber, options?: TransactionOptions) => Promise<void>;
+        };
+        liquidity: {
+            (options?: TransactionOptions): Promise<BigNumber>;
+        };
+        maxLiquidityPerTick: {
+            (options?: TransactionOptions): Promise<BigNumber>;
+        };
+        mint: {
+            (params: IMintParams, options?: TransactionOptions): Promise<TransactionReceipt>;
+            call: (params: IMintParams, options?: TransactionOptions) => Promise<{
+                amount0: BigNumber;
+                amount1: BigNumber;
+            }>;
+        };
+        observations: {
+            (param1: number | BigNumber, options?: TransactionOptions): Promise<{
+                blockTimestamp: BigNumber;
+                tickCumulative: BigNumber;
+                secondsPerLiquidityCumulativeX128: BigNumber;
+                initialized: boolean;
+            }>;
+        };
+        observe: {
+            (secondsAgos: (number | BigNumber)[], options?: TransactionOptions): Promise<{
+                tickCumulatives: BigNumber[];
+                secondsPerLiquidityCumulativeX128s: BigNumber[];
+            }>;
+        };
+        positions: {
+            (param1: string, options?: TransactionOptions): Promise<{
+                liquidity: BigNumber;
+                feeGrowthInside0LastX128: BigNumber;
+                feeGrowthInside1LastX128: BigNumber;
+                tokensOwed0: BigNumber;
+                tokensOwed1: BigNumber;
+            }>;
+        };
+        protocolFees: {
+            (options?: TransactionOptions): Promise<{
+                token0: BigNumber;
+                token1: BigNumber;
+            }>;
+        };
+        setFeeProtocol: {
+            (params: ISetFeeProtocolParams, options?: TransactionOptions): Promise<TransactionReceipt>;
+            call: (params: ISetFeeProtocolParams, options?: TransactionOptions) => Promise<void>;
+        };
+        slot0: {
+            (options?: TransactionOptions): Promise<{
+                sqrtPriceX96: BigNumber;
+                tick: BigNumber;
+                observationIndex: BigNumber;
+                observationCardinality: BigNumber;
+                observationCardinalityNext: BigNumber;
+                feeProtocol: BigNumber;
+                unlocked: boolean;
+            }>;
+        };
+        snapshotCumulativesInside: {
+            (params: ISnapshotCumulativesInsideParams, options?: TransactionOptions): Promise<{
+                tickCumulativeInside: BigNumber;
+                secondsPerLiquidityInsideX128: BigNumber;
+                secondsInside: BigNumber;
+            }>;
+        };
+        swap: {
+            (params: ISwapParams, options?: TransactionOptions): Promise<TransactionReceipt>;
+            call: (params: ISwapParams, options?: TransactionOptions) => Promise<{
+                amount0: BigNumber;
+                amount1: BigNumber;
+            }>;
+        };
+        tickBitmap: {
+            (param1: number | BigNumber, options?: TransactionOptions): Promise<BigNumber>;
+        };
+        tickSpacing: {
+            (options?: TransactionOptions): Promise<BigNumber>;
+        };
+        ticks: {
+            (param1: number | BigNumber, options?: TransactionOptions): Promise<{
+                liquidityGross: BigNumber;
+                liquidityNet: BigNumber;
+                feeGrowthOutside0X128: BigNumber;
+                feeGrowthOutside1X128: BigNumber;
+                tickCumulativeOutside: BigNumber;
+                secondsPerLiquidityOutsideX128: BigNumber;
+                secondsOutside: BigNumber;
+                initialized: boolean;
+            }>;
+        };
+        token0: {
+            (options?: TransactionOptions): Promise<string>;
+        };
+        token1: {
+            (options?: TransactionOptions): Promise<string>;
+        };
+        private assign;
+    }
+    export module UniswapV3Pool {
+        interface BurnEvent {
+            owner: string;
+            tickLower: BigNumber;
+            tickUpper: BigNumber;
+            amount: BigNumber;
+            amount0: BigNumber;
+            amount1: BigNumber;
+            _event: Event;
+        }
+        interface CollectEvent {
+            owner: string;
+            recipient: string;
+            tickLower: BigNumber;
+            tickUpper: BigNumber;
+            amount0: BigNumber;
+            amount1: BigNumber;
+            _event: Event;
+        }
+        interface CollectProtocolEvent {
+            sender: string;
+            recipient: string;
+            amount0: BigNumber;
+            amount1: BigNumber;
+            _event: Event;
+        }
+        interface FlashEvent {
+            sender: string;
+            recipient: string;
+            amount0: BigNumber;
+            amount1: BigNumber;
+            paid0: BigNumber;
+            paid1: BigNumber;
+            _event: Event;
+        }
+        interface IncreaseObservationCardinalityNextEvent {
+            observationCardinalityNextOld: BigNumber;
+            observationCardinalityNextNew: BigNumber;
+            _event: Event;
+        }
+        interface InitializeEvent {
+            sqrtPriceX96: BigNumber;
+            tick: BigNumber;
+            _event: Event;
+        }
+        interface MintEvent {
+            sender: string;
+            owner: string;
+            tickLower: BigNumber;
+            tickUpper: BigNumber;
+            amount: BigNumber;
+            amount0: BigNumber;
+            amount1: BigNumber;
+            _event: Event;
+        }
+        interface SetFeeProtocolEvent {
+            feeProtocol0Old: BigNumber;
+            feeProtocol1Old: BigNumber;
+            feeProtocol0New: BigNumber;
+            feeProtocol1New: BigNumber;
+            _event: Event;
+        }
+        interface SwapEvent {
+            sender: string;
+            recipient: string;
+            amount0: BigNumber;
+            amount1: BigNumber;
+            sqrtPriceX96: BigNumber;
+            liquidity: BigNumber;
+            tick: BigNumber;
+            _event: Event;
+        }
+    }
+}
+/// <amd-module name="@scom/scom-uniswap-v3/contracts/v3-core/contracts/index.ts" />
+declare module "@scom/scom-uniswap-v3/contracts/v3-core/contracts/index.ts" {
+    export { UniswapV3Factory } from "@scom/scom-uniswap-v3/contracts/v3-core/contracts/UniswapV3Factory.ts";
+    export { UniswapV3Pool } from "@scom/scom-uniswap-v3/contracts/v3-core/contracts/UniswapV3Pool.ts";
+}
+/// <amd-module name="@scom/scom-uniswap-v3/contracts/v3-core/index.ts" />
+declare module "@scom/scom-uniswap-v3/contracts/v3-core/index.ts" {
+    export * as Contract from "@scom/scom-uniswap-v3/contracts/v3-core/contracts/index.ts";
+}
+/// <amd-module name="@scom/scom-uniswap-v3/contracts/v3-periphery/contracts/NonfungiblePositionManager.json.ts" />
+declare module "@scom/scom-uniswap-v3/contracts/v3-periphery/contracts/NonfungiblePositionManager.json.ts" {
+    const _default_57: {
+        abi: ({
+            inputs: {
+                internalType: string;
+                name: string;
+                type: string;
+            }[];
+            stateMutability: string;
+            type: string;
+            anonymous?: undefined;
+            name?: undefined;
+            outputs?: undefined;
+        } | {
+            anonymous: boolean;
+            inputs: {
+                indexed: boolean;
+                internalType: string;
+                name: string;
+                type: string;
+            }[];
+            name: string;
+            type: string;
+            stateMutability?: undefined;
+            outputs?: undefined;
+        } | {
+            inputs: {
+                internalType: string;
+                name: string;
+                type: string;
+            }[];
+            name: string;
+            outputs: {
+                internalType: string;
+                name: string;
+                type: string;
+            }[];
+            stateMutability: string;
+            type: string;
+            anonymous?: undefined;
+        } | {
+            inputs: {
+                components: {
+                    internalType: string;
+                    name: string;
+                    type: string;
+                }[];
+                internalType: string;
+                name: string;
+                type: string;
+            }[];
+            name: string;
+            outputs: {
+                internalType: string;
+                name: string;
+                type: string;
+            }[];
+            stateMutability: string;
+            type: string;
+            anonymous?: undefined;
+        } | {
+            stateMutability: string;
+            type: string;
+            inputs?: undefined;
+            anonymous?: undefined;
+            name?: undefined;
+            outputs?: undefined;
+        })[];
+        bytecode: string;
+    };
+    export default _default_57;
+}
+/// <amd-module name="@scom/scom-uniswap-v3/contracts/v3-periphery/contracts/NonfungiblePositionManager.ts" />
+declare module "@scom/scom-uniswap-v3/contracts/v3-periphery/contracts/NonfungiblePositionManager.ts" {
+    import { IWallet, Contract as _Contract, TransactionReceipt, BigNumber, Event, TransactionOptions } from "@ijstech/eth-contract";
+    export interface IDeployParams {
+        factory: string;
+        WETH9: string;
+        tokenDescriptor: string;
+    }
+    export interface IApproveParams {
+        to: string;
+        tokenId: number | BigNumber;
+    }
+    export interface ICreateAndInitializePoolIfNecessaryParams {
+        token0: string;
+        token1: string;
+        fee: number | BigNumber;
+        sqrtPriceX96: number | BigNumber;
+    }
+    export interface IIsApprovedForAllParams {
+        owner: string;
+        operator: string;
+    }
+    export interface IPermitParams {
+        spender: string;
+        tokenId: number | BigNumber;
+        deadline: number | BigNumber;
+        v: number | BigNumber;
+        r: string;
+        s: string;
+    }
+    export interface ISafeTransferFromParams {
+        from: string;
+        to: string;
+        tokenId: number | BigNumber;
+    }
+    export interface ISafeTransferFrom_1Params {
+        from: string;
+        to: string;
+        tokenId: number | BigNumber;
+        data: string;
+    }
+    export interface ISelfPermitParams {
+        token: string;
+        value: number | BigNumber;
+        deadline: number | BigNumber;
+        v: number | BigNumber;
+        r: string;
+        s: string;
+    }
+    export interface ISelfPermitAllowedParams {
+        token: string;
+        nonce: number | BigNumber;
+        expiry: number | BigNumber;
+        v: number | BigNumber;
+        r: string;
+        s: string;
+    }
+    export interface ISelfPermitAllowedIfNecessaryParams {
+        token: string;
+        nonce: number | BigNumber;
+        expiry: number | BigNumber;
+        v: number | BigNumber;
+        r: string;
+        s: string;
+    }
+    export interface ISelfPermitIfNecessaryParams {
+        token: string;
+        value: number | BigNumber;
+        deadline: number | BigNumber;
+        v: number | BigNumber;
+        r: string;
+        s: string;
+    }
+    export interface ISetApprovalForAllParams {
+        operator: string;
+        approved: boolean;
+    }
+    export interface ISweepTokenParams {
+        token: string;
+        amountMinimum: number | BigNumber;
+        recipient: string;
+    }
+    export interface ITokenOfOwnerByIndexParams {
+        owner: string;
+        index: number | BigNumber;
+    }
+    export interface ITransferFromParams {
+        from: string;
+        to: string;
+        tokenId: number | BigNumber;
+    }
+    export interface IUniswapV3MintCallbackParams {
+        amount0Owed: number | BigNumber;
+        amount1Owed: number | BigNumber;
+        data: string;
+    }
+    export interface IUnwrapWETH9Params {
+        amountMinimum: number | BigNumber;
+        recipient: string;
+    }
+    export class NonfungiblePositionManager extends _Contract {
+        static _abi: any;
+        constructor(wallet: IWallet, address?: string);
+        deploy(params: IDeployParams, options?: TransactionOptions): Promise<string>;
+        parseApprovalEvent(receipt: TransactionReceipt): NonfungiblePositionManager.ApprovalEvent[];
+        decodeApprovalEvent(event: Event): NonfungiblePositionManager.ApprovalEvent;
+        parseApprovalForAllEvent(receipt: TransactionReceipt): NonfungiblePositionManager.ApprovalForAllEvent[];
+        decodeApprovalForAllEvent(event: Event): NonfungiblePositionManager.ApprovalForAllEvent;
+        parseCollectEvent(receipt: TransactionReceipt): NonfungiblePositionManager.CollectEvent[];
+        decodeCollectEvent(event: Event): NonfungiblePositionManager.CollectEvent;
+        parseDecreaseLiquidityEvent(receipt: TransactionReceipt): NonfungiblePositionManager.DecreaseLiquidityEvent[];
+        decodeDecreaseLiquidityEvent(event: Event): NonfungiblePositionManager.DecreaseLiquidityEvent;
+        parseIncreaseLiquidityEvent(receipt: TransactionReceipt): NonfungiblePositionManager.IncreaseLiquidityEvent[];
+        decodeIncreaseLiquidityEvent(event: Event): NonfungiblePositionManager.IncreaseLiquidityEvent;
+        parseTransferEvent(receipt: TransactionReceipt): NonfungiblePositionManager.TransferEvent[];
+        decodeTransferEvent(event: Event): NonfungiblePositionManager.TransferEvent;
+        DOMAIN_SEPARATOR: {
+            (options?: TransactionOptions): Promise<string>;
+        };
+        PERMIT_TYPEHASH: {
+            (options?: TransactionOptions): Promise<string>;
+        };
+        WETH9: {
+            (options?: TransactionOptions): Promise<string>;
+        };
+        approve: {
+            (params: IApproveParams, options?: TransactionOptions): Promise<TransactionReceipt>;
+            call: (params: IApproveParams, options?: TransactionOptions) => Promise<void>;
+            txData: (params: IApproveParams, options?: TransactionOptions) => Promise<string>;
+        };
+        balanceOf: {
+            (owner: string, options?: TransactionOptions): Promise<BigNumber>;
+        };
+        baseURI: {
+            (options?: TransactionOptions): Promise<string>;
+        };
+        burn: {
+            (tokenId: number | BigNumber, options?: number | BigNumber | TransactionOptions): Promise<TransactionReceipt>;
+            call: (tokenId: number | BigNumber, options?: number | BigNumber | TransactionOptions) => Promise<void>;
+            txData: (tokenId: number | BigNumber, options?: number | BigNumber | TransactionOptions) => Promise<string>;
+        };
+        collect: {
+            (params: {
+                tokenId: number | BigNumber;
+                recipient: string;
+                amount0Max: number | BigNumber;
+                amount1Max: number | BigNumber;
+            }, options?: number | BigNumber | TransactionOptions): Promise<TransactionReceipt>;
+            call: (params: {
+                tokenId: number | BigNumber;
+                recipient: string;
+                amount0Max: number | BigNumber;
+                amount1Max: number | BigNumber;
+            }, options?: number | BigNumber | TransactionOptions) => Promise<{
+                amount0: BigNumber;
+                amount1: BigNumber;
+            }>;
+            txData: (params: {
+                tokenId: number | BigNumber;
+                recipient: string;
+                amount0Max: number | BigNumber;
+                amount1Max: number | BigNumber;
+            }, options?: number | BigNumber | TransactionOptions) => Promise<string>;
+        };
+        createAndInitializePoolIfNecessary: {
+            (params: ICreateAndInitializePoolIfNecessaryParams, options?: number | BigNumber | TransactionOptions): Promise<TransactionReceipt>;
+            call: (params: ICreateAndInitializePoolIfNecessaryParams, options?: number | BigNumber | TransactionOptions) => Promise<string>;
+            txData: (params: ICreateAndInitializePoolIfNecessaryParams, options?: number | BigNumber | TransactionOptions) => Promise<string>;
+        };
+        decreaseLiquidity: {
+            (params: {
+                tokenId: number | BigNumber;
+                liquidity: number | BigNumber;
+                amount0Min: number | BigNumber;
+                amount1Min: number | BigNumber;
+                deadline: number | BigNumber;
+            }, options?: number | BigNumber | TransactionOptions): Promise<TransactionReceipt>;
+            call: (params: {
+                tokenId: number | BigNumber;
+                liquidity: number | BigNumber;
+                amount0Min: number | BigNumber;
+                amount1Min: number | BigNumber;
+                deadline: number | BigNumber;
+            }, options?: number | BigNumber | TransactionOptions) => Promise<{
+                amount0: BigNumber;
+                amount1: BigNumber;
+            }>;
+            txData: (params: {
+                tokenId: number | BigNumber;
+                liquidity: number | BigNumber;
+                amount0Min: number | BigNumber;
+                amount1Min: number | BigNumber;
+                deadline: number | BigNumber;
+            }, options?: number | BigNumber | TransactionOptions) => Promise<string>;
+        };
+        factory: {
+            (options?: TransactionOptions): Promise<string>;
+        };
+        getApproved: {
+            (tokenId: number | BigNumber, options?: TransactionOptions): Promise<string>;
+        };
+        increaseLiquidity: {
+            (params: {
+                tokenId: number | BigNumber;
+                amount0Desired: number | BigNumber;
+                amount1Desired: number | BigNumber;
+                amount0Min: number | BigNumber;
+                amount1Min: number | BigNumber;
+                deadline: number | BigNumber;
+            }, options?: number | BigNumber | TransactionOptions): Promise<TransactionReceipt>;
+            call: (params: {
+                tokenId: number | BigNumber;
+                amount0Desired: number | BigNumber;
+                amount1Desired: number | BigNumber;
+                amount0Min: number | BigNumber;
+                amount1Min: number | BigNumber;
+                deadline: number | BigNumber;
+            }, options?: number | BigNumber | TransactionOptions) => Promise<{
+                liquidity: BigNumber;
+                amount0: BigNumber;
+                amount1: BigNumber;
+            }>;
+            txData: (params: {
+                tokenId: number | BigNumber;
+                amount0Desired: number | BigNumber;
+                amount1Desired: number | BigNumber;
+                amount0Min: number | BigNumber;
+                amount1Min: number | BigNumber;
+                deadline: number | BigNumber;
+            }, options?: number | BigNumber | TransactionOptions) => Promise<string>;
+        };
+        isApprovedForAll: {
+            (params: IIsApprovedForAllParams, options?: TransactionOptions): Promise<boolean>;
+        };
+        mint: {
+            (params: {
+                token0: string;
+                token1: string;
+                fee: number | BigNumber;
+                tickLower: number | BigNumber;
+                tickUpper: number | BigNumber;
+                amount0Desired: number | BigNumber;
+                amount1Desired: number | BigNumber;
+                amount0Min: number | BigNumber;
+                amount1Min: number | BigNumber;
+                recipient: string;
+                deadline: number | BigNumber;
+            }, options?: number | BigNumber | TransactionOptions): Promise<TransactionReceipt>;
+            call: (params: {
+                token0: string;
+                token1: string;
+                fee: number | BigNumber;
+                tickLower: number | BigNumber;
+                tickUpper: number | BigNumber;
+                amount0Desired: number | BigNumber;
+                amount1Desired: number | BigNumber;
+                amount0Min: number | BigNumber;
+                amount1Min: number | BigNumber;
+                recipient: string;
+                deadline: number | BigNumber;
+            }, options?: number | BigNumber | TransactionOptions) => Promise<{
+                tokenId: BigNumber;
+                liquidity: BigNumber;
+                amount0: BigNumber;
+                amount1: BigNumber;
+            }>;
+            txData: (params: {
+                token0: string;
+                token1: string;
+                fee: number | BigNumber;
+                tickLower: number | BigNumber;
+                tickUpper: number | BigNumber;
+                amount0Desired: number | BigNumber;
+                amount1Desired: number | BigNumber;
+                amount0Min: number | BigNumber;
+                amount1Min: number | BigNumber;
+                recipient: string;
+                deadline: number | BigNumber;
+            }, options?: number | BigNumber | TransactionOptions) => Promise<string>;
+        };
+        multicall: {
+            (data: string[], options?: number | BigNumber | TransactionOptions): Promise<TransactionReceipt>;
+            call: (data: string[], options?: number | BigNumber | TransactionOptions) => Promise<string[]>;
+            txData: (data: string[], options?: number | BigNumber | TransactionOptions) => Promise<string>;
+        };
+        name: {
+            (options?: TransactionOptions): Promise<string>;
+        };
+        ownerOf: {
+            (tokenId: number | BigNumber, options?: TransactionOptions): Promise<string>;
+        };
+        permit: {
+            (params: IPermitParams, options?: number | BigNumber | TransactionOptions): Promise<TransactionReceipt>;
+            call: (params: IPermitParams, options?: number | BigNumber | TransactionOptions) => Promise<void>;
+            txData: (params: IPermitParams, options?: number | BigNumber | TransactionOptions) => Promise<string>;
+        };
+        positions: {
+            (tokenId: number | BigNumber, options?: TransactionOptions): Promise<{
+                nonce: BigNumber;
+                operator: string;
+                token0: string;
+                token1: string;
+                fee: BigNumber;
+                tickLower: BigNumber;
+                tickUpper: BigNumber;
+                liquidity: BigNumber;
+                feeGrowthInside0LastX128: BigNumber;
+                feeGrowthInside1LastX128: BigNumber;
+                tokensOwed0: BigNumber;
+                tokensOwed1: BigNumber;
+            }>;
+        };
+        refundETH: {
+            (options?: number | BigNumber | TransactionOptions): Promise<TransactionReceipt>;
+            call: (options?: number | BigNumber | TransactionOptions) => Promise<void>;
+            txData: (options?: number | BigNumber | TransactionOptions) => Promise<string>;
+        };
+        safeTransferFrom: {
+            (params: ISafeTransferFromParams, options?: TransactionOptions): Promise<TransactionReceipt>;
+            call: (params: ISafeTransferFromParams, options?: TransactionOptions) => Promise<void>;
+            txData: (params: ISafeTransferFromParams, options?: TransactionOptions) => Promise<string>;
+        };
+        safeTransferFrom_1: {
+            (params: ISafeTransferFrom_1Params, options?: TransactionOptions): Promise<TransactionReceipt>;
+            call: (params: ISafeTransferFrom_1Params, options?: TransactionOptions) => Promise<void>;
+            txData: (params: ISafeTransferFrom_1Params, options?: TransactionOptions) => Promise<string>;
+        };
+        selfPermit: {
+            (params: ISelfPermitParams, options?: number | BigNumber | TransactionOptions): Promise<TransactionReceipt>;
+            call: (params: ISelfPermitParams, options?: number | BigNumber | TransactionOptions) => Promise<void>;
+            txData: (params: ISelfPermitParams, options?: number | BigNumber | TransactionOptions) => Promise<string>;
+        };
+        selfPermitAllowed: {
+            (params: ISelfPermitAllowedParams, options?: number | BigNumber | TransactionOptions): Promise<TransactionReceipt>;
+            call: (params: ISelfPermitAllowedParams, options?: number | BigNumber | TransactionOptions) => Promise<void>;
+            txData: (params: ISelfPermitAllowedParams, options?: number | BigNumber | TransactionOptions) => Promise<string>;
+        };
+        selfPermitAllowedIfNecessary: {
+            (params: ISelfPermitAllowedIfNecessaryParams, options?: number | BigNumber | TransactionOptions): Promise<TransactionReceipt>;
+            call: (params: ISelfPermitAllowedIfNecessaryParams, options?: number | BigNumber | TransactionOptions) => Promise<void>;
+            txData: (params: ISelfPermitAllowedIfNecessaryParams, options?: number | BigNumber | TransactionOptions) => Promise<string>;
+        };
+        selfPermitIfNecessary: {
+            (params: ISelfPermitIfNecessaryParams, options?: number | BigNumber | TransactionOptions): Promise<TransactionReceipt>;
+            call: (params: ISelfPermitIfNecessaryParams, options?: number | BigNumber | TransactionOptions) => Promise<void>;
+            txData: (params: ISelfPermitIfNecessaryParams, options?: number | BigNumber | TransactionOptions) => Promise<string>;
+        };
+        setApprovalForAll: {
+            (params: ISetApprovalForAllParams, options?: TransactionOptions): Promise<TransactionReceipt>;
+            call: (params: ISetApprovalForAllParams, options?: TransactionOptions) => Promise<void>;
+            txData: (params: ISetApprovalForAllParams, options?: TransactionOptions) => Promise<string>;
+        };
+        supportsInterface: {
+            (interfaceId: string, options?: TransactionOptions): Promise<boolean>;
+        };
+        sweepToken: {
+            (params: ISweepTokenParams, options?: number | BigNumber | TransactionOptions): Promise<TransactionReceipt>;
+            call: (params: ISweepTokenParams, options?: number | BigNumber | TransactionOptions) => Promise<void>;
+            txData: (params: ISweepTokenParams, options?: number | BigNumber | TransactionOptions) => Promise<string>;
+        };
+        symbol: {
+            (options?: TransactionOptions): Promise<string>;
+        };
+        tokenByIndex: {
+            (index: number | BigNumber, options?: TransactionOptions): Promise<BigNumber>;
+        };
+        tokenOfOwnerByIndex: {
+            (params: ITokenOfOwnerByIndexParams, options?: TransactionOptions): Promise<BigNumber>;
+        };
+        tokenURI: {
+            (tokenId: number | BigNumber, options?: TransactionOptions): Promise<string>;
+        };
+        totalSupply: {
+            (options?: TransactionOptions): Promise<BigNumber>;
+        };
+        transferFrom: {
+            (params: ITransferFromParams, options?: TransactionOptions): Promise<TransactionReceipt>;
+            call: (params: ITransferFromParams, options?: TransactionOptions) => Promise<void>;
+            txData: (params: ITransferFromParams, options?: TransactionOptions) => Promise<string>;
+        };
+        uniswapV3MintCallback: {
+            (params: IUniswapV3MintCallbackParams, options?: TransactionOptions): Promise<TransactionReceipt>;
+            call: (params: IUniswapV3MintCallbackParams, options?: TransactionOptions) => Promise<void>;
+            txData: (params: IUniswapV3MintCallbackParams, options?: TransactionOptions) => Promise<string>;
+        };
+        unwrapWETH9: {
+            (params: IUnwrapWETH9Params, options?: number | BigNumber | TransactionOptions): Promise<TransactionReceipt>;
+            call: (params: IUnwrapWETH9Params, options?: number | BigNumber | TransactionOptions) => Promise<void>;
+            txData: (params: IUnwrapWETH9Params, options?: number | BigNumber | TransactionOptions) => Promise<string>;
+        };
+        private assign;
+    }
+    export module NonfungiblePositionManager {
+        interface ApprovalEvent {
+            owner: string;
+            approved: string;
+            tokenId: BigNumber;
+            _event: Event;
+        }
+        interface ApprovalForAllEvent {
+            owner: string;
+            operator: string;
+            approved: boolean;
+            _event: Event;
+        }
+        interface CollectEvent {
+            tokenId: BigNumber;
+            recipient: string;
+            amount0: BigNumber;
+            amount1: BigNumber;
+            _event: Event;
+        }
+        interface DecreaseLiquidityEvent {
+            tokenId: BigNumber;
+            liquidity: BigNumber;
+            amount0: BigNumber;
+            amount1: BigNumber;
+            _event: Event;
+        }
+        interface IncreaseLiquidityEvent {
+            tokenId: BigNumber;
+            liquidity: BigNumber;
+            amount0: BigNumber;
+            amount1: BigNumber;
+            _event: Event;
+        }
+        interface TransferEvent {
+            from: string;
+            to: string;
+            tokenId: BigNumber;
+            _event: Event;
+        }
+    }
+}
+/// <amd-module name="@scom/scom-uniswap-v3/contracts/v3-periphery/contracts/NonfungibleTokenPositionDescriptor.json.ts" />
+declare module "@scom/scom-uniswap-v3/contracts/v3-periphery/contracts/NonfungibleTokenPositionDescriptor.json.ts" {
+    const _default_58: {
+        abi: ({
+            inputs: {
+                internalType: string;
+                name: string;
+                type: string;
+            }[];
+            stateMutability: string;
+            type: string;
+            name?: undefined;
+            outputs?: undefined;
+        } | {
+            inputs: {
+                internalType: string;
+                name: string;
+                type: string;
+            }[];
+            name: string;
+            outputs: {
+                internalType: string;
+                name: string;
+                type: string;
+            }[];
+            stateMutability: string;
+            type: string;
+        })[];
+        bytecode: string;
+        linkReferences: {
+            "contracts/libraries/NFTDescriptor.sol": {
+                NFTDescriptor: {
+                    length: number;
+                    start: number;
+                }[];
+            };
+        };
+    };
+    export default _default_58;
+}
+/// <amd-module name="@scom/scom-uniswap-v3/contracts/v3-periphery/contracts/NonfungibleTokenPositionDescriptor.ts" />
+declare module "@scom/scom-uniswap-v3/contracts/v3-periphery/contracts/NonfungibleTokenPositionDescriptor.ts" {
+    import { IWallet, Contract as _Contract, BigNumber, TransactionOptions } from "@ijstech/eth-contract";
+    export interface IDeployParams {
+        WETH9: string;
+        nativeCurrencyLabelBytes: string;
+    }
+    export interface IFlipRatioParams {
+        token0: string;
+        token1: string;
+        chainId: number | BigNumber;
+    }
+    export interface ITokenRatioPriorityParams {
+        token: string;
+        chainId: number | BigNumber;
+    }
+    export interface ITokenURIParams {
+        positionManager: string;
+        tokenId: number | BigNumber;
+    }
+    export type ILibraries = {
+        "contracts/libraries/NFTDescriptor.sol": {
+            "NFTDescriptor": string;
+        };
+    };
+    export class NonfungibleTokenPositionDescriptor extends _Contract {
+        static _abi: any;
+        constructor(wallet: IWallet, address?: string);
+        deploy(params: IDeployParams, libraries: ILibraries, options?: TransactionOptions): Promise<string>;
+        WETH9: {
+            (options?: TransactionOptions): Promise<string>;
+        };
+        flipRatio: {
+            (params: IFlipRatioParams, options?: TransactionOptions): Promise<boolean>;
+        };
+        nativeCurrencyLabel: {
+            (options?: TransactionOptions): Promise<string>;
+        };
+        nativeCurrencyLabelBytes: {
+            (options?: TransactionOptions): Promise<string>;
+        };
+        tokenRatioPriority: {
+            (params: ITokenRatioPriorityParams, options?: TransactionOptions): Promise<BigNumber>;
+        };
+        tokenURI: {
+            (params: ITokenURIParams, options?: TransactionOptions): Promise<string>;
+        };
+        private assign;
+    }
+}
+/// <amd-module name="@scom/scom-uniswap-v3/contracts/v3-periphery/contracts/SwapRouter.json.ts" />
+declare module "@scom/scom-uniswap-v3/contracts/v3-periphery/contracts/SwapRouter.json.ts" {
+    const _default_59: {
+        abi: ({
+            inputs: {
+                internalType: string;
+                name: string;
+                type: string;
+            }[];
+            stateMutability: string;
+            type: string;
+            name?: undefined;
+            outputs?: undefined;
+        } | {
+            inputs: {
+                components: {
+                    internalType: string;
+                    name: string;
+                    type: string;
+                }[];
+                internalType: string;
+                name: string;
+                type: string;
+            }[];
+            name: string;
+            outputs: {
+                internalType: string;
+                name: string;
+                type: string;
+            }[];
+            stateMutability: string;
+            type: string;
+        } | {
+            inputs: {
+                internalType: string;
+                name: string;
+                type: string;
+            }[];
+            name: string;
+            outputs: {
+                internalType: string;
+                name: string;
+                type: string;
+            }[];
+            stateMutability: string;
+            type: string;
+        } | {
+            stateMutability: string;
+            type: string;
+            inputs?: undefined;
+            name?: undefined;
+            outputs?: undefined;
+        })[];
+        bytecode: string;
+    };
+    export default _default_59;
+}
+/// <amd-module name="@scom/scom-uniswap-v3/contracts/v3-periphery/contracts/SwapRouter.ts" />
+declare module "@scom/scom-uniswap-v3/contracts/v3-periphery/contracts/SwapRouter.ts" {
+    import { IWallet, Contract as _Contract, TransactionReceipt, BigNumber, TransactionOptions } from "@ijstech/eth-contract";
+    export interface IDeployParams {
+        factory: string;
+        WETH9: string;
+    }
+    export interface ISelfPermitParams {
+        token: string;
+        value: number | BigNumber;
+        deadline: number | BigNumber;
+        v: number | BigNumber;
+        r: string;
+        s: string;
+    }
+    export interface ISelfPermitAllowedParams {
+        token: string;
+        nonce: number | BigNumber;
+        expiry: number | BigNumber;
+        v: number | BigNumber;
+        r: string;
+        s: string;
+    }
+    export interface ISelfPermitAllowedIfNecessaryParams {
+        token: string;
+        nonce: number | BigNumber;
+        expiry: number | BigNumber;
+        v: number | BigNumber;
+        r: string;
+        s: string;
+    }
+    export interface ISelfPermitIfNecessaryParams {
+        token: string;
+        value: number | BigNumber;
+        deadline: number | BigNumber;
+        v: number | BigNumber;
+        r: string;
+        s: string;
+    }
+    export interface ISweepTokenParams {
+        token: string;
+        amountMinimum: number | BigNumber;
+        recipient: string;
+    }
+    export interface ISweepTokenWithFeeParams {
+        token: string;
+        amountMinimum: number | BigNumber;
+        recipient: string;
+        feeBips: number | BigNumber;
+        feeRecipient: string;
+    }
+    export interface IUniswapV3SwapCallbackParams {
+        amount0Delta: number | BigNumber;
+        amount1Delta: number | BigNumber;
+        data: string;
+    }
+    export interface IUnwrapWETH9Params {
+        amountMinimum: number | BigNumber;
+        recipient: string;
+    }
+    export interface IUnwrapWETH9WithFeeParams {
+        amountMinimum: number | BigNumber;
+        recipient: string;
+        feeBips: number | BigNumber;
+        feeRecipient: string;
+    }
+    export class SwapRouter extends _Contract {
+        static _abi: any;
+        constructor(wallet: IWallet, address?: string);
+        deploy(params: IDeployParams, options?: TransactionOptions): Promise<string>;
+        WETH9: {
+            (options?: TransactionOptions): Promise<string>;
+        };
+        exactInput: {
+            (params: {
+                path: string;
+                recipient: string;
+                deadline: number | BigNumber;
+                amountIn: number | BigNumber;
+                amountOutMinimum: number | BigNumber;
+            }, options?: number | BigNumber | TransactionOptions): Promise<TransactionReceipt>;
+            call: (params: {
+                path: string;
+                recipient: string;
+                deadline: number | BigNumber;
+                amountIn: number | BigNumber;
+                amountOutMinimum: number | BigNumber;
+            }, options?: number | BigNumber | TransactionOptions) => Promise<BigNumber>;
+            txData: (params: {
+                path: string;
+                recipient: string;
+                deadline: number | BigNumber;
+                amountIn: number | BigNumber;
+                amountOutMinimum: number | BigNumber;
+            }, options?: number | BigNumber | TransactionOptions) => Promise<string>;
+        };
+        exactInputSingle: {
+            (params: {
+                tokenIn: string;
+                tokenOut: string;
+                fee: number | BigNumber;
+                recipient: string;
+                deadline: number | BigNumber;
+                amountIn: number | BigNumber;
+                amountOutMinimum: number | BigNumber;
+                sqrtPriceLimitX96: number | BigNumber;
+            }, options?: number | BigNumber | TransactionOptions): Promise<TransactionReceipt>;
+            call: (params: {
+                tokenIn: string;
+                tokenOut: string;
+                fee: number | BigNumber;
+                recipient: string;
+                deadline: number | BigNumber;
+                amountIn: number | BigNumber;
+                amountOutMinimum: number | BigNumber;
+                sqrtPriceLimitX96: number | BigNumber;
+            }, options?: number | BigNumber | TransactionOptions) => Promise<BigNumber>;
+            txData: (params: {
+                tokenIn: string;
+                tokenOut: string;
+                fee: number | BigNumber;
+                recipient: string;
+                deadline: number | BigNumber;
+                amountIn: number | BigNumber;
+                amountOutMinimum: number | BigNumber;
+                sqrtPriceLimitX96: number | BigNumber;
+            }, options?: number | BigNumber | TransactionOptions) => Promise<string>;
+        };
+        exactOutput: {
+            (params: {
+                path: string;
+                recipient: string;
+                deadline: number | BigNumber;
+                amountOut: number | BigNumber;
+                amountInMaximum: number | BigNumber;
+            }, options?: number | BigNumber | TransactionOptions): Promise<TransactionReceipt>;
+            call: (params: {
+                path: string;
+                recipient: string;
+                deadline: number | BigNumber;
+                amountOut: number | BigNumber;
+                amountInMaximum: number | BigNumber;
+            }, options?: number | BigNumber | TransactionOptions) => Promise<BigNumber>;
+            txData: (params: {
+                path: string;
+                recipient: string;
+                deadline: number | BigNumber;
+                amountOut: number | BigNumber;
+                amountInMaximum: number | BigNumber;
+            }, options?: number | BigNumber | TransactionOptions) => Promise<string>;
+        };
+        exactOutputSingle: {
+            (params: {
+                tokenIn: string;
+                tokenOut: string;
+                fee: number | BigNumber;
+                recipient: string;
+                deadline: number | BigNumber;
+                amountOut: number | BigNumber;
+                amountInMaximum: number | BigNumber;
+                sqrtPriceLimitX96: number | BigNumber;
+            }, options?: number | BigNumber | TransactionOptions): Promise<TransactionReceipt>;
+            call: (params: {
+                tokenIn: string;
+                tokenOut: string;
+                fee: number | BigNumber;
+                recipient: string;
+                deadline: number | BigNumber;
+                amountOut: number | BigNumber;
+                amountInMaximum: number | BigNumber;
+                sqrtPriceLimitX96: number | BigNumber;
+            }, options?: number | BigNumber | TransactionOptions) => Promise<BigNumber>;
+            txData: (params: {
+                tokenIn: string;
+                tokenOut: string;
+                fee: number | BigNumber;
+                recipient: string;
+                deadline: number | BigNumber;
+                amountOut: number | BigNumber;
+                amountInMaximum: number | BigNumber;
+                sqrtPriceLimitX96: number | BigNumber;
+            }, options?: number | BigNumber | TransactionOptions) => Promise<string>;
+        };
+        factory: {
+            (options?: TransactionOptions): Promise<string>;
+        };
+        multicall: {
+            (data: string[], options?: number | BigNumber | TransactionOptions): Promise<TransactionReceipt>;
+            call: (data: string[], options?: number | BigNumber | TransactionOptions) => Promise<string[]>;
+            txData: (data: string[], options?: number | BigNumber | TransactionOptions) => Promise<string>;
+        };
+        refundETH: {
+            (options?: number | BigNumber | TransactionOptions): Promise<TransactionReceipt>;
+            call: (options?: number | BigNumber | TransactionOptions) => Promise<void>;
+            txData: (options?: number | BigNumber | TransactionOptions) => Promise<string>;
+        };
+        selfPermit: {
+            (params: ISelfPermitParams, options?: number | BigNumber | TransactionOptions): Promise<TransactionReceipt>;
+            call: (params: ISelfPermitParams, options?: number | BigNumber | TransactionOptions) => Promise<void>;
+            txData: (params: ISelfPermitParams, options?: number | BigNumber | TransactionOptions) => Promise<string>;
+        };
+        selfPermitAllowed: {
+            (params: ISelfPermitAllowedParams, options?: number | BigNumber | TransactionOptions): Promise<TransactionReceipt>;
+            call: (params: ISelfPermitAllowedParams, options?: number | BigNumber | TransactionOptions) => Promise<void>;
+            txData: (params: ISelfPermitAllowedParams, options?: number | BigNumber | TransactionOptions) => Promise<string>;
+        };
+        selfPermitAllowedIfNecessary: {
+            (params: ISelfPermitAllowedIfNecessaryParams, options?: number | BigNumber | TransactionOptions): Promise<TransactionReceipt>;
+            call: (params: ISelfPermitAllowedIfNecessaryParams, options?: number | BigNumber | TransactionOptions) => Promise<void>;
+            txData: (params: ISelfPermitAllowedIfNecessaryParams, options?: number | BigNumber | TransactionOptions) => Promise<string>;
+        };
+        selfPermitIfNecessary: {
+            (params: ISelfPermitIfNecessaryParams, options?: number | BigNumber | TransactionOptions): Promise<TransactionReceipt>;
+            call: (params: ISelfPermitIfNecessaryParams, options?: number | BigNumber | TransactionOptions) => Promise<void>;
+            txData: (params: ISelfPermitIfNecessaryParams, options?: number | BigNumber | TransactionOptions) => Promise<string>;
+        };
+        sweepToken: {
+            (params: ISweepTokenParams, options?: number | BigNumber | TransactionOptions): Promise<TransactionReceipt>;
+            call: (params: ISweepTokenParams, options?: number | BigNumber | TransactionOptions) => Promise<void>;
+            txData: (params: ISweepTokenParams, options?: number | BigNumber | TransactionOptions) => Promise<string>;
+        };
+        sweepTokenWithFee: {
+            (params: ISweepTokenWithFeeParams, options?: number | BigNumber | TransactionOptions): Promise<TransactionReceipt>;
+            call: (params: ISweepTokenWithFeeParams, options?: number | BigNumber | TransactionOptions) => Promise<void>;
+            txData: (params: ISweepTokenWithFeeParams, options?: number | BigNumber | TransactionOptions) => Promise<string>;
+        };
+        uniswapV3SwapCallback: {
+            (params: IUniswapV3SwapCallbackParams, options?: TransactionOptions): Promise<TransactionReceipt>;
+            call: (params: IUniswapV3SwapCallbackParams, options?: TransactionOptions) => Promise<void>;
+            txData: (params: IUniswapV3SwapCallbackParams, options?: TransactionOptions) => Promise<string>;
+        };
+        unwrapWETH9: {
+            (params: IUnwrapWETH9Params, options?: number | BigNumber | TransactionOptions): Promise<TransactionReceipt>;
+            call: (params: IUnwrapWETH9Params, options?: number | BigNumber | TransactionOptions) => Promise<void>;
+            txData: (params: IUnwrapWETH9Params, options?: number | BigNumber | TransactionOptions) => Promise<string>;
+        };
+        unwrapWETH9WithFee: {
+            (params: IUnwrapWETH9WithFeeParams, options?: number | BigNumber | TransactionOptions): Promise<TransactionReceipt>;
+            call: (params: IUnwrapWETH9WithFeeParams, options?: number | BigNumber | TransactionOptions) => Promise<void>;
+            txData: (params: IUnwrapWETH9WithFeeParams, options?: number | BigNumber | TransactionOptions) => Promise<string>;
+        };
+        private assign;
+    }
+}
+/// <amd-module name="@scom/scom-uniswap-v3/contracts/v3-periphery/contracts/V3Migrator.json.ts" />
+declare module "@scom/scom-uniswap-v3/contracts/v3-periphery/contracts/V3Migrator.json.ts" {
+    const _default_60: {
+        abi: ({
+            inputs: {
+                internalType: string;
+                name: string;
+                type: string;
+            }[];
+            stateMutability: string;
+            type: string;
+            name?: undefined;
+            outputs?: undefined;
+        } | {
+            inputs: {
+                internalType: string;
+                name: string;
+                type: string;
+            }[];
+            name: string;
+            outputs: {
+                internalType: string;
+                name: string;
+                type: string;
+            }[];
+            stateMutability: string;
+            type: string;
+        } | {
+            inputs: {
+                components: {
+                    internalType: string;
+                    name: string;
+                    type: string;
+                }[];
+                internalType: string;
+                name: string;
+                type: string;
+            }[];
+            name: string;
+            outputs: any[];
+            stateMutability: string;
+            type: string;
+        } | {
+            stateMutability: string;
+            type: string;
+            inputs?: undefined;
+            name?: undefined;
+            outputs?: undefined;
+        })[];
+        bytecode: string;
+    };
+    export default _default_60;
+}
+/// <amd-module name="@scom/scom-uniswap-v3/contracts/v3-periphery/contracts/V3Migrator.ts" />
+declare module "@scom/scom-uniswap-v3/contracts/v3-periphery/contracts/V3Migrator.ts" {
+    import { IWallet, Contract as _Contract, TransactionReceipt, BigNumber, TransactionOptions } from "@ijstech/eth-contract";
+    export interface IDeployParams {
+        factory: string;
+        WETH9: string;
+        nonfungiblePositionManager: string;
+    }
+    export interface ICreateAndInitializePoolIfNecessaryParams {
+        token0: string;
+        token1: string;
+        fee: number | BigNumber;
+        sqrtPriceX96: number | BigNumber;
+    }
+    export interface ISelfPermitParams {
+        token: string;
+        value: number | BigNumber;
+        deadline: number | BigNumber;
+        v: number | BigNumber;
+        r: string;
+        s: string;
+    }
+    export interface ISelfPermitAllowedParams {
+        token: string;
+        nonce: number | BigNumber;
+        expiry: number | BigNumber;
+        v: number | BigNumber;
+        r: string;
+        s: string;
+    }
+    export interface ISelfPermitAllowedIfNecessaryParams {
+        token: string;
+        nonce: number | BigNumber;
+        expiry: number | BigNumber;
+        v: number | BigNumber;
+        r: string;
+        s: string;
+    }
+    export interface ISelfPermitIfNecessaryParams {
+        token: string;
+        value: number | BigNumber;
+        deadline: number | BigNumber;
+        v: number | BigNumber;
+        r: string;
+        s: string;
+    }
+    export class V3Migrator extends _Contract {
+        static _abi: any;
+        constructor(wallet: IWallet, address?: string);
+        deploy(params: IDeployParams, options?: TransactionOptions): Promise<string>;
+        WETH9: {
+            (options?: TransactionOptions): Promise<string>;
+        };
+        createAndInitializePoolIfNecessary: {
+            (params: ICreateAndInitializePoolIfNecessaryParams, options?: number | BigNumber | TransactionOptions): Promise<TransactionReceipt>;
+            call: (params: ICreateAndInitializePoolIfNecessaryParams, options?: number | BigNumber | TransactionOptions) => Promise<string>;
+            txData: (params: ICreateAndInitializePoolIfNecessaryParams, options?: number | BigNumber | TransactionOptions) => Promise<string>;
+        };
+        factory: {
+            (options?: TransactionOptions): Promise<string>;
+        };
+        migrate: {
+            (params: {
+                pair: string;
+                liquidityToMigrate: number | BigNumber;
+                percentageToMigrate: number | BigNumber;
+                token0: string;
+                token1: string;
+                fee: number | BigNumber;
+                tickLower: number | BigNumber;
+                tickUpper: number | BigNumber;
+                amount0Min: number | BigNumber;
+                amount1Min: number | BigNumber;
+                recipient: string;
+                deadline: number | BigNumber;
+                refundAsETH: boolean;
+            }, options?: TransactionOptions): Promise<TransactionReceipt>;
+            call: (params: {
+                pair: string;
+                liquidityToMigrate: number | BigNumber;
+                percentageToMigrate: number | BigNumber;
+                token0: string;
+                token1: string;
+                fee: number | BigNumber;
+                tickLower: number | BigNumber;
+                tickUpper: number | BigNumber;
+                amount0Min: number | BigNumber;
+                amount1Min: number | BigNumber;
+                recipient: string;
+                deadline: number | BigNumber;
+                refundAsETH: boolean;
+            }, options?: TransactionOptions) => Promise<void>;
+            txData: (params: {
+                pair: string;
+                liquidityToMigrate: number | BigNumber;
+                percentageToMigrate: number | BigNumber;
+                token0: string;
+                token1: string;
+                fee: number | BigNumber;
+                tickLower: number | BigNumber;
+                tickUpper: number | BigNumber;
+                amount0Min: number | BigNumber;
+                amount1Min: number | BigNumber;
+                recipient: string;
+                deadline: number | BigNumber;
+                refundAsETH: boolean;
+            }, options?: TransactionOptions) => Promise<string>;
+        };
+        multicall: {
+            (data: string[], options?: number | BigNumber | TransactionOptions): Promise<TransactionReceipt>;
+            call: (data: string[], options?: number | BigNumber | TransactionOptions) => Promise<string[]>;
+            txData: (data: string[], options?: number | BigNumber | TransactionOptions) => Promise<string>;
+        };
+        nonfungiblePositionManager: {
+            (options?: TransactionOptions): Promise<string>;
+        };
+        selfPermit: {
+            (params: ISelfPermitParams, options?: number | BigNumber | TransactionOptions): Promise<TransactionReceipt>;
+            call: (params: ISelfPermitParams, options?: number | BigNumber | TransactionOptions) => Promise<void>;
+            txData: (params: ISelfPermitParams, options?: number | BigNumber | TransactionOptions) => Promise<string>;
+        };
+        selfPermitAllowed: {
+            (params: ISelfPermitAllowedParams, options?: number | BigNumber | TransactionOptions): Promise<TransactionReceipt>;
+            call: (params: ISelfPermitAllowedParams, options?: number | BigNumber | TransactionOptions) => Promise<void>;
+            txData: (params: ISelfPermitAllowedParams, options?: number | BigNumber | TransactionOptions) => Promise<string>;
+        };
+        selfPermitAllowedIfNecessary: {
+            (params: ISelfPermitAllowedIfNecessaryParams, options?: number | BigNumber | TransactionOptions): Promise<TransactionReceipt>;
+            call: (params: ISelfPermitAllowedIfNecessaryParams, options?: number | BigNumber | TransactionOptions) => Promise<void>;
+            txData: (params: ISelfPermitAllowedIfNecessaryParams, options?: number | BigNumber | TransactionOptions) => Promise<string>;
+        };
+        selfPermitIfNecessary: {
+            (params: ISelfPermitIfNecessaryParams, options?: number | BigNumber | TransactionOptions): Promise<TransactionReceipt>;
+            call: (params: ISelfPermitIfNecessaryParams, options?: number | BigNumber | TransactionOptions) => Promise<void>;
+            txData: (params: ISelfPermitIfNecessaryParams, options?: number | BigNumber | TransactionOptions) => Promise<string>;
+        };
+        private assign;
+    }
+}
+/// <amd-module name="@scom/scom-uniswap-v3/contracts/v3-periphery/contracts/PairFlash.json.ts" />
+declare module "@scom/scom-uniswap-v3/contracts/v3-periphery/contracts/PairFlash.json.ts" {
+    const _default_61: {
+        abi: ({
+            inputs: {
+                internalType: string;
+                name: string;
+                type: string;
+            }[];
+            stateMutability: string;
+            type: string;
+            name?: undefined;
+            outputs?: undefined;
+        } | {
+            inputs: any[];
+            name: string;
+            outputs: {
+                internalType: string;
+                name: string;
+                type: string;
+            }[];
+            stateMutability: string;
+            type: string;
+        } | {
+            inputs: {
+                components: {
+                    internalType: string;
+                    name: string;
+                    type: string;
+                }[];
+                internalType: string;
+                name: string;
+                type: string;
+            }[];
+            name: string;
+            outputs: any[];
+            stateMutability: string;
+            type: string;
+        } | {
+            inputs: {
+                internalType: string;
+                name: string;
+                type: string;
+            }[];
+            name: string;
+            outputs: any[];
+            stateMutability: string;
+            type: string;
+        } | {
+            stateMutability: string;
+            type: string;
+            inputs?: undefined;
+            name?: undefined;
+            outputs?: undefined;
+        })[];
+        bytecode: string;
+    };
+    export default _default_61;
+}
+/// <amd-module name="@scom/scom-uniswap-v3/contracts/v3-periphery/contracts/PairFlash.ts" />
+declare module "@scom/scom-uniswap-v3/contracts/v3-periphery/contracts/PairFlash.ts" {
+    import { IWallet, Contract as _Contract, TransactionReceipt, BigNumber, TransactionOptions } from "@ijstech/eth-contract";
+    export interface IDeployParams {
+        swapRouter: string;
+        factory: string;
+        WETH9: string;
+    }
+    export interface ISweepTokenParams {
+        token: string;
+        amountMinimum: number | BigNumber;
+        recipient: string;
+    }
+    export interface IUniswapV3FlashCallbackParams {
+        fee0: number | BigNumber;
+        fee1: number | BigNumber;
+        data: string;
+    }
+    export interface IUnwrapWETH9Params {
+        amountMinimum: number | BigNumber;
+        recipient: string;
+    }
+    export class PairFlash extends _Contract {
+        static _abi: any;
+        constructor(wallet: IWallet, address?: string);
+        deploy(params: IDeployParams, options?: TransactionOptions): Promise<string>;
+        WETH9: {
+            (options?: TransactionOptions): Promise<string>;
+        };
+        factory: {
+            (options?: TransactionOptions): Promise<string>;
+        };
+        initFlash: {
+            (params: {
+                token0: string;
+                token1: string;
+                fee1: number | BigNumber;
+                amount0: number | BigNumber;
+                amount1: number | BigNumber;
+                fee2: number | BigNumber;
+                fee3: number | BigNumber;
+            }, options?: TransactionOptions): Promise<TransactionReceipt>;
+            call: (params: {
+                token0: string;
+                token1: string;
+                fee1: number | BigNumber;
+                amount0: number | BigNumber;
+                amount1: number | BigNumber;
+                fee2: number | BigNumber;
+                fee3: number | BigNumber;
+            }, options?: TransactionOptions) => Promise<void>;
+            txData: (params: {
+                token0: string;
+                token1: string;
+                fee1: number | BigNumber;
+                amount0: number | BigNumber;
+                amount1: number | BigNumber;
+                fee2: number | BigNumber;
+                fee3: number | BigNumber;
+            }, options?: TransactionOptions) => Promise<string>;
+        };
+        refundETH: {
+            (options?: number | BigNumber | TransactionOptions): Promise<TransactionReceipt>;
+            call: (options?: number | BigNumber | TransactionOptions) => Promise<void>;
+            txData: (options?: number | BigNumber | TransactionOptions) => Promise<string>;
+        };
+        swapRouter: {
+            (options?: TransactionOptions): Promise<string>;
+        };
+        sweepToken: {
+            (params: ISweepTokenParams, options?: number | BigNumber | TransactionOptions): Promise<TransactionReceipt>;
+            call: (params: ISweepTokenParams, options?: number | BigNumber | TransactionOptions) => Promise<void>;
+            txData: (params: ISweepTokenParams, options?: number | BigNumber | TransactionOptions) => Promise<string>;
+        };
+        uniswapV3FlashCallback: {
+            (params: IUniswapV3FlashCallbackParams, options?: TransactionOptions): Promise<TransactionReceipt>;
+            call: (params: IUniswapV3FlashCallbackParams, options?: TransactionOptions) => Promise<void>;
+            txData: (params: IUniswapV3FlashCallbackParams, options?: TransactionOptions) => Promise<string>;
+        };
+        unwrapWETH9: {
+            (params: IUnwrapWETH9Params, options?: number | BigNumber | TransactionOptions): Promise<TransactionReceipt>;
+            call: (params: IUnwrapWETH9Params, options?: number | BigNumber | TransactionOptions) => Promise<void>;
+            txData: (params: IUnwrapWETH9Params, options?: number | BigNumber | TransactionOptions) => Promise<string>;
+        };
+        private assign;
+    }
+}
+/// <amd-module name="@scom/scom-uniswap-v3/contracts/v3-periphery/contracts/Quoter.json.ts" />
+declare module "@scom/scom-uniswap-v3/contracts/v3-periphery/contracts/Quoter.json.ts" {
+    const _default_62: {
+        abi: ({
+            inputs: {
+                internalType: string;
+                name: string;
+                type: string;
+            }[];
+            stateMutability: string;
+            type: string;
+            name?: undefined;
+            outputs?: undefined;
+        } | {
+            inputs: {
+                internalType: string;
+                name: string;
+                type: string;
+            }[];
+            name: string;
+            outputs: {
+                internalType: string;
+                name: string;
+                type: string;
+            }[];
+            stateMutability: string;
+            type: string;
+        })[];
+        bytecode: string;
+    };
+    export default _default_62;
+}
+/// <amd-module name="@scom/scom-uniswap-v3/contracts/v3-periphery/contracts/Quoter.ts" />
+declare module "@scom/scom-uniswap-v3/contracts/v3-periphery/contracts/Quoter.ts" {
+    import { IWallet, Contract as _Contract, TransactionReceipt, BigNumber, TransactionOptions } from "@ijstech/eth-contract";
+    export interface IDeployParams {
+        factory: string;
+        WETH9: string;
+    }
+    export interface IQuoteExactInputParams {
+        path: string;
+        amountIn: number | BigNumber;
+    }
+    export interface IQuoteExactInputSingleParams {
+        tokenIn: string;
+        tokenOut: string;
+        fee: number | BigNumber;
+        amountIn: number | BigNumber;
+        sqrtPriceLimitX96: number | BigNumber;
+    }
+    export interface IQuoteExactOutputParams {
+        path: string;
+        amountOut: number | BigNumber;
+    }
+    export interface IQuoteExactOutputSingleParams {
+        tokenIn: string;
+        tokenOut: string;
+        fee: number | BigNumber;
+        amountOut: number | BigNumber;
+        sqrtPriceLimitX96: number | BigNumber;
+    }
+    export interface IUniswapV3SwapCallbackParams {
+        amount0Delta: number | BigNumber;
+        amount1Delta: number | BigNumber;
+        path: string;
+    }
+    export class Quoter extends _Contract {
+        static _abi: any;
+        constructor(wallet: IWallet, address?: string);
+        deploy(params: IDeployParams, options?: TransactionOptions): Promise<string>;
+        WETH9: {
+            (options?: TransactionOptions): Promise<string>;
+        };
+        factory: {
+            (options?: TransactionOptions): Promise<string>;
+        };
+        quoteExactInput: {
+            (params: IQuoteExactInputParams, options?: TransactionOptions): Promise<TransactionReceipt>;
+            call: (params: IQuoteExactInputParams, options?: TransactionOptions) => Promise<BigNumber>;
+            txData: (params: IQuoteExactInputParams, options?: TransactionOptions) => Promise<string>;
+        };
+        quoteExactInputSingle: {
+            (params: IQuoteExactInputSingleParams, options?: TransactionOptions): Promise<TransactionReceipt>;
+            call: (params: IQuoteExactInputSingleParams, options?: TransactionOptions) => Promise<BigNumber>;
+            txData: (params: IQuoteExactInputSingleParams, options?: TransactionOptions) => Promise<string>;
+        };
+        quoteExactOutput: {
+            (params: IQuoteExactOutputParams, options?: TransactionOptions): Promise<TransactionReceipt>;
+            call: (params: IQuoteExactOutputParams, options?: TransactionOptions) => Promise<BigNumber>;
+            txData: (params: IQuoteExactOutputParams, options?: TransactionOptions) => Promise<string>;
+        };
+        quoteExactOutputSingle: {
+            (params: IQuoteExactOutputSingleParams, options?: TransactionOptions): Promise<TransactionReceipt>;
+            call: (params: IQuoteExactOutputSingleParams, options?: TransactionOptions) => Promise<BigNumber>;
+            txData: (params: IQuoteExactOutputSingleParams, options?: TransactionOptions) => Promise<string>;
+        };
+        uniswapV3SwapCallback: {
+            (params: IUniswapV3SwapCallbackParams, options?: TransactionOptions): Promise<void>;
+        };
+        private assign;
+    }
+}
+/// <amd-module name="@scom/scom-uniswap-v3/contracts/v3-periphery/contracts/QuoterV2.json.ts" />
+declare module "@scom/scom-uniswap-v3/contracts/v3-periphery/contracts/QuoterV2.json.ts" {
+    const _default_63: {
+        abi: ({
+            inputs: {
+                internalType: string;
+                name: string;
+                type: string;
+            }[];
+            stateMutability: string;
+            type: string;
+            name?: undefined;
+            outputs?: undefined;
+        } | {
+            inputs: {
+                internalType: string;
+                name: string;
+                type: string;
+            }[];
+            name: string;
+            outputs: {
+                internalType: string;
+                name: string;
+                type: string;
+            }[];
+            stateMutability: string;
+            type: string;
+        } | {
+            inputs: {
+                components: {
+                    internalType: string;
+                    name: string;
+                    type: string;
+                }[];
+                internalType: string;
+                name: string;
+                type: string;
+            }[];
+            name: string;
+            outputs: {
+                internalType: string;
+                name: string;
+                type: string;
+            }[];
+            stateMutability: string;
+            type: string;
+        })[];
+        bytecode: string;
+    };
+    export default _default_63;
+}
+/// <amd-module name="@scom/scom-uniswap-v3/contracts/v3-periphery/contracts/QuoterV2.ts" />
+declare module "@scom/scom-uniswap-v3/contracts/v3-periphery/contracts/QuoterV2.ts" {
+    import { IWallet, Contract as _Contract, TransactionReceipt, BigNumber, TransactionOptions } from "@ijstech/eth-contract";
+    export interface IDeployParams {
+        factory: string;
+        WETH9: string;
+    }
+    export interface IQuoteExactInputParams {
+        path: string;
+        amountIn: number | BigNumber;
+    }
+    export interface IQuoteExactOutputParams {
+        path: string;
+        amountOut: number | BigNumber;
+    }
+    export interface IUniswapV3SwapCallbackParams {
+        amount0Delta: number | BigNumber;
+        amount1Delta: number | BigNumber;
+        path: string;
+    }
+    export class QuoterV2 extends _Contract {
+        static _abi: any;
+        constructor(wallet: IWallet, address?: string);
+        deploy(params: IDeployParams, options?: TransactionOptions): Promise<string>;
+        WETH9: {
+            (options?: TransactionOptions): Promise<string>;
+        };
+        factory: {
+            (options?: TransactionOptions): Promise<string>;
+        };
+        quoteExactInput: {
+            (params: IQuoteExactInputParams, options?: TransactionOptions): Promise<TransactionReceipt>;
+            call: (params: IQuoteExactInputParams, options?: TransactionOptions) => Promise<{
+                amountOut: BigNumber;
+                sqrtPriceX96AfterList: BigNumber[];
+                initializedTicksCrossedList: BigNumber[];
+                gasEstimate: BigNumber;
+            }>;
+            txData: (params: IQuoteExactInputParams, options?: TransactionOptions) => Promise<string>;
+        };
+        quoteExactInputSingle: {
+            (params: {
+                tokenIn: string;
+                tokenOut: string;
+                amountIn: number | BigNumber;
+                fee: number | BigNumber;
+                sqrtPriceLimitX96: number | BigNumber;
+            }, options?: TransactionOptions): Promise<TransactionReceipt>;
+            call: (params: {
+                tokenIn: string;
+                tokenOut: string;
+                amountIn: number | BigNumber;
+                fee: number | BigNumber;
+                sqrtPriceLimitX96: number | BigNumber;
+            }, options?: TransactionOptions) => Promise<{
+                amountOut: BigNumber;
+                sqrtPriceX96After: BigNumber;
+                initializedTicksCrossed: BigNumber;
+                gasEstimate: BigNumber;
+            }>;
+            txData: (params: {
+                tokenIn: string;
+                tokenOut: string;
+                amountIn: number | BigNumber;
+                fee: number | BigNumber;
+                sqrtPriceLimitX96: number | BigNumber;
+            }, options?: TransactionOptions) => Promise<string>;
+        };
+        quoteExactOutput: {
+            (params: IQuoteExactOutputParams, options?: TransactionOptions): Promise<TransactionReceipt>;
+            call: (params: IQuoteExactOutputParams, options?: TransactionOptions) => Promise<{
+                amountIn: BigNumber;
+                sqrtPriceX96AfterList: BigNumber[];
+                initializedTicksCrossedList: BigNumber[];
+                gasEstimate: BigNumber;
+            }>;
+            txData: (params: IQuoteExactOutputParams, options?: TransactionOptions) => Promise<string>;
+        };
+        quoteExactOutputSingle: {
+            (params: {
+                tokenIn: string;
+                tokenOut: string;
+                amount: number | BigNumber;
+                fee: number | BigNumber;
+                sqrtPriceLimitX96: number | BigNumber;
+            }, options?: TransactionOptions): Promise<TransactionReceipt>;
+            call: (params: {
+                tokenIn: string;
+                tokenOut: string;
+                amount: number | BigNumber;
+                fee: number | BigNumber;
+                sqrtPriceLimitX96: number | BigNumber;
+            }, options?: TransactionOptions) => Promise<{
+                amountIn: BigNumber;
+                sqrtPriceX96After: BigNumber;
+                initializedTicksCrossed: BigNumber;
+                gasEstimate: BigNumber;
+            }>;
+            txData: (params: {
+                tokenIn: string;
+                tokenOut: string;
+                amount: number | BigNumber;
+                fee: number | BigNumber;
+                sqrtPriceLimitX96: number | BigNumber;
+            }, options?: TransactionOptions) => Promise<string>;
+        };
+        uniswapV3SwapCallback: {
+            (params: IUniswapV3SwapCallbackParams, options?: TransactionOptions): Promise<void>;
+        };
+        private assign;
+    }
+}
+/// <amd-module name="@scom/scom-uniswap-v3/contracts/v3-periphery/contracts/TickLens.json.ts" />
+declare module "@scom/scom-uniswap-v3/contracts/v3-periphery/contracts/TickLens.json.ts" {
+    const _default_64: {
+        abi: {
+            inputs: {
+                internalType: string;
+                name: string;
+                type: string;
+            }[];
+            name: string;
+            outputs: {
+                components: {
+                    internalType: string;
+                    name: string;
+                    type: string;
+                }[];
+                internalType: string;
+                name: string;
+                type: string;
+            }[];
+            stateMutability: string;
+            type: string;
+        }[];
+        bytecode: string;
+    };
+    export default _default_64;
+}
+/// <amd-module name="@scom/scom-uniswap-v3/contracts/v3-periphery/contracts/TickLens.ts" />
+declare module "@scom/scom-uniswap-v3/contracts/v3-periphery/contracts/TickLens.ts" {
+    import { IWallet, Contract as _Contract, BigNumber, TransactionOptions } from "@ijstech/eth-contract";
+    export interface IGetPopulatedTicksInWordParams {
+        pool: string;
+        tickBitmapIndex: number | BigNumber;
+    }
+    export class TickLens extends _Contract {
+        static _abi: any;
+        constructor(wallet: IWallet, address?: string);
+        deploy(options?: TransactionOptions): Promise<string>;
+        getPopulatedTicksInWord: {
+            (params: IGetPopulatedTicksInWordParams, options?: TransactionOptions): Promise<{
+                tick: BigNumber;
+                liquidityNet: BigNumber;
+                liquidityGross: BigNumber;
+            }[]>;
+        };
+        private assign;
+    }
+}
+/// <amd-module name="@scom/scom-uniswap-v3/contracts/v3-periphery/contracts/UniswapInterfaceMulticall.json.ts" />
+declare module "@scom/scom-uniswap-v3/contracts/v3-periphery/contracts/UniswapInterfaceMulticall.json.ts" {
+    const _default_65: {
+        abi: ({
+            inputs: {
+                internalType: string;
+                name: string;
+                type: string;
+            }[];
+            name: string;
+            outputs: {
+                internalType: string;
+                name: string;
+                type: string;
+            }[];
+            stateMutability: string;
+            type: string;
+        } | {
+            inputs: {
+                components: {
+                    internalType: string;
+                    name: string;
+                    type: string;
+                }[];
+                internalType: string;
+                name: string;
+                type: string;
+            }[];
+            name: string;
+            outputs: ({
+                internalType: string;
+                name: string;
+                type: string;
+                components?: undefined;
+            } | {
+                components: {
+                    internalType: string;
+                    name: string;
+                    type: string;
+                }[];
+                internalType: string;
+                name: string;
+                type: string;
+            })[];
+            stateMutability: string;
+            type: string;
+        })[];
+        bytecode: string;
+    };
+    export default _default_65;
+}
+/// <amd-module name="@scom/scom-uniswap-v3/contracts/v3-periphery/contracts/UniswapInterfaceMulticall.ts" />
+declare module "@scom/scom-uniswap-v3/contracts/v3-periphery/contracts/UniswapInterfaceMulticall.ts" {
+    import { IWallet, Contract as _Contract, TransactionReceipt, BigNumber, TransactionOptions } from "@ijstech/eth-contract";
+    export class UniswapInterfaceMulticall extends _Contract {
+        static _abi: any;
+        constructor(wallet: IWallet, address?: string);
+        deploy(options?: TransactionOptions): Promise<string>;
+        getCurrentBlockTimestamp: {
+            (options?: TransactionOptions): Promise<BigNumber>;
+        };
+        getEthBalance: {
+            (addr: string, options?: TransactionOptions): Promise<BigNumber>;
+        };
+        multicall: {
+            (calls: {
+                target: string;
+                gasLimit: number | BigNumber;
+                callData: string;
+            }[], options?: TransactionOptions): Promise<TransactionReceipt>;
+            call: (calls: {
+                target: string;
+                gasLimit: number | BigNumber;
+                callData: string;
+            }[], options?: TransactionOptions) => Promise<{
+                blockNumber: BigNumber;
+                returnData: {
+                    success: boolean;
+                    gasUsed: BigNumber;
+                    returnData: string;
+                }[];
+            }>;
+            txData: (calls: {
+                target: string;
+                gasLimit: number | BigNumber;
+                callData: string;
+            }[], options?: TransactionOptions) => Promise<string>;
+        };
+        private assign;
+    }
+}
+/// <amd-module name="@scom/scom-uniswap-v3/contracts/v3-periphery/contracts/NFTDescriptor.json.ts" />
+declare module "@scom/scom-uniswap-v3/contracts/v3-periphery/contracts/NFTDescriptor.json.ts" {
+    const _default_66: {
+        abi: {
+            inputs: {
+                components: {
+                    internalType: string;
+                    name: string;
+                    type: string;
+                }[];
+                internalType: string;
+                name: string;
+                type: string;
+            }[];
+            name: string;
+            outputs: {
+                internalType: string;
+                name: string;
+                type: string;
+            }[];
+            stateMutability: string;
+            type: string;
+        }[];
+        bytecode: string;
+    };
+    export default _default_66;
+}
+/// <amd-module name="@scom/scom-uniswap-v3/contracts/v3-periphery/contracts/NFTDescriptor.ts" />
+declare module "@scom/scom-uniswap-v3/contracts/v3-periphery/contracts/NFTDescriptor.ts" {
+    import { IWallet, Contract as _Contract, BigNumber, TransactionOptions } from "@ijstech/eth-contract";
+    export class NFTDescriptor extends _Contract {
+        static _abi: any;
+        constructor(wallet: IWallet, address?: string);
+        deploy(options?: TransactionOptions): Promise<string>;
+        constructTokenURI: {
+            (params: {
+                tokenId: number | BigNumber;
+                quoteTokenAddress: string;
+                baseTokenAddress: string;
+                quoteTokenSymbol: string;
+                baseTokenSymbol: string;
+                quoteTokenDecimals: number | BigNumber;
+                baseTokenDecimals: number | BigNumber;
+                flipRatio: boolean;
+                tickLower: number | BigNumber;
+                tickUpper: number | BigNumber;
+                tickCurrent: number | BigNumber;
+                tickSpacing: number | BigNumber;
+                fee: number | BigNumber;
+                poolAddress: string;
+            }, options?: TransactionOptions): Promise<string>;
+        };
+        private assign;
+    }
+}
+/// <amd-module name="@scom/scom-uniswap-v3/contracts/v3-periphery/contracts/index.ts" />
+declare module "@scom/scom-uniswap-v3/contracts/v3-periphery/contracts/index.ts" {
+    export { NonfungiblePositionManager } from "@scom/scom-uniswap-v3/contracts/v3-periphery/contracts/NonfungiblePositionManager.ts";
+    export { NonfungibleTokenPositionDescriptor } from "@scom/scom-uniswap-v3/contracts/v3-periphery/contracts/NonfungibleTokenPositionDescriptor.ts";
+    export { SwapRouter } from "@scom/scom-uniswap-v3/contracts/v3-periphery/contracts/SwapRouter.ts";
+    export { V3Migrator } from "@scom/scom-uniswap-v3/contracts/v3-periphery/contracts/V3Migrator.ts";
+    export { PairFlash } from "@scom/scom-uniswap-v3/contracts/v3-periphery/contracts/PairFlash.ts";
+    export { Quoter } from "@scom/scom-uniswap-v3/contracts/v3-periphery/contracts/Quoter.ts";
+    export { QuoterV2 } from "@scom/scom-uniswap-v3/contracts/v3-periphery/contracts/QuoterV2.ts";
+    export { TickLens } from "@scom/scom-uniswap-v3/contracts/v3-periphery/contracts/TickLens.ts";
+    export { UniswapInterfaceMulticall } from "@scom/scom-uniswap-v3/contracts/v3-periphery/contracts/UniswapInterfaceMulticall.ts";
+    export { NFTDescriptor } from "@scom/scom-uniswap-v3/contracts/v3-periphery/contracts/NFTDescriptor.ts";
+}
+/// <amd-module name="@scom/scom-uniswap-v3/contracts/v3-periphery/index.ts" />
+declare module "@scom/scom-uniswap-v3/contracts/v3-periphery/index.ts" {
+    export * as Contract from "@scom/scom-uniswap-v3/contracts/v3-periphery/contracts/index.ts";
+}
 /// <amd-module name="@scom/scom-uniswap-v3/swap-utils/helper.ts" />
 declare module "@scom/scom-uniswap-v3/swap-utils/helper.ts" {
     import { Control } from "@ijstech/components";
@@ -10914,13 +13085,14 @@ declare module "@scom/scom-uniswap-v3/swap-utils/index.ts" {
     const getApprovalModelAction: (options: IERC20ApprovalEventOptions) => Promise<import("@scom/scom-uniswap-v3/global/index.ts").IERC20ApprovalAction>;
     const setApprovalModalSpenderAddress: (market: string, contractAddress?: string) => void;
     export const getTokenPrice: (token: string) => Promise<string>;
-    export { getExtendedRouteObjData, getTradeFeeMap, getAllRoutesData, SwapData, executeSwap, getChainNativeToken, getRouterAddress, setERC20AllowanceToZero, getApprovalModelAction, setApprovalModalSpenderAddress };
+    const getBestAmountOutRouteUniV3: (tokenIn: ITokenObject, tokenOut: ITokenObject, amountIn: string) => Promise<any>;
+    export { getExtendedRouteObjData, getTradeFeeMap, getAllRoutesData, SwapData, executeSwap, getChainNativeToken, getRouterAddress, setERC20AllowanceToZero, getApprovalModelAction, setApprovalModalSpenderAddress, getBestAmountOutRouteUniV3 };
     export * from "@scom/scom-uniswap-v3/swap-utils/helper.ts";
 }
 /// <amd-module name="@scom/scom-uniswap-v3/common/alert/index.css.ts" />
 declare module "@scom/scom-uniswap-v3/common/alert/index.css.ts" {
-    const _default_55: string;
-    export default _default_55;
+    const _default_67: string;
+    export default _default_67;
 }
 /// <amd-module name="@scom/scom-uniswap-v3/common/alert/index.tsx" />
 declare module "@scom/scom-uniswap-v3/common/alert/index.tsx" {
@@ -11010,8 +13182,8 @@ declare module "@scom/scom-uniswap-v3/common/price-info/index.tsx" {
 }
 /// <amd-module name="@scom/scom-uniswap-v3/common/transaction-settings/index.css.ts" />
 declare module "@scom/scom-uniswap-v3/common/transaction-settings/index.css.ts" {
-    const _default_56: string;
-    export default _default_56;
+    const _default_68: string;
+    export default _default_68;
 }
 /// <amd-module name="@scom/scom-uniswap-v3/common/transaction-settings/index.tsx" />
 declare module "@scom/scom-uniswap-v3/common/transaction-settings/index.tsx" {
@@ -11059,8 +13231,8 @@ declare module "@scom/scom-uniswap-v3/common/transaction-settings/index.tsx" {
 }
 /// <amd-module name="@scom/scom-uniswap-v3/common/expert-mode-settings/index.css.ts" />
 declare module "@scom/scom-uniswap-v3/common/expert-mode-settings/index.css.ts" {
-    const _default_57: string;
-    export default _default_57;
+    const _default_69: string;
+    export default _default_69;
 }
 /// <amd-module name="@scom/scom-uniswap-v3/common/expert-mode-settings/index.tsx" />
 declare module "@scom/scom-uniswap-v3/common/expert-mode-settings/index.tsx" {
@@ -11227,7 +13399,7 @@ declare module "@scom/scom-uniswap-v3/token-selection/index.tsx" {
 }
 /// <amd-module name="@scom/scom-uniswap-v3/data.json.ts" />
 declare module "@scom/scom-uniswap-v3/data.json.ts" {
-    const _default_58: {
+    const _default_70: {
         infuraId: string;
         networks: ({
             chainId: number;
@@ -11281,7 +13453,7 @@ declare module "@scom/scom-uniswap-v3/data.json.ts" {
             showFooter: boolean;
         };
     };
-    export default _default_58;
+    export default _default_70;
 }
 /// <amd-module name="@scom/scom-uniswap-v3" />
 declare module "@scom/scom-uniswap-v3" {

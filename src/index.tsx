@@ -26,7 +26,8 @@ import {
   setApprovalModalSpenderAddress,
   getCommissionAmount,
   getCurrentCommissions,
-  getTokenPrice
+  getTokenPrice,
+  getBestAmountOutRouteUniV3
 } from './swap-utils/index';
 
 import {
@@ -1006,18 +1007,18 @@ export default class ScomUniswapV3 extends Module {
   }
 
   private async updateUSDPrice(token: ITokenObject, isFrom: boolean) {
-    const val = isFrom ? this.fromInputValue : this.toInputValue;
-    let usd = '';
-    if (val.gt(0)) {
-      usd = await getTokenPrice(token.address) || '';
-    }
-    if (isFrom) {
-      this.payUSD.caption = usd ? `$${formatNumber(this.fromInputValue.multipliedBy(usd), 2)}` : '';
-      this.lbPayUSD.caption = usd ? `$${formatNumber(this.fromInputValue.multipliedBy(usd), 2)}` : '';
-    } else {
-      this.receiveUSD.caption = usd ? `$${formatNumber(this.toInputValue.multipliedBy(usd), 2)}` : '';
-      this.lbReceiveUSD.caption = usd ? `$${formatNumber(this.toInputValue.multipliedBy(usd), 2)}` : '';
-    }
+    // const val = isFrom ? this.fromInputValue : this.toInputValue;
+    // let usd = '';
+    // if (val.gt(0)) {
+    //   usd = await getTokenPrice(token.address) || '';
+    // }
+    // if (isFrom) {
+    //   this.payUSD.caption = usd ? `$${formatNumber(this.fromInputValue.multipliedBy(usd), 2)}` : '';
+    //   this.lbPayUSD.caption = usd ? `$${formatNumber(this.fromInputValue.multipliedBy(usd), 2)}` : '';
+    // } else {
+    //   this.receiveUSD.caption = usd ? `$${formatNumber(this.toInputValue.multipliedBy(usd), 2)}` : '';
+    //   this.lbReceiveUSD.caption = usd ? `$${formatNumber(this.toInputValue.multipliedBy(usd), 2)}` : '';
+    // }
   }
 
   private onUpdateToken(token: ITokenObject, isFrom: boolean) {
@@ -1230,7 +1231,8 @@ export default class ScomUniswapV3 extends Module {
     let listRouting: any[] = [];
     const useAPI = this._data.category === 'aggregator';
     this.updateContractAddress();
-    listRouting = await getAllRoutesData(this.fromToken, this.toToken, this.fromInputValue, this.toInputValue, this.isFrom, useAPI, this.commissions);
+    await getBestAmountOutRouteUniV3(this.fromToken, this.toToken, this.fromInputValue.toString())
+    // listRouting = await getAllRoutesData(this.fromToken, this.toToken, this.fromInputValue, this.toInputValue, this.isFrom, useAPI, this.commissions);
     listRouting = listRouting.map((v: any) => {
       return {
         ...v,
