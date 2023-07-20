@@ -3,6 +3,8 @@ import { Contracts } from "../contracts/oswap-openswap-contract/index";
 import { Contracts as UtilsContracts } from "../contracts/oswap-chainlink-contract/index";
 import { Contracts as ProxyContracts } from '../contracts/scom-commission-proxy-contract/index';
 import { executeRouterSwap, getRouterSwapTxData, IExecuteSwapOptions } from '@scom/scom-dex-list';
+import { Contract as v3Core } from '../contracts/v3-core/index';
+import { Contract as v3Periphery } from '../contracts/v3-periphery/index';
 
 import {
   getAPI,
@@ -14,7 +16,7 @@ import {
 } from "../global/index";
 
 import {
-  getSlippageTolerance, 
+  getSlippageTolerance,
   getTransactionDeadline,
   isWalletConnected,
   getChainId,
@@ -38,10 +40,10 @@ interface TradeFeeMap {
   [key: string]: TradeFee
 }
 interface AvailableRoute {
-  pair:string,
-  market:string,
-  tokenIn:ITokenObject,
-  tokenOut:ITokenObject,
+  pair: string,
+  market: string,
+  tokenIn: ITokenObject,
+  tokenOut: ITokenObject,
   reserveA: BigNumber,
   reserveB: BigNumber,
 }
@@ -291,7 +293,7 @@ async function getBestAmountOutRouteFromAPI(wallet: any, tokenIn: ITokenObject, 
 
 const getAllAvailableRoutes = async (markets: string[], tokenList: ITokenObject[], tokenIn: ITokenObject, tokenOut: ITokenObject) => {
   const wallet: any = Wallet.getClientInstance();
-  let getPairPromises:Promise<void>[] = [];
+  let getPairPromises: Promise<void>[] = [];
   let availableRoutes: AvailableRoute[] = [];
 
   const getReservesByPair = async (pairAddress: string, tokenIn: ITokenObject, tokenOut: ITokenObject) => {
@@ -337,7 +339,7 @@ const getAllAvailableRoutes = async (markets: string[], tokenList: ITokenObject[
         tokenOut,
         ...reserveObj
       });
-    } catch (err) { 
+    } catch (err) {
       console.log('err', err);
     }
   }
@@ -548,7 +550,7 @@ const getAllExactAmountInPaths = async (tradeFeeMap: any, availableRoutes: any[]
     let entryList = availableRoutes.filter((v) => v.tokenIn.address == tokenIn.address);
     for (let i = 0; i < entryList.length; i++) {
       let pairInfo = entryList[i];
-      let routeObj =  getAmmRouteObj(pairInfo); // pairInfo.market == Market.MIXED_QUEUE ? getQueueRouteObj(pairInfo) : getAmmRouteObj(pairInfo);
+      let routeObj = getAmmRouteObj(pairInfo); // pairInfo.market == Market.MIXED_QUEUE ? getQueueRouteObj(pairInfo) : getAmmRouteObj(pairInfo);
       if (!routeObj) continue;
       if ((!pairInfo.tokenOut.address && !tokenOut.address) ||
         (pairInfo.tokenOut.address && tokenOut.address && pairInfo.tokenOut.address.toLowerCase() == tokenOut.address.toLowerCase())) {
@@ -645,7 +647,7 @@ async function getExtendedRouteObjData(wallet: any, bestRouteObj: any, tradeFeeM
       .reduce((prev: any, curr: any) => prev.times(curr));
   }
 
-  let fee = new BigNumber(1).minus(bestRouteObj.market.map((market:number) => {
+  let fee = new BigNumber(1).minus(bestRouteObj.market.map((market: number) => {
     let tradeFeeObj = tradeFeeMap[market]
     let tradeFee = new BigNumber(tradeFeeObj.fee).div(tradeFeeObj.base);
     return new BigNumber(1).minus(tradeFee)
@@ -1101,7 +1103,7 @@ export const getTokenPrice = async (token: string) => { // in USD value
       }
     } else {
       let aggregator = new UtilsContracts.EACAggregatorProxy(wallet, token1PriceFeedAddress);
-      let [token1LatestRoundData,token1PriceFeedDecimals] = await Promise.all([
+      let [token1LatestRoundData, token1PriceFeedDecimals] = await Promise.all([
         aggregator.latestRoundData(),
         aggregator.decimals()
       ]);
@@ -1126,6 +1128,112 @@ export const getTokenPrice = async (token: string) => { // in USD value
   return tokenPrice;
 }
 
+
+//UniSwap V3
+const q96: BigNumber = new BigNumber(2).pow(96);
+
+// Get Best Amount Out for UniV3
+// Return: a UniV3 Route Object
+// Ref: https://uniswapv3book.com/docs/milestone_2/output-amount-calculation/
+const getBestAmountOutRouteUniV3 = async (tokenIn: ITokenObject, tokenOut: ITokenObject, amountIn: string) => {
+
+  console.log("uni3 start: ", tokenIn, tokenOut, amountIn)
+  const wallet: any = Wallet.getClientInstance();
+
+  // Calculate amount out for each pool, there are 4 default pool fee for univ3
+  let poolFee = [ Utils.toDecimals("0.05",4),  Utils.toDecimals("0.3",4), Utils.toDecimals("1",4), Utils.toDecimals("0.01",4)];
+  let v3Factory = new v3Core.UniswapV3Factory(wallet, "0x1F98431c8aD98523631AE4a59f267346ea31F984");
+  let resultArr = [];
+
+  await Promise.all(poolFee.map(async (fee) => {
+    // get pool contract
+    let v3PoolAddress = await v3Factory.getPool(
+      new BigNumber(tokenOut.address.toLowerCase()).lt(tokenIn.address.toLowerCase()) ?
+        { param1: tokenOut.address, param2: tokenIn.address, param3: fee } :
+        { param1: tokenIn.address, param2: tokenOut.address, param3: fee }
+    )
+    console.log("pool address: ", v3PoolAddress)
+
+    // Check Token0 & Token1
+    let v3PoolContact = new v3Core.UniswapV3Pool(wallet, v3PoolAddress);
+
+    let tokenInIsToken0: boolean = false;
+    if (new BigNumber(tokenIn.address.toLowerCase()).lt(tokenOut.address.toLowerCase())) tokenInIsToken0 = true;
+
+    // calculate expected amount out
+    let price = await GetPrice(v3PoolContact, tokenIn, tokenOut, tokenInIsToken0);
+    console.log("prices: ", tokenInIsToken0, price.buyOneOfToken0.toNumber(), price.buyOneOfToken1.toNumber())
+    let sqrtpCur = tokenInIsToken0? new BigNumber(price.buyOneOfToken1).sqrt().times(q96) : new BigNumber(price.buyOneOfToken0).sqrt().times(q96);
+    let liq = await v3PoolContact.liquidity();
+    let amountOut: BigNumber;
+
+
+    //   let priceNext = liq.times(q96).times(sqrtpCur).idiv(liq.times(q96).plus(sqrtpCur.times(amountIn)))
+    //   let amount0 = calcAmount0(liq, priceNext, sqrtpCur)
+    //   let amount1 = calcAmount1(liq, priceNext, sqrtpCur)
+    //   console.log("BuyToken0", amount0, amount1);
+
+    let priceDiff = new BigNumber(amountIn).times(q96).idiv(liq);
+    let priceNext = sqrtpCur.plus(priceDiff);
+    let amount0 = calcAmount0(liq, priceNext, sqrtpCur)
+    let amount1 = calcAmount1(liq, priceNext, sqrtpCur)
+    amountOut = amount0;
+
+    console.log("amount out: ", amountOut.toFixed())
+    resultArr.push({
+      tokenIn,
+      tokenOut,
+      amountIn,
+      amountOut,
+      fee,
+      amountOutAfterFee: amountOut.times(new BigNumber(1).minus(fee))
+    })
+  }))
+
+  resultArr = resultArr.sort( (a,b) => a.amountOutAfterFee.minus(b.amountOutAfterFee).toNumber());
+  console.log("result: ", resultArr)
+
+  return resultArr[0];
+}
+
+// Get Current Price
+// Ref: https://blog.uniswap.org/uniswap-v3-math-primer
+async function GetPrice(pool: v3Core.UniswapV3Pool, tokenIn: ITokenObject, tokenOut: ITokenObject, tokenInIsToken0: boolean) {
+
+  let slot0 = await pool.slot0();
+  let sqrtPriceX96 = slot0.sqrtPriceX96;
+  let decimal0 = tokenInIsToken0 ? tokenIn.decimals : tokenOut.decimals;
+  let decimal1 = tokenInIsToken0 ? tokenOut.decimals : tokenIn.decimals;
+
+  const buyOneOfToken0 = sqrtPriceX96.div(q96).pow(2).div(new BigNumber(10).pow(decimal1).div(new BigNumber(10).pow(decimal0)));
+  const buyOneOfToken1 = new BigNumber(1).div(buyOneOfToken0);
+  console.log(buyOneOfToken0.toFixed(), buyOneOfToken1.toFixed())
+
+  return {
+    buyOneOfToken0,
+    buyOneOfToken1
+  }
+}
+
+function calcAmount0(liq: BigNumber, pa: BigNumber, pb: BigNumber): BigNumber {
+  if (pa > pb) {
+    let pa2 = pa
+    pa = pb,
+    pb = pa2
+  }
+  return liq.times(q96).times(pb.minus(pa)).div(pa).div(pb);
+}
+
+function calcAmount1(liq: BigNumber, pa: BigNumber, pb: BigNumber): BigNumber {
+  if (pa > pb) {
+    let pa2 = pa
+    pa = pb,
+    pb = pa2
+  }
+  return liq.times(pb.minus(pa)).div(q96);
+}
+
+
 export {
   getExtendedRouteObjData,
   getTradeFeeMap,
@@ -1136,7 +1244,8 @@ export {
   getRouterAddress,
   setERC20AllowanceToZero,
   getApprovalModelAction,
-  setApprovalModalSpenderAddress
+  setApprovalModalSpenderAddress,
+  getBestAmountOutRouteUniV3
 }
 
 export * from './helper';
