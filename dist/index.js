@@ -18540,7 +18540,7 @@ define("@scom/scom-uniswap-v3/swap-utils/index.ts", ["require", "exports", "@ijs
         const wallet = eth_wallet_5.Wallet.getClientInstance();
         // Calculate amount out for each pool, there are 4 default pool fee for univ3
         let poolFee = [eth_wallet_5.Utils.toDecimals("0.05", 4), eth_wallet_5.Utils.toDecimals("0.3", 4), eth_wallet_5.Utils.toDecimals("1", 4), eth_wallet_5.Utils.toDecimals("0.01", 4)];
-        let v3Factory = new index_8.Contract.UniswapV3Factory(wallet, "0x1F98431c8aD98523631AE4a59f267346ea31F984");
+        let v3Factory = new index_8.Contract.UniswapV3Factory(wallet, "0x1F98431c8aD98523631AE4a59f267346ea31F984"); //FIXME
         let resultArr = [];
         await Promise.all(poolFee.map(async (fee) => {
             // get pool contract
@@ -18568,14 +18568,14 @@ define("@scom/scom-uniswap-v3/swap-utils/index.ts", ["require", "exports", "@ijs
             let amount0 = calcAmount0(liq, priceNext, sqrtpCur);
             let amount1 = calcAmount1(liq, priceNext, sqrtpCur);
             amountOut = amount0;
-            console.log("amount out: ", amountOut.toFixed());
+            console.log("amount out: ", amountOut.times(new eth_wallet_5.BigNumber(1).minus(fee.shiftedBy(-6)).toFixed()));
             resultArr.push({
                 tokenIn,
                 tokenOut,
                 amountIn,
                 amountOut,
                 fee,
-                amountOutAfterFee: amountOut.times(new eth_wallet_5.BigNumber(1).minus(fee))
+                amountOutAfterFee: amountOut.times(new eth_wallet_5.BigNumber(1).minus(fee.shiftedBy(-6)).toFixed())
             });
         }));
         resultArr = resultArr.sort((a, b) => a.amountOutAfterFee.minus(b.amountOutAfterFee).toNumber());

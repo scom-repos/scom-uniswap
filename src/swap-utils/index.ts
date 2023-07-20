@@ -4,7 +4,7 @@ import { Contracts as UtilsContracts } from "../contracts/oswap-chainlink-contra
 import { Contracts as ProxyContracts } from '../contracts/scom-commission-proxy-contract/index';
 import { executeRouterSwap, getRouterSwapTxData, IExecuteSwapOptions } from '@scom/scom-dex-list';
 import { Contract as v3Core } from '../contracts/v3-core/index';
-import { Contract as v3Periphery } from '../contracts/v3-periphery/index';
+import { nullAddress } from '../store/index';
 
 import {
   getAPI,
@@ -1142,7 +1142,7 @@ const getBestAmountOutRouteUniV3 = async (tokenIn: ITokenObject, tokenOut: IToke
 
   // Calculate amount out for each pool, there are 4 default pool fee for univ3
   let poolFee = [ Utils.toDecimals("0.05",4),  Utils.toDecimals("0.3",4), Utils.toDecimals("1",4), Utils.toDecimals("0.01",4)];
-  let v3Factory = new v3Core.UniswapV3Factory(wallet, "0x1F98431c8aD98523631AE4a59f267346ea31F984");
+  let v3Factory = new v3Core.UniswapV3Factory(wallet, "0x1F98431c8aD98523631AE4a59f267346ea31F984"); //FIXME
   let resultArr = [];
 
   await Promise.all(poolFee.map(async (fee) => {
@@ -1152,7 +1152,8 @@ const getBestAmountOutRouteUniV3 = async (tokenIn: ITokenObject, tokenOut: IToke
         { param1: tokenOut.address, param2: tokenIn.address, param3: fee } :
         { param1: tokenIn.address, param2: tokenOut.address, param3: fee }
     )
-    console.log("pool address: ", v3PoolAddress)
+
+    if (v3PoolAddress == "nullAddress") return;
 
     // Check Token0 & Token1
     let v3PoolContact = new v3Core.UniswapV3Pool(wallet, v3PoolAddress);
@@ -1162,11 +1163,9 @@ const getBestAmountOutRouteUniV3 = async (tokenIn: ITokenObject, tokenOut: IToke
 
     // calculate expected amount out
     let price = await GetPrice(v3PoolContact, tokenIn, tokenOut, tokenInIsToken0);
-    console.log("prices: ", tokenInIsToken0, price.buyOneOfToken0.toNumber(), price.buyOneOfToken1.toNumber())
     let sqrtpCur = tokenInIsToken0? new BigNumber(price.buyOneOfToken1).sqrt().times(q96) : new BigNumber(price.buyOneOfToken0).sqrt().times(q96);
     let liq = await v3PoolContact.liquidity();
     let amountOut: BigNumber;
-
 
     //   let priceNext = liq.times(q96).times(sqrtpCur).idiv(liq.times(q96).plus(sqrtpCur.times(amountIn)))
     //   let amount0 = calcAmount0(liq, priceNext, sqrtpCur)
@@ -1179,19 +1178,17 @@ const getBestAmountOutRouteUniV3 = async (tokenIn: ITokenObject, tokenOut: IToke
     let amount1 = calcAmount1(liq, priceNext, sqrtpCur)
     amountOut = amount0;
 
-    console.log("amount out: ", amountOut.toFixed())
     resultArr.push({
       tokenIn,
       tokenOut,
       amountIn,
       amountOut,
       fee,
-      amountOutAfterFee: amountOut.times(new BigNumber(1).minus(fee))
+      amountOutAfterFee: amountOut.times(new BigNumber(1).minus(fee.shiftedBy(-6)).toFixed())
     })
   }))
 
-  resultArr = resultArr.sort( (a,b) => a.amountOutAfterFee.minus(b.amountOutAfterFee).toNumber());
-  console.log("result: ", resultArr)
+  resultArr = resultArr.sort( (a,b) => b.amountOutAfterFee.minus(a.amountOutAfterFee).toNumber());
 
   return resultArr[0];
 }
